@@ -1,6 +1,0 @@
-framework module KYShutterButton {
-  umbrella header "KYShutterButton-umbrella.h"
-
-  export *
-  module * { export * }
-}

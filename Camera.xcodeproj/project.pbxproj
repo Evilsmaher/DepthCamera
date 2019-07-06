@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09004BFE2976CA1908864B54 /* Pods_Camera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5F9E4CC5837653091070EA /* Pods_Camera.framework */; };
+		78D27D7D47A4292DD1A17863 /* Pods_Camera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5F9E4CC5837653091070EA /* Pods_Camera.framework */; };
 		DAAFF0A33E6B0C6B447D7F90 /* Pods_CameraUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9AF3EB539137AE70287C9 /* Pods_CameraUITests.framework */; };
 		E0B9DEF322CD800200C866EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9DEF222CD800200C866EA /* AppDelegate.swift */; };
 		E0B9DEF822CD800200C866EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0B9DEF622CD800200C866EA /* Main.storyboard */; };
@@ -80,7 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09004BFE2976CA1908864B54 /* Pods_Camera.framework in Frameworks */,
+				78D27D7D47A4292DD1A17863 /* Pods_Camera.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,7 +221,6 @@
 				E0B9DEEB22CD800200C866EA /* Sources */,
 				E0B9DEEC22CD800200C866EA /* Frameworks */,
 				E0B9DEED22CD800200C866EA /* Resources */,
-				BD036583AF498EA47BC9F100 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -405,28 +404,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BD036583AF498EA47BC9F100 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Camera/Pods-Camera-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/KYShutterButton/KYShutterButton.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KYShutterButton.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Camera/Pods-Camera-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

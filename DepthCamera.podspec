@@ -13,6 +13,7 @@ Camera that displays Depth Imagery for the user. Can choose between original ima
   s.source           = { :git => 'https://github.com/Evilsmaher/DepthCamera.git', :tag => s.version.to_s }
  
   s.ios.deployment_target = '10.0'
-  s.source_files = 'DepthCamera/*'
+  s.swift_version = '4.0'
+  s.source_files = 'Camera/*'
  
 end
