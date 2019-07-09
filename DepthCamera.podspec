@@ -12,8 +12,10 @@ Camera that displays Depth Imagery for the user. Can choose between original ima
   s.author           = { 'Evilsmaher' => 'bsf70344@gmail.com' }
   s.source           = { :git => 'https://github.com/Evilsmaher/DepthCamera.git', :tag => s.version.to_s }
  
-  s.ios.deployment_target = '10.0'
-  s.swift_version = '4.0'
-  s.source_files = 'Camera/*'
+  s.ios.deployment_target = '12.0'
+  s.swift_version = '5.0'
+  s.source_files = 'Camera/*.{swift}', 'Camera/**/*.{swift}'
+  s.exclude_files = "Camera/*.plist"
+  s.platform = :ios, '12.0'
  
 end

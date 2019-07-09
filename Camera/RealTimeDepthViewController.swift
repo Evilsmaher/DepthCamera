@@ -34,6 +34,10 @@ class RealtimeDepthMaskViewController: UIViewController {
     
     //Test initializer Works
     init(buttonInformation:(target: Any?, selector:Selector, event:UIControl.Event), backgroundImages:[UIImage]?) {
+        #if targetEnvironment(simulator)
+        print("Need Actual Device")
+        super.init(nibName: nil, bundle: nil)
+        #else
         self.cameraButon.addTarget(buttonInformation.target, action: buttonInformation.selector, for: buttonInformation.event)
         if(backgroundImages != nil) {
             for image in backgroundImages! {
@@ -41,6 +45,7 @@ class RealtimeDepthMaskViewController: UIViewController {
             }
         }
         super.init(nibName: nil, bundle: nil)
+        #endif
     }
     
     //Require others to use the init so the button has a selector and any optional images
@@ -51,7 +56,8 @@ class RealtimeDepthMaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        #if targetEnvironment(simulator)
+        #else
         let device = MTLCreateSystemDefaultDevice()!
         mtkView.device = device
         mtkView.backgroundColor = UIColor.clear
@@ -93,6 +99,7 @@ class RealtimeDepthMaskViewController: UIViewController {
         }
         
         videoCapture.setDepthFilterEnabled(self.filter)
+        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {
