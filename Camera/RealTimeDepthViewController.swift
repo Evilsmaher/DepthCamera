@@ -33,7 +33,7 @@ class RealtimeDepthMaskViewController: UIViewController {
     private var maskImage: CIImage?
     
     //Test initializer Works
-    init(buttonInformation:(target: Any?, selector:Selector, event:UIControl.Event), backgroundImages:[UIImage]?) {
+    public init(buttonInformation:(target: Any?, selector:Selector, event:UIControl.Event), backgroundImages:[UIImage]?) {
         #if targetEnvironment(simulator)
         print("Need Actual Device")
         super.init(nibName: nil, bundle: nil)
