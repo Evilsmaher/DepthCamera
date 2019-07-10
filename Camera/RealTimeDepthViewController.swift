@@ -9,7 +9,7 @@ import UIKit
 import MetalKit
 import AVFoundation
 
-class RealtimeDepthMaskViewController: UIViewController {
+public class RealtimeDepthMaskViewController: UIViewController {
     
     @IBOutlet weak var mtkView: MTKView!
     @IBOutlet weak var segmentedCtl: UISegmentedControl!
@@ -54,7 +54,7 @@ class RealtimeDepthMaskViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         #if targetEnvironment(simulator)
         #else
@@ -102,19 +102,19 @@ class RealtimeDepthMaskViewController: UIViewController {
         #endif
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let videoCapture = videoCapture else {return}
         videoCapture.startCapture()
     }
     
-    override func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         guard let videoCapture = videoCapture else {return}
         videoCapture.resizePreview()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    public override func viewWillDisappear(_ animated: Bool) {
         guard let videoCapture = videoCapture else {return}
         videoCapture.imageBufferHandler = nil
         videoCapture.stopCapture()
@@ -213,10 +213,10 @@ extension CIImage {
 }
 
 extension RealtimeDepthMaskViewController: MTKViewDelegate {
-    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
+    public func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
     }
     
-    func draw(in view: MTKView) {
+    public func draw(in view: MTKView) {
         switch segmentedCtl.selectedSegmentIndex {
         case 0:
             // original
