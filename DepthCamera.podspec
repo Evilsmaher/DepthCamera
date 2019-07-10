@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'DepthCamera'
-  s.version          = '0.1.5'
+  s.version          = '0.1.8'
   s.summary          = 'Basic DepthCamera to obtain and render Depth Imagery'
  
   s.description      = <<-DESC
@@ -14,8 +14,9 @@ Camera that displays Depth Imagery for the user. Can choose between original ima
  
   s.ios.deployment_target = '12.0'
   s.swift_version = '5.0'
-  s.source_files = 'Camera/*.{swift}', 'Camera/**/*.{swift, storyboard}'
+  s.source_files = 'Camera/*.{swift}', 'Camera/**/*.{swift}'
   s.exclude_files = "Camera/*.plist"
+  s.resources = ["Camera/*/**/*.storyboard"]
   s.platform = :ios, '12.0'
  
 end

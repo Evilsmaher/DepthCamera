@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		78D27D7D47A4292DD1A17863 /* Pods_Camera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5F9E4CC5837653091070EA /* Pods_Camera.framework */; };
 		DAAFF0A33E6B0C6B447D7F90 /* Pods_CameraUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9AF3EB539137AE70287C9 /* Pods_CameraUITests.framework */; };
+		E0A6C1FD22D692CD002E1662 /* DepthCamera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0A6C1FB22D692CD002E1662 /* DepthCamera.storyboard */; };
 		E0B9DEF322CD800200C866EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9DEF222CD800200C866EA /* AppDelegate.swift */; };
-		E0B9DEF822CD800200C866EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0B9DEF622CD800200C866EA /* Main.storyboard */; };
 		E0B9DEFD22CD800600C866EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0B9DEFC22CD800600C866EA /* Assets.xcassets */; };
 		E0B9DF0022CD800600C866EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0B9DEFE22CD800600C866EA /* LaunchScreen.storyboard */; };
 		E0B9DF0B22CD800600C866EA /* CameraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9DF0A22CD800600C866EA /* CameraTests.swift */; };
@@ -52,9 +52,9 @@
 		8464D1498C670E1057AAD0EB /* Pods_CameraTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CameraTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C01ABF702D1F7717411B1261 /* Pods-CameraUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CameraUITests/Pods-CameraUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D20D08FB0CE4B81AE9A2C8B9 /* Pods-CameraTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CameraTests/Pods-CameraTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E0A6C1FC22D692CD002E1662 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DepthCamera.storyboard; sourceTree = "<group>"; };
 		E0B9DEEF22CD800200C866EA /* Camera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Camera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0B9DEF222CD800200C866EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E0B9DEF722CD800200C866EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E0B9DEFC22CD800600C866EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E0B9DEFF22CD800600C866EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E0B9DF0122CD800600C866EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 				E0B9DF2F22CDB18700C866EA /* Utils */,
 				E0B9DF2C22CDAC7200C866EA /* Renderer */,
 				E0B9DF2922CDA36D00C866EA /* Video */,
-				E0B9DEF622CD800200C866EA /* Main.storyboard */,
+				E0A6C1FB22D692CD002E1662 /* DepthCamera.storyboard */,
 				E0B9DEFC22CD800600C866EA /* Assets.xcassets */,
 				E0B9DEFE22CD800600C866EA /* LaunchScreen.storyboard */,
 				E0B9DF0122CD800600C866EA /* Info.plist */,
@@ -319,7 +319,7 @@
 			files = (
 				E0B9DF0022CD800600C866EA /* LaunchScreen.storyboard in Resources */,
 				E0B9DEFD22CD800600C866EA /* Assets.xcassets in Resources */,
-				E0B9DEF822CD800200C866EA /* Main.storyboard in Resources */,
+				E0A6C1FD22D692CD002E1662 /* DepthCamera.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,12 +457,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E0B9DEF622CD800200C866EA /* Main.storyboard */ = {
+		E0A6C1FB22D692CD002E1662 /* DepthCamera.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E0B9DEF722CD800200C866EA /* Base */,
+				E0A6C1FC22D692CD002E1662 /* Base */,
 			);
-			name = Main.storyboard;
+			name = DepthCamera.storyboard;
 			sourceTree = "<group>";
 		};
 		E0B9DEFE22CD800600C866EA /* LaunchScreen.storyboard */ = {

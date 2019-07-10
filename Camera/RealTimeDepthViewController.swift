@@ -32,20 +32,15 @@ public class RealtimeDepthMaskViewController: UIViewController {
     private var videoImage: CIImage?
     private var maskImage: CIImage?
     
-    //Test initializer Works
-    public init(buttonInformation:(target: Any?, selector:Selector, event:UIControl.Event), backgroundImages:[UIImage]?) {
-        #if targetEnvironment(simulator)
-        print("Need Actual Device")
-        super.init(nibName: nil, bundle: nil)
-        #else
-        self.cameraButon.addTarget(buttonInformation.target, action: buttonInformation.selector, for: buttonInformation.event)
+    static func createRealTimeDepthCameraVC(buttonInformation:(target: Any?, selector:Selector, event:UIControl.Event), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController{
+        let newViewController = UIStoryboard(name: "RealTimeDepthCamera", bundle: nil).instantiateViewController(withIdentifier: "IdentifierOfYouViewController") as! RealtimeDepthMaskViewController
+        newViewController.cameraButon.addTarget(buttonInformation.target, action: buttonInformation.selector, for: buttonInformation.event)
         if(backgroundImages != nil) {
             for image in backgroundImages! {
-                bgUIImages.append(image)
+                newViewController.bgUIImages.append(image)
             }
         }
-        super.init(nibName: nil, bundle: nil)
-        #endif
+        return newViewController
     }
     
     //Require others to use the init so the button has a selector and any optional images
