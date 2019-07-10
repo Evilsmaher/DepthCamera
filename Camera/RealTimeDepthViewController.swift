@@ -31,10 +31,12 @@ public class RealtimeDepthMaskViewController: UIViewController {
     private var bgImageIndex: Int = 0
     private var videoImage: CIImage?
     private var maskImage: CIImage?
+    private var finalImage: CIImage!
+    private var completionHandler:((_ image:UIImage) -> Void)!
     
-    public static func createRealTimeDepthCameraVC(buttonInformation:(target: Any?, selector:Selector, event:UIControl.Event), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController{
+    public static func createRealTimeDepthCameraVC(completionHandler:@escaping ((_ image: UIImage) -> Void), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController{
         let newViewController = UIStoryboard(name: "RealTimeDepthCamera", bundle: nil).instantiateViewController(withIdentifier: "MyDepthCamera") as! RealtimeDepthMaskViewController
-        newViewController.cameraButon.addTarget(buttonInformation.target, action: buttonInformation.selector, for: buttonInformation.event)
+        newViewController.completionHandler = completionHandler
         if(backgroundImages != nil) {
             for image in backgroundImages! {
                 newViewController.bgUIImages.append(image)
@@ -52,6 +54,7 @@ public class RealtimeDepthMaskViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         #if targetEnvironment(simulator)
+	print("Cannot use simulator")
         #else
         let device = MTLCreateSystemDefaultDevice()!
         mtkView.device = device
@@ -94,7 +97,17 @@ public class RealtimeDepthMaskViewController: UIViewController {
         }
         
         videoCapture.setDepthFilterEnabled(self.filter)
+        
+        //Add button action
+        self.cameraButon.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        
         #endif
+    }
+    
+    @objc func buttonClicked(sender: UIButton) {
+        if let finalImage = self.finalImage {
+            self.completionHandler(UIImage.init(ciImage: finalImage))
+        }
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -217,6 +230,7 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
             // original
             if let image = videoImage {
                 renderer.update(with: image)
+                self.finalImage = image
             }
         case 1:
             // blended
@@ -233,6 +247,7 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
             
             let outputImage = image.applyingFilter("CIBlendWithMask", parameters: parameters)
             renderer.update(with: outputImage)
+            self.finalImage = outputImage
         default:
             return
         }
