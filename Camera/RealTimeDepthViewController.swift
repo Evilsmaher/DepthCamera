@@ -33,7 +33,7 @@ public class RealtimeDepthMaskViewController: UIViewController {
     private var maskImage: CIImage?
     
     public static func createRealTimeDepthCameraVC(buttonInformation:(target: Any?, selector:Selector, event:UIControl.Event), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController{
-        let newViewController = UIStoryboard(name: "RealTimeDepthCamera", bundle: nil).instantiateViewController(withIdentifier: "IdentifierOfYouViewController") as! RealtimeDepthMaskViewController
+        let newViewController = UIStoryboard(name: "RealTimeDepthCamera", bundle: nil).instantiateViewController(withIdentifier: "MyDepthCamera") as! RealtimeDepthMaskViewController
         newViewController.cameraButon.addTarget(buttonInformation.target, action: buttonInformation.selector, for: buttonInformation.event)
         if(backgroundImages != nil) {
             for image in backgroundImages! {
