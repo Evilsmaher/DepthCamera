@@ -35,7 +35,7 @@ public class RealtimeDepthMaskViewController: UIViewController {
     private var completionHandler:((_ image:UIImage) -> Void)!
     
     public static func createRealTimeDepthCameraVC(completionHandler:@escaping ((_ image: UIImage) -> Void), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController{
-        let newViewController = UIStoryboard(name: "RealTimeDepthCamera", bundle: nil).instantiateViewController(withIdentifier: "MyDepthCamera") as! RealtimeDepthMaskViewController
+        let newViewController = UIStoryboard(name: "DepthCamera", bundle: nil).instantiateViewController(withIdentifier: "DepthCamera") as! RealtimeDepthMaskViewController
         newViewController.completionHandler = completionHandler
         if(backgroundImages != nil) {
             for image in backgroundImages! {
