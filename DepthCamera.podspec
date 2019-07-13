@@ -16,7 +16,7 @@ Camera that displays Depth Imagery for the user. Can choose between original ima
   s.swift_version = '5.0'
   s.source_files = 'Camera/*.{swift}', 'Camera/**/*.{swift}'
   s.exclude_files = "Camera/*.plist"
-  s.resources = ["Camera/*/**/*.storyboard, Camera/*/**/*.metal"]
+  s.resources = ["Camera/*/**/*.storyboard"]
   s.platform = :ios, '12.0'
  
 end
