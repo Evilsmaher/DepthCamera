@@ -37,7 +37,7 @@ class MetalRenderer {
         
         commandQueue = device.makeCommandQueue()
         
-        let lib = device.makeDefaultLibrary()!
+        let lib = device.makeDefaultLibrary(Bundle: Bundle(name: RealtimeDepthMaskViewController.self))!
         prepareRenderPipelines(library: lib)
         
         // prepare vertex buffer(s)
