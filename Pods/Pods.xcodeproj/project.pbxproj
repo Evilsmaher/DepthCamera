@@ -7,15 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		161C666DD5B17E944CD8DC40E46B579F /* Pods-CameraTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 142119D17C03715C34E666BF3ABE9B62 /* Pods-CameraTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		48C40E1298093DED12652C44A05266B3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		55B78C02C9BA9657078F603CCBA22722 /* Pods-Camera-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4937C5F1712D4EE0E7A0FBC2ACB1AB30 /* Pods-Camera-dummy.m */; };
+		084E005D448E1AFD2FCE2CD5CFE73A4C /* CVMetalTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F95A1E7519887D42F7136A84AB6B19 /* CVMetalTexture.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		09BEC542A0920EB0E56EDAFF504CC0BB /* CVMetalTextureCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EED3E7D92DA3046972D217534DAB09C9 /* CVMetalTextureCache.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		0A752C1D57567EDCAE7471FCB7F427DB /* DepthCamera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0002C260AB2EA8DFD7F08FD23C42F1BA /* DepthCamera.storyboard */; };
+		161C666DD5B17E944CD8DC40E46B579F /* Pods-CameraTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AAE7BEF947BE21B3C467CBE1398E5F64 /* Pods-CameraTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1CF2BB923CDD6B257217D66D52ACA7D6 /* VideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15D5F0DB0CB68C84DD42E1CF2E8B52F /* VideoCapture.swift */; };
+		2AEA7EFAD901C4CF8B5B640C2589D2BF /* Includes.h in Headers */ = {isa = PBXBuildFile; fileRef = B3CED2443E0B8F26A8F758075C03D7E6 /* Includes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3C9B6C1078D16F2747B2EE6A5D860FF4 /* DepthCamera-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DAF2DCD402C766C461ACC3D99633E7C8 /* DepthCamera-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E5B5B2A8BABF5EAC8C74637C2F80C9A /* CAMetalDrawable.h in Headers */ = {isa = PBXBuildFile; fileRef = 872738F7F364B278FDB7B2C16CE0E975 /* CAMetalDrawable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		58BDBB2F8C53E959AB0187502AEF5689 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		591C784944C5124576F2B4AB2CE4D2E8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79140B2824EB35C61E12CA98D2E76F4 /* Extensions.swift */; };
 		597F4F80B5A8CD6AFB90CFD14CCBC08B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		60B5CE0C5C2C06E466D2E1AD64CB5BE8 /* Pods-CameraTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3423F6C9748A55E751DE228B8C0F3747 /* Pods-CameraTests-dummy.m */; };
-		8D70325B73124D1ECE62978C9519C5F8 /* Pods-CameraUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F5772B6D896F39D7EF758A7CAE972322 /* Pods-CameraUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		597F6C832F522C6FF13DAD57C330854A /* ErrorDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = AA6F47E0D52EF1A62CA9C25E32A99BE4 /* ErrorDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D55D3915035F4E07D584D33B2EBA3AD /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E2B4714013C32388C27075C2554424 /* UIImage+Utils.swift */; };
+		60B5CE0C5C2C06E466D2E1AD64CB5BE8 /* Pods-CameraTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 251F1DF1971699416E557CC33F853940 /* Pods-CameraTests-dummy.m */; };
+		61379454DFFF966E099CC73D8339396D /* MetalPerformanceShadersStub.h in Headers */ = {isa = PBXBuildFile; fileRef = E4E4ACD1F592EB0FB2501F8DA8F3507C /* MetalPerformanceShadersStub.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2F2EEC152677D51A298DE1680B3E67 /* Pods-Camera-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCD91B6E025D4806DB0E99F71DC8A3A /* Pods-Camera-dummy.m */; };
+		7F1EC2CB50C350E5D59FCB7A6230D774 /* MetalPerformanceShadersProxy-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 89A6B8EFAF3AECA5BCA44FC98A675022 /* MetalPerformanceShadersProxy-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8D70325B73124D1ECE62978C9519C5F8 /* Pods-CameraUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D8ED316D623A124B233A1E225D585296 /* Pods-CameraUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91CE647EADC9ECAEB2E8E3E8083AB8B6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		B9E96D0C33DD8B154D774BA617DBB1B5 /* Pods-CameraUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD2734FC6DB15330B8FECEE58C61978 /* Pods-CameraUITests-dummy.m */; };
-		F4132F3E1AC68F042CD76DCF906FE36C /* Pods-Camera-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 86D0A4564DE6DC85C2D7FBBB1EC9FA76 /* Pods-Camera-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9706D17DDBFE2A4438E0E3C62FA63953 /* MetalPerformanceShadersProxy-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7224F3881DA737F716793E1D0B63D013 /* MetalPerformanceShadersProxy-dummy.m */; };
+		A1B276241604AF3DA95B96F486C9AE2E /* CVMetalTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 0051F090EB15FB93E6582642004D0DF6 /* CVMetalTexture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6CC059421F5D15522EFD5A3FE9D1DE1 /* CGBase.h in Headers */ = {isa = PBXBuildFile; fileRef = DC361117AE9596DA9EB402A177A76F64 /* CGBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B2F26159848C564C77FAD461DBC37BD8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		B39E5CC5D827F8B3A7286E7841C698F4 /* CAMetalDrawable.m in Sources */ = {isa = PBXBuildFile; fileRef = 888BB763B82D504188E03929BD2C7E0E /* CAMetalDrawable.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		B592582850F0113E19BF781A8BB0802E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		B9E96D0C33DD8B154D774BA617DBB1B5 /* Pods-CameraUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FC60E7BBD3E0B9DF7996C75B4E8CA706 /* Pods-CameraUITests-dummy.m */; };
+		BEBD294CDF8CE566F159F88518B03C6E /* DepthCamera-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 245DFDA5D3AD05E46865967CDB36F78D /* DepthCamera-dummy.m */; };
+		BF4E47CB429FDC67501C7CDD72D1A57D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B24CA6AABFDD26570E3F24A2A06652 /* AppDelegate.swift */; };
+		C86460A3B468A91E1987054085E212AC /* Pods-Camera-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 87C088C807C482C17AA66D939DF2A123 /* Pods-Camera-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0D03CB1B58200DF15CF4A4B1DEC2743 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 024A16EF5BCE535A280EF30AB624C9C9 /* LaunchScreen.storyboard */; };
+		D196E541307C87F1C236F0986E3B6F80 /* Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8DE9BE877B77D835CB4AE7FA313FF0 /* Defines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D49ABA6EF3F00F0F4BB852400AC1D504 /* VideoCameraType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8A25C43DDFF5E6943DB72E65391EF /* VideoCameraType.swift */; };
+		D7A248E929F6828A25E1FE4DE15C041B /* MetalPerformanceShadersProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 0165C904BCD30AF7238E7014941B2C70 /* MetalPerformanceShadersProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E57F5F722651072726DA7237A9A9E246 /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40664DAB5BE2EAB799C4B700A6124BFE /* MetalRenderer.swift */; };
+		EA1525E900476DCF923DDAB3A184AC96 /* RealTimeDepthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D002F923A0C418C9BE659FA47054E1 /* RealTimeDepthViewController.swift */; };
+		FCAD57D40BF03EB0C400A698394C6511 /* AVCaptureDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04C9DA12C814A2065A2FDEEA966B5C1 /* AVCaptureDevice+Extension.swift */; };
+		FD3E3ED4E0595118AAE5C0AB012FCFBB /* CVMetalTextureCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F06EF6D30F4097F2ED1E5B429EB0D7 /* CVMetalTextureCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +54,13 @@
 			remoteGlobalIDString = 7E079F093E98AD95A939001D74027C67;
 			remoteInfo = "Pods-Camera";
 		};
+		3F42E6ACE53410AD0500853A37901C1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C6A7D632B08485A18271E3CE7F626F65;
+			remoteInfo = DepthCamera;
+		};
 		DF82BA7B7E532C7C52BB30F0B092A3CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
@@ -33,54 +68,98 @@
 			remoteGlobalIDString = 7E079F093E98AD95A939001D74027C67;
 			remoteInfo = "Pods-Camera";
 		};
+		E85E650BFF3D7C74799848A4EE535438 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB0E71E6689CB2A12525103F63AB114B;
+			remoteInfo = MetalPerformanceShadersProxy;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		12B12F7DDB0B4CB204F7BD111384E1FA /* Pods-Camera-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Camera-Info.plist"; sourceTree = "<group>"; };
-		142119D17C03715C34E666BF3ABE9B62 /* Pods-CameraTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CameraTests-umbrella.h"; sourceTree = "<group>"; };
-		233280076C5B2D92D314FB93F2BCB18B /* Pods-CameraTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CameraTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		240CBB6FB050ADA599FD641B05470CA7 /* Pods-Camera.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Camera.debug.xcconfig"; sourceTree = "<group>"; };
-		2832BD7307948FB455FA59682866036C /* Pods-CameraUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CameraUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2F18C6D231A41A49BA65AD1B9253DFB7 /* Pods-Camera-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Camera-acknowledgements.markdown"; sourceTree = "<group>"; };
+		0051F090EB15FB93E6582642004D0DF6 /* CVMetalTexture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CVMetalTexture.h; path = MetalPerformanceShadersStub/MetalPerformanceShadersStub/CoreVideo/CVMetalTexture.h; sourceTree = "<group>"; };
+		0116C26BAF53C45FFB6457758E1C6348 /* DepthCamera-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DepthCamera-prefix.pch"; sourceTree = "<group>"; };
+		0165C904BCD30AF7238E7014941B2C70 /* MetalPerformanceShadersProxy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MetalPerformanceShadersProxy.h; path = MetalPerformanceShadersProxy/MetalPerformanceShadersProxy/MetalPerformanceShadersProxy.h; sourceTree = "<group>"; };
+		0D30DB4A625B1E458B3475664118A38E /* Pods-Camera.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Camera.debug.xcconfig"; sourceTree = "<group>"; };
+		0DCD91B6E025D4806DB0E99F71DC8A3A /* Pods-Camera-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Camera-dummy.m"; sourceTree = "<group>"; };
+		11E58E504718900BC0D3FD698A73B6D4 /* DepthCamera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DepthCamera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		22F8F06A5DDBAC98BD1BCCE5C8763A12 /* Pods-CameraUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CameraUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		245DFDA5D3AD05E46865967CDB36F78D /* DepthCamera-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DepthCamera-dummy.m"; sourceTree = "<group>"; };
+		251F1DF1971699416E557CC33F853940 /* Pods-CameraTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CameraTests-dummy.m"; sourceTree = "<group>"; };
+		27D264141FB6D6781776636CEDF3BE8B /* Pods-Camera-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Camera-acknowledgements.plist"; sourceTree = "<group>"; };
+		27E2B4714013C32388C27075C2554424 /* UIImage+Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIImage+Utils.swift"; path = "Camera/Utils/UIImage+Utils.swift"; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		3423F6C9748A55E751DE228B8C0F3747 /* Pods-CameraTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CameraTests-dummy.m"; sourceTree = "<group>"; };
-		382417A03A0AB181FFF9D76BED46E7E4 /* Pods-CameraUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CameraUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		3B6A76C2EEB7CDF52BC6B975B7598B47 /* Pods-Camera.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Camera.release.xcconfig"; sourceTree = "<group>"; };
-		42EDD3DA74114AA41054C580622EE768 /* Pods-CameraTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CameraTests.release.xcconfig"; sourceTree = "<group>"; };
-		440C06F4A74937F327916C8423F7E3C0 /* Pods-Camera.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Camera.modulemap"; sourceTree = "<group>"; };
-		4937C5F1712D4EE0E7A0FBC2ACB1AB30 /* Pods-Camera-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Camera-dummy.m"; sourceTree = "<group>"; };
-		4E2FC54B3FE950F8784EE301B763A362 /* Pods-CameraUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CameraUITests.modulemap"; sourceTree = "<group>"; };
-		7DC972F71BB1F9FE5640519527DFB905 /* Pods-CameraUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CameraUITests-acknowledgements.plist"; sourceTree = "<group>"; };
-		86D0A4564DE6DC85C2D7FBBB1EC9FA76 /* Pods-Camera-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Camera-umbrella.h"; sourceTree = "<group>"; };
-		8D6010648E0B4B08DE515F58E6DF6695 /* Pods-Camera-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Camera-acknowledgements.plist"; sourceTree = "<group>"; };
-		91D2F6FBDE9E4EA784D755F199ECD8CA /* Pods-CameraTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CameraTests-Info.plist"; sourceTree = "<group>"; };
-		9305507DECE38811A747373E262FAB3C /* Pods-CameraTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CameraTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9A875456471061BEDEF9F227FFCA164C /* Pods-CameraTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CameraTests.modulemap"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		B073A4705B82C284D7F61C35FEA58441 /* Pods-CameraUITests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CameraUITests-Info.plist"; sourceTree = "<group>"; };
-		B645761EA31A827F8CF98E77B8B20ED9 /* Pods_Camera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Camera.framework; path = "Pods-Camera.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B776923DADD0433CACC50D6637C63F70 /* Pods_CameraTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CameraTests.framework; path = "Pods-CameraTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA15CB7DA344FC03212A0020A8492D36 /* Pods-CameraTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CameraTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		E66B2917F359EBF53E493BD3E183A41E /* Pods-CameraUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CameraUITests.release.xcconfig"; sourceTree = "<group>"; };
-		F15752E936B2D23462CC1F644A78326B /* Pods_CameraUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CameraUITests.framework; path = "Pods-CameraUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F5772B6D896F39D7EF758A7CAE972322 /* Pods-CameraUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CameraUITests-umbrella.h"; sourceTree = "<group>"; };
-		FDD2734FC6DB15330B8FECEE58C61978 /* Pods-CameraUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CameraUITests-dummy.m"; sourceTree = "<group>"; };
+		40664DAB5BE2EAB799C4B700A6124BFE /* MetalRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MetalRenderer.swift; path = Camera/Renderer/MetalRenderer.swift; sourceTree = "<group>"; };
+		40B24CA6AABFDD26570E3F24A2A06652 /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Camera/AppDelegate.swift; sourceTree = "<group>"; };
+		45109D162562CDF565BAA97EB9AFA493 /* Pods-CameraTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CameraTests.release.xcconfig"; sourceTree = "<group>"; };
+		46CA87CBCFE67AC0B8B432116A66F732 /* Pods-Camera-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Camera-Info.plist"; sourceTree = "<group>"; };
+		55685D91FA0C37A03754B29538F2C3D1 /* MetalPerformanceShadersProxy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MetalPerformanceShadersProxy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5693FC0FFBF9617B154A6561C0CF28F0 /* DepthCamera-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "DepthCamera-Info.plist"; sourceTree = "<group>"; };
+		61178FC2CACD2C0A2A423A4E7500D574 /* Pods-CameraUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CameraUITests.release.xcconfig"; sourceTree = "<group>"; };
+		62558C4055B518F2A3E98FAA614B9239 /* MetalPerformanceShadersProxy.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MetalPerformanceShadersProxy.modulemap; sourceTree = "<group>"; };
+		67DD74DCD17733F0B6B74560DF3D9A94 /* Pods-CameraTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CameraTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		69CBCCD39FBF562CF76063D8C28C8135 /* Pods-CameraTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CameraTests.modulemap"; sourceTree = "<group>"; };
+		69F06EF6D30F4097F2ED1E5B429EB0D7 /* CVMetalTextureCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CVMetalTextureCache.h; path = MetalPerformanceShadersStub/MetalPerformanceShadersStub/CoreVideo/CVMetalTextureCache.h; sourceTree = "<group>"; };
+		6A702271131B5BD97D6F512CF52F797F /* Pods-CameraTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CameraTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		6BA9974D804D0EBC2E775E4D1A51A4CE /* DepthCamera.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = DepthCamera.modulemap; sourceTree = "<group>"; };
+		7224F3881DA737F716793E1D0B63D013 /* MetalPerformanceShadersProxy-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MetalPerformanceShadersProxy-dummy.m"; sourceTree = "<group>"; };
+		75F8A25C43DDFF5E6943DB72E65391EF /* VideoCameraType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoCameraType.swift; path = Camera/Video/VideoCameraType.swift; sourceTree = "<group>"; };
+		7EB2729F7B4515AADD75CE60A746B298 /* DepthCamera.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DepthCamera.xcconfig; sourceTree = "<group>"; };
+		872738F7F364B278FDB7B2C16CE0E975 /* CAMetalDrawable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CAMetalDrawable.h; path = MetalPerformanceShadersStub/MetalPerformanceShadersStub/QuartzCore/CAMetalDrawable.h; sourceTree = "<group>"; };
+		87C088C807C482C17AA66D939DF2A123 /* Pods-Camera-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Camera-umbrella.h"; sourceTree = "<group>"; };
+		888BB763B82D504188E03929BD2C7E0E /* CAMetalDrawable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CAMetalDrawable.m; path = MetalPerformanceShadersStub/MetalPerformanceShadersStub/QuartzCore/CAMetalDrawable.m; sourceTree = "<group>"; };
+		89A6B8EFAF3AECA5BCA44FC98A675022 /* MetalPerformanceShadersProxy-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MetalPerformanceShadersProxy-umbrella.h"; sourceTree = "<group>"; };
+		92D002F923A0C418C9BE659FA47054E1 /* RealTimeDepthViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RealTimeDepthViewController.swift; path = Camera/RealTimeDepthViewController.swift; sourceTree = "<group>"; };
+		98F95A1E7519887D42F7136A84AB6B19 /* CVMetalTexture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CVMetalTexture.m; path = MetalPerformanceShadersStub/MetalPerformanceShadersStub/CoreVideo/CVMetalTexture.m; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A04C9DA12C814A2065A2FDEEA966B5C1 /* AVCaptureDevice+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "AVCaptureDevice+Extension.swift"; path = "Camera/Video/AVCaptureDevice+Extension.swift"; sourceTree = "<group>"; };
+		A15D5F0DB0CB68C84DD42E1CF2E8B52F /* VideoCapture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoCapture.swift; path = Camera/Video/VideoCapture.swift; sourceTree = "<group>"; };
+		AA6F47E0D52EF1A62CA9C25E32A99BE4 /* ErrorDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ErrorDefines.h; path = MetalPerformanceShadersStub/MetalPerformanceShadersStub/ErrorDefines.h; sourceTree = "<group>"; };
+		AAE7BEF947BE21B3C467CBE1398E5F64 /* Pods-CameraTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CameraTests-umbrella.h"; sourceTree = "<group>"; };
+		ABCE22A73CDD974B3B6BACA07B216062 /* MetalPerformanceShadersProxy-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MetalPerformanceShadersProxy-Info.plist"; sourceTree = "<group>"; };
+		AD1D853D10BD3E626110B0BD24440B94 /* Pods-CameraUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CameraUITests.modulemap"; sourceTree = "<group>"; };
+		AE466D843A04B4842BC9F7D9624AC009 /* Pods-Camera.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Camera.release.xcconfig"; sourceTree = "<group>"; };
+		B3CED2443E0B8F26A8F758075C03D7E6 /* Includes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Includes.h; path = MetalPerformanceShadersStub/MetalPerformanceShadersStub/Includes.h; sourceTree = "<group>"; };
+		B645761EA31A827F8CF98E77B8B20ED9 /* Pods_Camera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Camera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B776923DADD0433CACC50D6637C63F70 /* Pods_CameraTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CameraTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8B51FA7E67B48E02D66835B206B02B3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BE1C194964B7B4036891D6A8002A7A24 /* Pods-Camera-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Camera-acknowledgements.markdown"; sourceTree = "<group>"; };
+		C013AB82655D7132A0DD95FB26F1553E /* Pods-CameraUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CameraUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C79140B2824EB35C61E12CA98D2E76F4 /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Camera/Utils/Extensions.swift; sourceTree = "<group>"; };
+		CB8D8B606C19FC682FD149042F0EF683 /* Pods-CameraTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CameraTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D39B82B76BA47056124267C5821E7CB3 /* MetalPerformanceShadersProxy-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MetalPerformanceShadersProxy-prefix.pch"; sourceTree = "<group>"; };
+		D51AF7835F79E1E6A0A87B61EFCBDE55 /* Pods-CameraTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CameraTests-Info.plist"; sourceTree = "<group>"; };
+		D8ED316D623A124B233A1E225D585296 /* Pods-CameraUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CameraUITests-umbrella.h"; sourceTree = "<group>"; };
+		DAF2DCD402C766C461ACC3D99633E7C8 /* DepthCamera-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DepthCamera-umbrella.h"; sourceTree = "<group>"; };
+		DC361117AE9596DA9EB402A177A76F64 /* CGBase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CGBase.h; path = MetalPerformanceShadersStub/MetalPerformanceShadersStub/CoreGraphics/CGBase.h; sourceTree = "<group>"; };
+		DD8DE9BE877B77D835CB4AE7FA313FF0 /* Defines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = MetalPerformanceShadersProxy/MetalPerformanceShadersProxy/Defines.h; sourceTree = "<group>"; };
+		DF0A145A85FFDE5B90ECEB5614667DB3 /* Pods-CameraUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CameraUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		E4E4ACD1F592EB0FB2501F8DA8F3507C /* MetalPerformanceShadersStub.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MetalPerformanceShadersStub.h; path = MetalPerformanceShadersStub/MetalPerformanceShadersStub/MetalPerformanceShadersStub.h; sourceTree = "<group>"; };
+		E90CF4EDC305684B84D7DBC90EFAB82E /* MetalPerformanceShadersProxy.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MetalPerformanceShadersProxy.xcconfig; sourceTree = "<group>"; };
+		EA9B086ED1953CC0B462075D92DA2243 /* Pods-CameraUITests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CameraUITests-Info.plist"; sourceTree = "<group>"; };
+		EED3E7D92DA3046972D217534DAB09C9 /* CVMetalTextureCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CVMetalTextureCache.m; path = MetalPerformanceShadersStub/MetalPerformanceShadersStub/CoreVideo/CVMetalTextureCache.m; sourceTree = "<group>"; };
+		F15752E936B2D23462CC1F644A78326B /* Pods_CameraUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CameraUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2329A49A93258A1B235B65F214C14E1 /* Pods-Camera.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Camera.modulemap"; sourceTree = "<group>"; };
+		F32E4909904B63618668B7B0DA08FD20 /* Pods-Camera-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Camera-frameworks.sh"; sourceTree = "<group>"; };
+		FC60E7BBD3E0B9DF7996C75B4E8CA706 /* Pods-CameraUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CameraUITests-dummy.m"; sourceTree = "<group>"; };
+		FE825CF2334CBD1BBB7076232CCF4600 /* DepthCamera.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = DepthCamera.storyboard; path = Base.lproj/DepthCamera.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		02B562CF39FA7CB967A2D169D7F9AC00 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				48C40E1298093DED12652C44A05266B3 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		294C199A45CEFFA5EF93B2303BEF8F76 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				91CE647EADC9ECAEB2E8E3E8083AB8B6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55E06DDD908F1249218F115E982B555A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				58BDBB2F8C53E959AB0187502AEF5689 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,65 +171,176 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		642BCDC7560D69C20B4DE85FDD96AE48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B592582850F0113E19BF781A8BB0802E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D13B532A40C428DBA48B2EA420490F68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2F26159848C564C77FAD461DBC37BD8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2BEE2A768CA0A03EFDC35376689C8579 /* Pods-CameraUITests */ = {
+		2C4A8EF3B061E385114C3397BA3C8B56 /* DepthCamera */ = {
 			isa = PBXGroup;
 			children = (
-				4E2FC54B3FE950F8784EE301B763A362 /* Pods-CameraUITests.modulemap */,
-				2832BD7307948FB455FA59682866036C /* Pods-CameraUITests-acknowledgements.markdown */,
-				7DC972F71BB1F9FE5640519527DFB905 /* Pods-CameraUITests-acknowledgements.plist */,
-				FDD2734FC6DB15330B8FECEE58C61978 /* Pods-CameraUITests-dummy.m */,
-				B073A4705B82C284D7F61C35FEA58441 /* Pods-CameraUITests-Info.plist */,
-				F5772B6D896F39D7EF758A7CAE972322 /* Pods-CameraUITests-umbrella.h */,
-				382417A03A0AB181FFF9D76BED46E7E4 /* Pods-CameraUITests.debug.xcconfig */,
-				E66B2917F359EBF53E493BD3E183A41E /* Pods-CameraUITests.release.xcconfig */,
+				40B24CA6AABFDD26570E3F24A2A06652 /* AppDelegate.swift */,
+				A04C9DA12C814A2065A2FDEEA966B5C1 /* AVCaptureDevice+Extension.swift */,
+				C79140B2824EB35C61E12CA98D2E76F4 /* Extensions.swift */,
+				40664DAB5BE2EAB799C4B700A6124BFE /* MetalRenderer.swift */,
+				92D002F923A0C418C9BE659FA47054E1 /* RealTimeDepthViewController.swift */,
+				27E2B4714013C32388C27075C2554424 /* UIImage+Utils.swift */,
+				75F8A25C43DDFF5E6943DB72E65391EF /* VideoCameraType.swift */,
+				A15D5F0DB0CB68C84DD42E1CF2E8B52F /* VideoCapture.swift */,
+				F81A013179FDF563DD5000609397EA99 /* Resources */,
+				59D0DAB5A5E2B42F5C5B2078B741A6FD /* Support Files */,
 			);
-			name = "Pods-CameraUITests";
-			path = "Target Support Files/Pods-CameraUITests";
+			path = DepthCamera;
 			sourceTree = "<group>";
 		};
-		42139907192183D237656F12FD107C5C /* Pods-CameraTests */ = {
+		32C00D34F9B4BF55C538823105B04A94 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				9A875456471061BEDEF9F227FFCA164C /* Pods-CameraTests.modulemap */,
-				DA15CB7DA344FC03212A0020A8492D36 /* Pods-CameraTests-acknowledgements.markdown */,
-				233280076C5B2D92D314FB93F2BCB18B /* Pods-CameraTests-acknowledgements.plist */,
-				3423F6C9748A55E751DE228B8C0F3747 /* Pods-CameraTests-dummy.m */,
-				91D2F6FBDE9E4EA784D755F199ECD8CA /* Pods-CameraTests-Info.plist */,
-				142119D17C03715C34E666BF3ABE9B62 /* Pods-CameraTests-umbrella.h */,
-				9305507DECE38811A747373E262FAB3C /* Pods-CameraTests.debug.xcconfig */,
-				42EDD3DA74114AA41054C580622EE768 /* Pods-CameraTests.release.xcconfig */,
+				81C94F3572216F7C262178F3D3AB38D1 /* Pods-Camera */,
+				85A79D7D9BEC84B2211CC64BD7B251FA /* Pods-CameraTests */,
+				B386C7B7D88AD120911E18AFEF1EF1A5 /* Pods-CameraUITests */,
 			);
-			name = "Pods-CameraTests";
-			path = "Target Support Files/Pods-CameraTests";
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		498C0B6BD9620D6AE43711DCC8F0EBAC /* Pods-Camera */ = {
+		59D0DAB5A5E2B42F5C5B2078B741A6FD /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				440C06F4A74937F327916C8423F7E3C0 /* Pods-Camera.modulemap */,
-				2F18C6D231A41A49BA65AD1B9253DFB7 /* Pods-Camera-acknowledgements.markdown */,
-				8D6010648E0B4B08DE515F58E6DF6695 /* Pods-Camera-acknowledgements.plist */,
-				4937C5F1712D4EE0E7A0FBC2ACB1AB30 /* Pods-Camera-dummy.m */,
-				12B12F7DDB0B4CB204F7BD111384E1FA /* Pods-Camera-Info.plist */,
-				86D0A4564DE6DC85C2D7FBBB1EC9FA76 /* Pods-Camera-umbrella.h */,
-				240CBB6FB050ADA599FD641B05470CA7 /* Pods-Camera.debug.xcconfig */,
-				3B6A76C2EEB7CDF52BC6B975B7598B47 /* Pods-Camera.release.xcconfig */,
+				6BA9974D804D0EBC2E775E4D1A51A4CE /* DepthCamera.modulemap */,
+				7EB2729F7B4515AADD75CE60A746B298 /* DepthCamera.xcconfig */,
+				245DFDA5D3AD05E46865967CDB36F78D /* DepthCamera-dummy.m */,
+				5693FC0FFBF9617B154A6561C0CF28F0 /* DepthCamera-Info.plist */,
+				0116C26BAF53C45FFB6457758E1C6348 /* DepthCamera-prefix.pch */,
+				DAF2DCD402C766C461ACC3D99633E7C8 /* DepthCamera-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/DepthCamera";
+			sourceTree = "<group>";
+		};
+		71782A4D6377E711ADF5C5F60A60BDE8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11E58E504718900BC0D3FD698A73B6D4 /* DepthCamera.framework */,
+				55685D91FA0C37A03754B29538F2C3D1 /* MetalPerformanceShadersProxy.framework */,
+				B645761EA31A827F8CF98E77B8B20ED9 /* Pods_Camera.framework */,
+				B776923DADD0433CACC50D6637C63F70 /* Pods_CameraTests.framework */,
+				F15752E936B2D23462CC1F644A78326B /* Pods_CameraUITests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E58B206863DD0FFBB543F33D06ABA80 /* MetalPerformanceShadersProxy */ = {
+			isa = PBXGroup;
+			children = (
+				A672C71DBDE595BA6EC5A0BAEDE8F869 /* Proxy */,
+				B6CCCF64B12DBF3148481E0100AC658E /* Support Files */,
+			);
+			path = MetalPerformanceShadersProxy;
+			sourceTree = "<group>";
+		};
+		81C94F3572216F7C262178F3D3AB38D1 /* Pods-Camera */ = {
+			isa = PBXGroup;
+			children = (
+				F2329A49A93258A1B235B65F214C14E1 /* Pods-Camera.modulemap */,
+				BE1C194964B7B4036891D6A8002A7A24 /* Pods-Camera-acknowledgements.markdown */,
+				27D264141FB6D6781776636CEDF3BE8B /* Pods-Camera-acknowledgements.plist */,
+				0DCD91B6E025D4806DB0E99F71DC8A3A /* Pods-Camera-dummy.m */,
+				F32E4909904B63618668B7B0DA08FD20 /* Pods-Camera-frameworks.sh */,
+				46CA87CBCFE67AC0B8B432116A66F732 /* Pods-Camera-Info.plist */,
+				87C088C807C482C17AA66D939DF2A123 /* Pods-Camera-umbrella.h */,
+				0D30DB4A625B1E458B3475664118A38E /* Pods-Camera.debug.xcconfig */,
+				AE466D843A04B4842BC9F7D9624AC009 /* Pods-Camera.release.xcconfig */,
 			);
 			name = "Pods-Camera";
 			path = "Target Support Files/Pods-Camera";
 			sourceTree = "<group>";
 		};
-		B7DECD3B1A05CF57E558935E0C3A8B4D /* Targets Support Files */ = {
+		85A79D7D9BEC84B2211CC64BD7B251FA /* Pods-CameraTests */ = {
 			isa = PBXGroup;
 			children = (
-				498C0B6BD9620D6AE43711DCC8F0EBAC /* Pods-Camera */,
-				42139907192183D237656F12FD107C5C /* Pods-CameraTests */,
-				2BEE2A768CA0A03EFDC35376689C8579 /* Pods-CameraUITests */,
+				69CBCCD39FBF562CF76063D8C28C8135 /* Pods-CameraTests.modulemap */,
+				67DD74DCD17733F0B6B74560DF3D9A94 /* Pods-CameraTests-acknowledgements.markdown */,
+				6A702271131B5BD97D6F512CF52F797F /* Pods-CameraTests-acknowledgements.plist */,
+				251F1DF1971699416E557CC33F853940 /* Pods-CameraTests-dummy.m */,
+				D51AF7835F79E1E6A0A87B61EFCBDE55 /* Pods-CameraTests-Info.plist */,
+				AAE7BEF947BE21B3C467CBE1398E5F64 /* Pods-CameraTests-umbrella.h */,
+				CB8D8B606C19FC682FD149042F0EF683 /* Pods-CameraTests.debug.xcconfig */,
+				45109D162562CDF565BAA97EB9AFA493 /* Pods-CameraTests.release.xcconfig */,
 			);
-			name = "Targets Support Files";
+			name = "Pods-CameraTests";
+			path = "Target Support Files/Pods-CameraTests";
+			sourceTree = "<group>";
+		};
+		A672C71DBDE595BA6EC5A0BAEDE8F869 /* Proxy */ = {
+			isa = PBXGroup;
+			children = (
+				872738F7F364B278FDB7B2C16CE0E975 /* CAMetalDrawable.h */,
+				888BB763B82D504188E03929BD2C7E0E /* CAMetalDrawable.m */,
+				DC361117AE9596DA9EB402A177A76F64 /* CGBase.h */,
+				0051F090EB15FB93E6582642004D0DF6 /* CVMetalTexture.h */,
+				98F95A1E7519887D42F7136A84AB6B19 /* CVMetalTexture.m */,
+				69F06EF6D30F4097F2ED1E5B429EB0D7 /* CVMetalTextureCache.h */,
+				EED3E7D92DA3046972D217534DAB09C9 /* CVMetalTextureCache.m */,
+				DD8DE9BE877B77D835CB4AE7FA313FF0 /* Defines.h */,
+				AA6F47E0D52EF1A62CA9C25E32A99BE4 /* ErrorDefines.h */,
+				B3CED2443E0B8F26A8F758075C03D7E6 /* Includes.h */,
+				0165C904BCD30AF7238E7014941B2C70 /* MetalPerformanceShadersProxy.h */,
+				E4E4ACD1F592EB0FB2501F8DA8F3507C /* MetalPerformanceShadersStub.h */,
+			);
+			name = Proxy;
+			sourceTree = "<group>";
+		};
+		A9B52C7A9B399962F6A797E6A9505C3B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2C4A8EF3B061E385114C3397BA3C8B56 /* DepthCamera */,
+				7E58B206863DD0FFBB543F33D06ABA80 /* MetalPerformanceShadersProxy */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B386C7B7D88AD120911E18AFEF1EF1A5 /* Pods-CameraUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AD1D853D10BD3E626110B0BD24440B94 /* Pods-CameraUITests.modulemap */,
+				22F8F06A5DDBAC98BD1BCCE5C8763A12 /* Pods-CameraUITests-acknowledgements.markdown */,
+				DF0A145A85FFDE5B90ECEB5614667DB3 /* Pods-CameraUITests-acknowledgements.plist */,
+				FC60E7BBD3E0B9DF7996C75B4E8CA706 /* Pods-CameraUITests-dummy.m */,
+				EA9B086ED1953CC0B462075D92DA2243 /* Pods-CameraUITests-Info.plist */,
+				D8ED316D623A124B233A1E225D585296 /* Pods-CameraUITests-umbrella.h */,
+				C013AB82655D7132A0DD95FB26F1553E /* Pods-CameraUITests.debug.xcconfig */,
+				61178FC2CACD2C0A2A423A4E7500D574 /* Pods-CameraUITests.release.xcconfig */,
+			);
+			name = "Pods-CameraUITests";
+			path = "Target Support Files/Pods-CameraUITests";
+			sourceTree = "<group>";
+		};
+		B6CCCF64B12DBF3148481E0100AC658E /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				62558C4055B518F2A3E98FAA614B9239 /* MetalPerformanceShadersProxy.modulemap */,
+				E90CF4EDC305684B84D7DBC90EFAB82E /* MetalPerformanceShadersProxy.xcconfig */,
+				7224F3881DA737F716793E1D0B63D013 /* MetalPerformanceShadersProxy-dummy.m */,
+				ABCE22A73CDD974B3B6BACA07B216062 /* MetalPerformanceShadersProxy-Info.plist */,
+				D39B82B76BA47056124267C5821E7CB3 /* MetalPerformanceShadersProxy-prefix.pch */,
+				89A6B8EFAF3AECA5BCA44FC98A675022 /* MetalPerformanceShadersProxy-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/MetalPerformanceShadersProxy";
 			sourceTree = "<group>";
 		};
 		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
@@ -166,8 +356,9 @@
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				FDA48547753C43FDF8F3D09ED50BAA4E /* Products */,
-				B7DECD3B1A05CF57E558935E0C3A8B4D /* Targets Support Files */,
+				A9B52C7A9B399962F6A797E6A9505C3B /* Pods */,
+				71782A4D6377E711ADF5C5F60A60BDE8 /* Products */,
+				32C00D34F9B4BF55C538823105B04A94 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,24 +370,40 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		FDA48547753C43FDF8F3D09ED50BAA4E /* Products */ = {
+		F81A013179FDF563DD5000609397EA99 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B645761EA31A827F8CF98E77B8B20ED9 /* Pods_Camera.framework */,
-				B776923DADD0433CACC50D6637C63F70 /* Pods_CameraTests.framework */,
-				F15752E936B2D23462CC1F644A78326B /* Pods_CameraUITests.framework */,
+				0002C260AB2EA8DFD7F08FD23C42F1BA /* DepthCamera.storyboard */,
+				024A16EF5BCE535A280EF30AB624C9C9 /* LaunchScreen.storyboard */,
 			);
-			name = Products;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		121927E1141795653DE3A44D36B83882 /* Headers */ = {
+		0307B6748B3DED841A47B734E647631B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4132F3E1AC68F042CD76DCF906FE36C /* Pods-Camera-umbrella.h in Headers */,
+				C86460A3B468A91E1987054085E212AC /* Pods-Camera-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		386C06F0544FFEF1AEA7DDEB5C6341BE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E5B5B2A8BABF5EAC8C74637C2F80C9A /* CAMetalDrawable.h in Headers */,
+				A6CC059421F5D15522EFD5A3FE9D1DE1 /* CGBase.h in Headers */,
+				A1B276241604AF3DA95B96F486C9AE2E /* CVMetalTexture.h in Headers */,
+				FD3E3ED4E0595118AAE5C0AB012FCFBB /* CVMetalTextureCache.h in Headers */,
+				D196E541307C87F1C236F0986E3B6F80 /* Defines.h in Headers */,
+				597F6C832F522C6FF13DAD57C330854A /* ErrorDefines.h in Headers */,
+				2AEA7EFAD901C4CF8B5B640C2589D2BF /* Includes.h in Headers */,
+				7F1EC2CB50C350E5D59FCB7A6230D774 /* MetalPerformanceShadersProxy-umbrella.h in Headers */,
+				D7A248E929F6828A25E1FE4DE15C041B /* MetalPerformanceShadersProxy.h in Headers */,
+				61379454DFFF966E099CC73D8339396D /* MetalPerformanceShadersStub.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +412,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				161C666DD5B17E944CD8DC40E46B579F /* Pods-CameraTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE335D065C0485475FB310257C77672 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C9B6C1078D16F2747B2EE6A5D860FF4 /* DepthCamera-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,20 +455,58 @@
 		};
 		7E079F093E98AD95A939001D74027C67 /* Pods-Camera */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C319F23F9E0948299B22D2731BF00410 /* Build configuration list for PBXNativeTarget "Pods-Camera" */;
+			buildConfigurationList = C82878A0015BCBBE331D7C25C76EBD3D /* Build configuration list for PBXNativeTarget "Pods-Camera" */;
 			buildPhases = (
-				121927E1141795653DE3A44D36B83882 /* Headers */,
-				D22409E21D1CAA646DB92E2CC5531B49 /* Sources */,
-				02B562CF39FA7CB967A2D169D7F9AC00 /* Frameworks */,
-				B6B90B0553D00AF509CCCF7D61C54E04 /* Resources */,
+				0307B6748B3DED841A47B734E647631B /* Headers */,
+				5D68E5B25510D65B3FA47DDA3912B6BF /* Sources */,
+				D13B532A40C428DBA48B2EA420490F68 /* Frameworks */,
+				6B36962341BA16EED4D7F0E3E2508E7C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3AAB72864311C49E17A6BAF7318FBE29 /* PBXTargetDependency */,
+				9BD02BA39DE559D717D38287192870F7 /* PBXTargetDependency */,
+			);
+			name = "Pods-Camera";
+			productName = "Pods-Camera";
+			productReference = B645761EA31A827F8CF98E77B8B20ED9 /* Pods_Camera.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BB0E71E6689CB2A12525103F63AB114B /* MetalPerformanceShadersProxy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D6E59998CA65DB7C1DC1FF573FE9FA34 /* Build configuration list for PBXNativeTarget "MetalPerformanceShadersProxy" */;
+			buildPhases = (
+				386C06F0544FFEF1AEA7DDEB5C6341BE /* Headers */,
+				276AB5D75DB0F620DEF56A69EFA8179F /* Sources */,
+				642BCDC7560D69C20B4DE85FDD96AE48 /* Frameworks */,
+				97D27B4BAED0A7449F3039D9C0057318 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Pods-Camera";
-			productName = "Pods-Camera";
-			productReference = B645761EA31A827F8CF98E77B8B20ED9 /* Pods_Camera.framework */;
+			name = MetalPerformanceShadersProxy;
+			productName = MetalPerformanceShadersProxy;
+			productReference = 55685D91FA0C37A03754B29538F2C3D1 /* MetalPerformanceShadersProxy.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C6A7D632B08485A18271E3CE7F626F65 /* DepthCamera */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 823E43FBA0658444CB644B7E6D0F0D81 /* Build configuration list for PBXNativeTarget "DepthCamera" */;
+			buildPhases = (
+				8AE335D065C0485475FB310257C77672 /* Headers */,
+				7B97B49D9698083229C7B2F4272D8764 /* Sources */,
+				55E06DDD908F1249218F115E982B555A /* Frameworks */,
+				71DDF0C207F44154723C0FF29CCC71ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DepthCamera;
+			productName = DepthCamera;
+			productReference = 11E58E504718900BC0D3FD698A73B6D4 /* DepthCamera.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DABEB8762D1F5A4AFC856D83E1B0858A /* Pods-CameraTests */ = {
@@ -290,12 +543,15 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = FDA48547753C43FDF8F3D09ED50BAA4E /* Products */;
+			productRefGroup = 71782A4D6377E711ADF5C5F60A60BDE8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				C6A7D632B08485A18271E3CE7F626F65 /* DepthCamera */,
+				BB0E71E6689CB2A12525103F63AB114B /* MetalPerformanceShadersProxy */,
 				7E079F093E98AD95A939001D74027C67 /* Pods-Camera */,
 				DABEB8762D1F5A4AFC856D83E1B0858A /* Pods-CameraTests */,
 				062033716D6199D50A51E422028F343D /* Pods-CameraUITests */,
@@ -311,14 +567,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B06D76AE6A9FD9ADA9E1BD033202AF7E /* Resources */ = {
+		6B36962341BA16EED4D7F0E3E2508E7C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B6B90B0553D00AF509CCCF7D61C54E04 /* Resources */ = {
+		71DDF0C207F44154723C0FF29CCC71ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A752C1D57567EDCAE7471FCB7F427DB /* DepthCamera.storyboard in Resources */,
+				D0D03CB1B58200DF15CF4A4B1DEC2743 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97D27B4BAED0A7449F3039D9C0057318 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B06D76AE6A9FD9ADA9E1BD033202AF7E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -328,6 +600,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		276AB5D75DB0F620DEF56A69EFA8179F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B39E5CC5D827F8B3A7286E7841C698F4 /* CAMetalDrawable.m in Sources */,
+				084E005D448E1AFD2FCE2CD5CFE73A4C /* CVMetalTexture.m in Sources */,
+				09BEC542A0920EB0E56EDAFF504CC0BB /* CVMetalTextureCache.m in Sources */,
+				9706D17DDBFE2A4438E0E3C62FA63953 /* MetalPerformanceShadersProxy-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2EFBE801B2E862678D04155AB8F60ED6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -344,11 +627,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D22409E21D1CAA646DB92E2CC5531B49 /* Sources */ = {
+		5D68E5B25510D65B3FA47DDA3912B6BF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55B78C02C9BA9657078F603CCBA22722 /* Pods-Camera-dummy.m in Sources */,
+				7B2F2EEC152677D51A298DE1680B3E67 /* Pods-Camera-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7B97B49D9698083229C7B2F4272D8764 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF4E47CB429FDC67501C7CDD72D1A57D /* AppDelegate.swift in Sources */,
+				FCAD57D40BF03EB0C400A698394C6511 /* AVCaptureDevice+Extension.swift in Sources */,
+				BEBD294CDF8CE566F159F88518B03C6E /* DepthCamera-dummy.m in Sources */,
+				591C784944C5124576F2B4AB2CE4D2E8 /* Extensions.swift in Sources */,
+				E57F5F722651072726DA7237A9A9E246 /* MetalRenderer.swift in Sources */,
+				EA1525E900476DCF923DDAB3A184AC96 /* RealTimeDepthViewController.swift in Sources */,
+				5D55D3915035F4E07D584D33B2EBA3AD /* UIImage+Utils.swift in Sources */,
+				D49ABA6EF3F00F0F4BB852400AC1D504 /* VideoCameraType.swift in Sources */,
+				1CF2BB923CDD6B257217D66D52ACA7D6 /* VideoCapture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,9 +666,118 @@
 			target = 7E079F093E98AD95A939001D74027C67 /* Pods-Camera */;
 			targetProxy = DF82BA7B7E532C7C52BB30F0B092A3CA /* PBXContainerItemProxy */;
 		};
+		3AAB72864311C49E17A6BAF7318FBE29 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DepthCamera;
+			target = C6A7D632B08485A18271E3CE7F626F65 /* DepthCamera */;
+			targetProxy = 3F42E6ACE53410AD0500853A37901C1A /* PBXContainerItemProxy */;
+		};
+		9BD02BA39DE559D717D38287192870F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MetalPerformanceShadersProxy;
+			target = BB0E71E6689CB2A12525103F63AB114B /* MetalPerformanceShadersProxy */;
+			targetProxy = E85E650BFF3D7C74799848A4EE535438 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		0002C260AB2EA8DFD7F08FD23C42F1BA /* DepthCamera.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FE825CF2334CBD1BBB7076232CCF4600 /* DepthCamera.storyboard */,
+			);
+			name = DepthCamera.storyboard;
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		024A16EF5BCE535A280EF30AB624C9C9 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B8B51FA7E67B48E02D66835B206B02B3 /* LaunchScreen.storyboard */,
+			);
+			name = LaunchScreen.storyboard;
+			path = Camera;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		06052626C6F8B4A5E2BE5E71A6F16EBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE466D843A04B4842BC9F7D9624AC009 /* Pods-Camera.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Camera/Pods-Camera-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Camera/Pods-Camera.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		0B5802FF00D3ECBE6C86286D9AB90E92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7EB2729F7B4515AADD75CE60A746B298 /* DepthCamera.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/DepthCamera/DepthCamera-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DepthCamera/DepthCamera-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/DepthCamera/DepthCamera.modulemap";
+				PRODUCT_MODULE_NAME = DepthCamera;
+				PRODUCT_NAME = DepthCamera;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		204B8AEA4AE90A551A1768B355C2F9F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -436,7 +844,7 @@
 		};
 		26CFD6284C213B6D8F976E68543FCAB6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E66B2917F359EBF53E493BD3E183A41E /* Pods-CameraUITests.release.xcconfig */;
+			baseConfigurationReference = 61178FC2CACD2C0A2A423A4E7500D574 /* Pods-CameraUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -472,44 +880,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		2B2195E1D02F924E7034AA36AF9F0DD9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 240CBB6FB050ADA599FD641B05470CA7 /* Pods-Camera.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Camera/Pods-Camera-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Camera/Pods-Camera.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		3CCC6195EDBEE5DA2A49DF962113BE16 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -573,7 +943,7 @@
 		};
 		4E7ADD4AB398812C50E5EB860CE971CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 382417A03A0AB181FFF9D76BED46E7E4 /* Pods-CameraUITests.debug.xcconfig */;
+			baseConfigurationReference = C013AB82655D7132A0DD95FB26F1553E /* Pods-CameraUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -611,7 +981,7 @@
 		};
 		50DC094394777C815BC24935FB46E0FA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42EDD3DA74114AA41054C580622EE768 /* Pods-CameraTests.release.xcconfig */;
+			baseConfigurationReference = 45109D162562CDF565BAA97EB9AFA493 /* Pods-CameraTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -648,9 +1018,81 @@
 			};
 			name = Release;
 		};
+		8008C4A1FFF3AA47E9474E438EAFA548 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7EB2729F7B4515AADD75CE60A746B298 /* DepthCamera.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/DepthCamera/DepthCamera-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DepthCamera/DepthCamera-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/DepthCamera/DepthCamera.modulemap";
+				PRODUCT_MODULE_NAME = DepthCamera;
+				PRODUCT_NAME = DepthCamera;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A3E2C9A03800F01115B87C9E1CB5B048 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E90CF4EDC305684B84D7DBC90EFAB82E /* MetalPerformanceShadersProxy.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/MetalPerformanceShadersProxy/MetalPerformanceShadersProxy-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MetalPerformanceShadersProxy/MetalPerformanceShadersProxy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/MetalPerformanceShadersProxy/MetalPerformanceShadersProxy.modulemap";
+				PRODUCT_MODULE_NAME = MetalPerformanceShadersProxy;
+				PRODUCT_NAME = MetalPerformanceShadersProxy;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		A4572EB870870B6785F0F4A18F8E96CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9305507DECE38811A747373E262FAB3C /* Pods-CameraTests.debug.xcconfig */;
+			baseConfigurationReference = CB8D8B606C19FC682FD149042F0EF683 /* Pods-CameraTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -686,9 +1128,44 @@
 			};
 			name = Debug;
 		};
-		FB87F6C84A75804901C76ECBD84641A3 /* Release */ = {
+		C8D5B0D69236FEE042580071A5776E87 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B6A76C2EEB7CDF52BC6B975B7598B47 /* Pods-Camera.release.xcconfig */;
+			baseConfigurationReference = E90CF4EDC305684B84D7DBC90EFAB82E /* MetalPerformanceShadersProxy.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/MetalPerformanceShadersProxy/MetalPerformanceShadersProxy-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MetalPerformanceShadersProxy/MetalPerformanceShadersProxy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/MetalPerformanceShadersProxy/MetalPerformanceShadersProxy.modulemap";
+				PRODUCT_MODULE_NAME = MetalPerformanceShadersProxy;
+				PRODUCT_NAME = MetalPerformanceShadersProxy;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FEAC19AE5848D97C1A7C2F93B76E2F12 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D30DB4A625B1E458B3475664118A38E /* Pods-Camera.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -719,11 +1196,10 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -737,6 +1213,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		823E43FBA0658444CB644B7E6D0F0D81 /* Build configuration list for PBXNativeTarget "DepthCamera" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8008C4A1FFF3AA47E9474E438EAFA548 /* Debug */,
+				0B5802FF00D3ECBE6C86286D9AB90E92 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BED08C0A8A40EBE09EF6D1529B29408B /* Build configuration list for PBXNativeTarget "Pods-CameraUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -746,11 +1231,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C319F23F9E0948299B22D2731BF00410 /* Build configuration list for PBXNativeTarget "Pods-Camera" */ = {
+		C82878A0015BCBBE331D7C25C76EBD3D /* Build configuration list for PBXNativeTarget "Pods-Camera" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2B2195E1D02F924E7034AA36AF9F0DD9 /* Debug */,
-				FB87F6C84A75804901C76ECBD84641A3 /* Release */,
+				FEAC19AE5848D97C1A7C2F93B76E2F12 /* Debug */,
+				06052626C6F8B4A5E2BE5E71A6F16EBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D6E59998CA65DB7C1DC1FF573FE9FA34 /* Build configuration list for PBXNativeTarget "MetalPerformanceShadersProxy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C8D5B0D69236FEE042580071A5776E87 /* Debug */,
+				A3E2C9A03800F01115B87C9E1CB5B048 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

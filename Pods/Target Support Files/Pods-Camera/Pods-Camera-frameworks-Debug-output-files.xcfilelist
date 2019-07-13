@@ -1,1 +1,2 @@
-${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KYShutterButton.framework
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DepthCamera.framework
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MetalPerformanceShadersProxy.framework

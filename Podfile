@@ -5,6 +5,7 @@ target 'Camera' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'DepthCamera'
+  pod 'MetalPerformanceShadersProxy'
 
   target 'CameraTests' do
     inherit! :search_paths
