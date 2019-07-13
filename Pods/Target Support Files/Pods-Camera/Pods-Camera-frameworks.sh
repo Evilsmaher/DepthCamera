@@ -161,11 +161,9 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/DepthCamera/DepthCamera.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MetalPerformanceShadersProxy/MetalPerformanceShadersProxy.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/DepthCamera/DepthCamera.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MetalPerformanceShadersProxy/MetalPerformanceShadersProxy.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

@@ -1,22 +1,18 @@
 PODS:
-  - DepthCamera (0.1.19)
   - MetalPerformanceShadersProxy (0.3.0):
     - MetalPerformanceShadersProxy/Proxy (= 0.3.0)
   - MetalPerformanceShadersProxy/Proxy (0.3.0)
 
 DEPENDENCIES:
-  - DepthCamera
-  - MetalPerformanceShadersProxy
+  - MetalPerformanceShadersProxy (~> 0.3)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - DepthCamera
     - MetalPerformanceShadersProxy
 
 SPEC CHECKSUMS:
-  DepthCamera: 12e0435e13b9abd9e9fa0f3e60a03384cd7154e5
   MetalPerformanceShadersProxy: a279966a6a22449d3e32a8cd5ca246d625aa7d43
 
-PODFILE CHECKSUM: c88c834fa4933f526631fe099d052b0e3942172e
+PODFILE CHECKSUM: ee40bb73d8fb86bda049ea12b60463021db358fd
 
 COCOAPODS: 1.7.4
