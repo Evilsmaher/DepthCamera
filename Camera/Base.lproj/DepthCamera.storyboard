@@ -13,7 +13,7 @@
         <!--Realtime Depth Mask View Controller-->
         <scene sceneID="n4P-CN-DOb">
             <objects>
-                <viewController storyboardIdentifier="DepthCamera" id="z5C-FL-5Zk" customClass="RealtimeDepthMaskViewController" customModule="Camera" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DepthCamera" id="z5C-FL-5Zk" customClass="RealtimeDepthMaskViewController" customModule="Camera" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4sv-YP-8Rk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
