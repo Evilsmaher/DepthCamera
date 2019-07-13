@@ -6,7 +6,6 @@
 //
 import Metal
 import MetalKit
-import MetalPerformanceShadersProxy
 
 // The max number of command buffers in flight
 let kMaxBuffersInFlight: Int = 1
@@ -72,7 +71,6 @@ class MetalRenderer {
         //Won't ever get here if not simulator because I also check this inside RealTimeDepthViewController but need to check so the pod will compile
         #if targetEnvironment(simulator)
         #else
-        let texture = (currentDrawable as? CAMetalDrawable)?.texture
         ciContext.render(ciImage, to: currentDrawable.texture, commandBuffer: commandBuffer, bounds: ciImage.extent, colorSpace: colorSpace)
         
         commandBuffer.present(currentDrawable)
