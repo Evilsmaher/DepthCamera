@@ -3,14 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1AC08913FAC9D9F62F035F7B /* Pods_CameraUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37ACC7C69736E57A90F73AB6 /* Pods_CameraUITests.framework */; };
 		2400BBD113F7719DBCA5CC44 /* Pods_Camera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E9BDC0A1A6AAF915D00F31 /* Pods_Camera.framework */; };
 		35B603A2A5D3E3B11C8B4815 /* Pods_CameraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32E4A11F3B7CE98EDE4F5307 /* Pods_CameraTests.framework */; };
-		E063161E22DA50A600C36811 /* PassThrough.metal in Sources */ = {isa = PBXBuildFile; fileRef = E063161D22DA50A600C36811 /* PassThrough.metal */; };
 		E0A6C1FD22D692CD002E1662 /* DepthCamera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0A6C1FB22D692CD002E1662 /* DepthCamera.storyboard */; };
 		E0B9DEF322CD800200C866EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9DEF222CD800200C866EA /* AppDelegate.swift */; };
 		E0B9DEFD22CD800600C866EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0B9DEFC22CD800600C866EA /* Assets.xcassets */; };
@@ -414,7 +413,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0B9DF2E22CDAC8A00C866EA /* MetalRenderer.swift in Sources */,
-				E063161E22DA50A600C36811 /* PassThrough.metal in Sources */,
 				E0B9DF3822CE944F00C866EA /* Extensions.swift in Sources */,
 				E0B9DF2422CDA2FC00C866EA /* VideoCapture.swift in Sources */,
 				E0B9DF3122CDB19A00C866EA /* UIImage+Utils.swift in Sources */,
