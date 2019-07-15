@@ -315,6 +315,7 @@ extension VideoCapture: AVCaptureFileOutputRecordingDelegate {
         } else {
             
             let videoRecorded = outputFileURL
+            print(videoRecorded)
         }
     }
 }
