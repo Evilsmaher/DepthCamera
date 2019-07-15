@@ -45,9 +45,8 @@
                                             <segment title="Blended"/>
                                         </segments>
                                     </segmentedControl>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rA4-rl-Gbx">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rA4-rl-Gbx">
                                         <rect key="frame" x="3" y="0.0" width="101" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Current: Photo"/>
                                         <connections>
                                             <action selector="cameraModeBtnTapped:" destination="z5C-FL-5Zk" eventType="touchUpInside" id="l4W-6b-XYZ"/>
@@ -61,6 +60,8 @@
                                     <constraint firstAttribute="trailing" secondItem="2Eh-2Y-YkG" secondAttribute="trailing" id="Owh-tm-MFM"/>
                                     <constraint firstItem="2Eh-2Y-YkG" firstAttribute="top" secondItem="xds-55-juU" secondAttribute="top" id="Qx7-Ka-E4K"/>
                                     <constraint firstItem="NgJ-yX-4DQ" firstAttribute="top" secondItem="xds-55-juU" secondAttribute="top" constant="48" id="RiH-XV-5py"/>
+                                    <constraint firstItem="rA4-rl-Gbx" firstAttribute="leading" secondItem="xds-55-juU" secondAttribute="leading" constant="3" id="odR-2Z-rY6"/>
+                                    <constraint firstItem="rA4-rl-Gbx" firstAttribute="top" secondItem="2Eh-2Y-YkG" secondAttribute="top" id="rgQ-u8-t22"/>
                                     <constraint firstAttribute="trailing" secondItem="NgJ-yX-4DQ" secondAttribute="trailing" id="vWU-70-bBx"/>
                                     <constraint firstItem="NgJ-yX-4DQ" firstAttribute="leading" secondItem="xds-55-juU" secondAttribute="leading" id="yan-b2-FkL"/>
                                 </constraints>
