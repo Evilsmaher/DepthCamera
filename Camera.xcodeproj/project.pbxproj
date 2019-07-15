@@ -10,6 +10,7 @@
 		1AC08913FAC9D9F62F035F7B /* Pods_CameraUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37ACC7C69736E57A90F73AB6 /* Pods_CameraUITests.framework */; };
 		2400BBD113F7719DBCA5CC44 /* Pods_Camera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E9BDC0A1A6AAF915D00F31 /* Pods_Camera.framework */; };
 		35B603A2A5D3E3B11C8B4815 /* Pods_CameraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32E4A11F3B7CE98EDE4F5307 /* Pods_CameraTests.framework */; };
+		E030900622DC473100082F81 /* VideoCameraMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E030900522DC473100082F81 /* VideoCameraMode.swift */; };
 		E072A0F722DA66BD0094522D /* PassThrough.metal in Sources */ = {isa = PBXBuildFile; fileRef = E072A0F622DA66BD0094522D /* PassThrough.metal */; };
 		E0A6C1FD22D692CD002E1662 /* DepthCamera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0A6C1FB22D692CD002E1662 /* DepthCamera.storyboard */; };
 		E0B9DEF322CD800200C866EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9DEF222CD800200C866EA /* AppDelegate.swift */; };
@@ -52,6 +53,7 @@
 		A5A554EFAEBFE4BBC27DA23C /* Pods-Camera.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Camera.release.xcconfig"; path = "Target Support Files/Pods-Camera/Pods-Camera.release.xcconfig"; sourceTree = "<group>"; };
 		BBDCDF331A7E6277989C320B /* Pods-CameraUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraUITests.release.xcconfig"; path = "Target Support Files/Pods-CameraUITests/Pods-CameraUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CC8F79DF5FAE3E7DFEAEA0E9 /* Pods-CameraTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraTests.release.xcconfig"; path = "Target Support Files/Pods-CameraTests/Pods-CameraTests.release.xcconfig"; sourceTree = "<group>"; };
+		E030900522DC473100082F81 /* VideoCameraMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCameraMode.swift; sourceTree = "<group>"; };
 		E03A21934BB18847F29E1062 /* Pods-Camera.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Camera.debug.xcconfig"; path = "Target Support Files/Pods-Camera/Pods-Camera.debug.xcconfig"; sourceTree = "<group>"; };
 		E072A0F622DA66BD0094522D /* PassThrough.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PassThrough.metal; sourceTree = "<group>"; };
 		E0A6C1FC22D692CD002E1662 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DepthCamera.storyboard; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				E0B9DF2322CDA2FC00C866EA /* VideoCapture.swift */,
+				E030900522DC473100082F81 /* VideoCameraMode.swift */,
 				E0B9DF2522CDA33500C866EA /* VideoCameraType.swift */,
 				E0B9DF2722CDA35A00C866EA /* AVCaptureDevice+Extension.swift */,
 			);
@@ -418,6 +421,7 @@
 				E0B9DF3822CE944F00C866EA /* Extensions.swift in Sources */,
 				E0B9DF2422CDA2FC00C866EA /* VideoCapture.swift in Sources */,
 				E0B9DF3122CDB19A00C866EA /* UIImage+Utils.swift in Sources */,
+				E030900622DC473100082F81 /* VideoCameraMode.swift in Sources */,
 				E0B9DF2622CDA33500C866EA /* VideoCameraType.swift in Sources */,
 				E0B9DEF322CD800200C866EA /* AppDelegate.swift in Sources */,
 				E0B9DF2822CDA35A00C866EA /* AVCaptureDevice+Extension.swift in Sources */,

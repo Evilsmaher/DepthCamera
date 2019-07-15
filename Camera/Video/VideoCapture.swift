@@ -7,7 +7,7 @@
 //
 import AVFoundation
 import Foundation
-
+import UIKit
 
 struct VideoSpec {
     var fps: Int32?
@@ -45,6 +45,8 @@ class VideoCapture: NSObject {
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private let depthDataOutput = AVCaptureDepthDataOutput()
     private let metadataOutput = AVCaptureMetadataOutput()
+    
+    private let movieOutput:AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
     
     init(cameraType: CameraType, preferredSpec: VideoSpec?, previewContainer: CALayer?)
     {
@@ -176,6 +178,71 @@ class VideoCapture: NSObject {
     func setDepthFilterEnabled(_ enabled: Bool) {
         depthDataOutput.isFilteringEnabled = enabled
     }
+    
+    func tempURL() -> URL? {
+        let directory = NSTemporaryDirectory() as NSString
+        
+        if directory != "" {
+            let path = directory.appendingPathComponent(NSUUID().uuidString + ".mp4")
+            return URL(fileURLWithPath: path)
+        }
+        
+        return nil
+    }
+    
+    func currentVideoOrientation() -> AVCaptureVideoOrientation {
+        var orientation: AVCaptureVideoOrientation
+        
+        switch UIDevice.current.orientation {
+        case .portrait:
+            orientation = AVCaptureVideoOrientation.portrait
+        case .landscapeRight:
+            orientation = AVCaptureVideoOrientation.landscapeLeft
+        case .portraitUpsideDown:
+            orientation = AVCaptureVideoOrientation.portraitUpsideDown
+        default:
+            orientation = AVCaptureVideoOrientation.landscapeRight
+        }
+        
+        return orientation
+    }
+    
+    func isRecording() -> Bool {
+        return movieOutput.isRecording
+    }
+    
+    func startRecording() {
+        if !movieOutput.isRecording {
+            let connection = movieOutput.connection(with: AVMediaType.video)
+            if (connection?.isVideoOrientationSupported)! {
+                connection?.videoOrientation = currentVideoOrientation()
+            }
+            
+            if (connection?.isVideoStabilizationSupported)! {
+                connection?.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
+            }
+            
+            let device = videoDevice!
+            
+            if device.isSmoothAutoFocusSupported {
+                do {
+                    try device.lockForConfiguration()
+                    device.isSmoothAutoFocusEnabled = false
+                    device.unlockForConfiguration()
+                } catch {
+                    print("Error Setting Configuration \(error)")
+                }
+            }
+            let outputURL = tempURL()!
+            movieOutput.startRecording(to: outputURL, recordingDelegate: self)
+        }
+    }
+    
+    func stopRecording() {
+        if movieOutput.isRecording {
+            movieOutput.stopRecording()
+        }
+    }
 }
 
 extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -235,5 +302,19 @@ extension VideoCapture: AVCaptureDataOutputSynchronizerDelegate {
         guard let imagePixelBuffer = CMSampleBufferGetImageBuffer(videoSampleBuffer) else { fatalError() }
         
         syncedDataBufferHandler?(imagePixelBuffer, depthData, face)
+    }
+}
+
+extension VideoCapture: AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        
+        if (error != nil) {
+            
+            print("Error recording movie: \(error!.localizedDescription)")
+            
+        } else {
+            
+            let videoRecorded = outputFileURL
+        }
     }
 }

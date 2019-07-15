@@ -19,6 +19,7 @@ public class RealtimeDepthMaskViewController: UIViewController {
     private var currentCameraType: CameraType = .front(true)
     private let serialQueue = DispatchQueue(label: "com.shu223.iOS-Depth-Sampler.queue")
     private var currentCaptureSize: CGSize = CGSize.zero
+    private var currentCaptureMode: CameraMode = .photo
     
     private var filter = true
     private var binarize = true
@@ -106,10 +107,20 @@ public class RealtimeDepthMaskViewController: UIViewController {
     }
     
     @objc func buttonClicked(sender: UIButton) {
-        if let finalImage = self.finalImage {
-            let image = UIImage(ciImage: finalImage)
-            let transparentImage = processPixels(in: image, finalImage)
-            self.completionHandler(transparentImage!)
+        if(currentCaptureMode == .photo) {
+            if let finalImage = self.finalImage {
+                let image = UIImage(ciImage: finalImage)
+                let transparentImage = processPixels(in: image, finalImage)
+                self.completionHandler(transparentImage!)
+            }
+        }
+        else {
+            if(videoCapture.isRecording()) {
+                videoCapture.startRecording()
+            }
+            else {
+                videoCapture.stopRecording()
+            }
         }
     }
     
@@ -131,6 +142,17 @@ public class RealtimeDepthMaskViewController: UIViewController {
         videoCapture.stopCapture()
         mtkView.delegate = nil
         super.viewWillDisappear(animated)
+    }
+    
+    @IBAction func cameraModeBtnTapped(_ sender: UIButton) {
+        switch currentCaptureMode {
+        case .photo:
+            currentCaptureMode = .video
+            sender.setTitle("Current: Video", for: .normal)
+        case .video:
+            currentCaptureMode = .photo
+            sender.setTitle("Current: Photo", for: .normal)
+        }
     }
     
     @IBAction func cameraSwitchBtnTapped(_ sender: UIButton) {
