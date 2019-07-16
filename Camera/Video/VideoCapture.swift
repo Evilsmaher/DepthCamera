@@ -35,7 +35,10 @@ class VideoCapture: NSObject {
     private var videoConnection: AVCaptureConnection!
     private var previewLayer: AVCaptureVideoPreviewLayer?
     
-    private let dataOutputQueue = DispatchQueue(label: "com.shu223.dataOutputQueue")
+    let dataOutputQueue = DispatchQueue(label: "video data queue",
+                                        qos: .userInitiated,
+                                        attributes: [],
+                                        autoreleaseFrequency: .workItem)
     
     var imageBufferHandler: ImageBufferHandler?
     var syncedDataBufferHandler: SynchronizedDataBufferHandler?
@@ -43,14 +46,23 @@ class VideoCapture: NSObject {
     private var dataOutputSynchronizer: AVCaptureDataOutputSynchronizer!
     
     private let videoDataOutput = AVCaptureVideoDataOutput()
+    private let audioDataOutput = AVCaptureAudioDataOutput()
     private let depthDataOutput = AVCaptureDepthDataOutput()
     private let metadataOutput = AVCaptureMetadataOutput()
     
-    private let movieOutput:AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
+    private var cameraMode:CameraMode!
+    private var videoWriter:AVAssetWriter!
+    private var videoWriterInput:AVAssetWriterInput!
+    private var audioWriterInput:AVAssetWriterInput!
+    private var isRecording:Bool = false
+    private var sessionAtSourceTime:CMTime!
+    private var videoURL:URL!
     
-    init(cameraType: CameraType, preferredSpec: VideoSpec?, previewContainer: CALayer?)
+    init(cameraMode: CameraMode, cameraType: CameraType, preferredSpec: VideoSpec?, previewContainer: CALayer?)
     {
         super.init()
+        
+        self.cameraMode = cameraMode
         
         captureSession.beginConfiguration()
         
@@ -73,6 +85,7 @@ class VideoCapture: NSObject {
             // video output
             videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)]
             videoDataOutput.alwaysDiscardsLateVideoFrames = true
+            
             videoDataOutput.setSampleBufferDelegate(self, queue: dataOutputQueue)
             guard captureSession.canAddOutput(videoDataOutput) else { fatalError() }
             captureSession.addOutput(videoDataOutput)
@@ -93,15 +106,74 @@ class VideoCapture: NSObject {
                 metadataOutput.metadataObjectTypes = [.face]
             }
             
-            
             // synchronize outputs
             dataOutputSynchronizer = AVCaptureDataOutputSynchronizer(dataOutputs: [videoDataOutput, depthDataOutput, metadataOutput])
             dataOutputSynchronizer.setDelegate(self, queue: dataOutputQueue)
+            
+            // Setup Writer
+            do {
+                let outputFileLocation = videoFileLocation()
+                videoWriter = try AVAssetWriter(outputURL: outputFileLocation, fileType: AVFileType.mov)
+                
+                // add video input
+                videoWriterInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: [
+                    AVVideoCodecKey : AVVideoCodecType.h264,
+                    AVVideoWidthKey : 720,
+                    AVVideoHeightKey : 1280,
+                    AVVideoCompressionPropertiesKey : [
+                        AVVideoAverageBitRateKey : 2300000,
+                    ],
+                    ])
+                
+                videoWriterInput.expectsMediaDataInRealTime = true
+                
+                if videoWriter.canAdd(videoWriterInput) {
+                    videoWriter.add(videoWriterInput)
+                    print("video input added")
+                } else {
+                    print("no input added")
+                }
+                
+                // add audio input
+                audioWriterInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: nil)
+                
+                audioWriterInput.expectsMediaDataInRealTime = true
+                
+                if videoWriter.canAdd(audioWriterInput!) {
+                    videoWriter.add(audioWriterInput!)
+                    print("audio input added")
+                }
+                
+            } catch let error {
+                debugPrint(error.localizedDescription)
+            }
         }
         
         setupConnections(with: cameraType)
         
         captureSession.commitConfiguration()
+    }
+    
+    func canWrite() -> Bool {
+        print("Recording: \(isRecording) -- VWIsNil: \(videoWriter != nil) -- status: \(videoWriter.status)")
+        return isRecording && videoWriter != nil && videoWriter?.status == .writing
+    }
+    
+    
+    //video file location method
+    func videoFileLocation() -> URL {
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
+        let videoOutputUrl = URL(fileURLWithPath: documentsPath.appendingPathComponent("videoFile")).appendingPathExtension("mov")
+        do {
+            if FileManager.default.fileExists(atPath: videoOutputUrl.path) {
+                try FileManager.default.removeItem(at: videoOutputUrl)
+                print("file removed")
+            }
+        } catch {
+            print(error)
+        }
+        
+        return videoOutputUrl
     }
     
     private func setupCaptureVideoDevice(with cameraType: CameraType) {
@@ -179,69 +251,49 @@ class VideoCapture: NSObject {
         depthDataOutput.isFilteringEnabled = enabled
     }
     
-    func tempURL() -> URL? {
-        let directory = NSTemporaryDirectory() as NSString
-        
-        if directory != "" {
-            let path = directory.appendingPathComponent(NSUUID().uuidString + ".mp4")
-            return URL(fileURLWithPath: path)
-        }
-        
-        return nil
+    func setCameraMode(cameraMode: CameraMode) {
+        self.cameraMode = cameraMode
     }
     
-    func currentVideoOrientation() -> AVCaptureVideoOrientation {
-        var orientation: AVCaptureVideoOrientation
-        
-        switch UIDevice.current.orientation {
-        case .portrait:
-            orientation = AVCaptureVideoOrientation.portrait
-        case .landscapeRight:
-            orientation = AVCaptureVideoOrientation.landscapeLeft
-        case .portraitUpsideDown:
-            orientation = AVCaptureVideoOrientation.portraitUpsideDown
-        default:
-            orientation = AVCaptureVideoOrientation.landscapeRight
-        }
-        
-        return orientation
-    }
-    
-    func isRecording() -> Bool {
-        return movieOutput.isRecording
+    func isVideoRecording() -> Bool {
+        return isRecording
     }
     
     func startRecording() {
-        if !movieOutput.isRecording {
-            let connection = movieOutput.connection(with: AVMediaType.video)
-            if (connection?.isVideoOrientationSupported)! {
-                connection?.videoOrientation = currentVideoOrientation()
-            }
-            
-            if (connection?.isVideoStabilizationSupported)! {
-                connection?.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
-            }
-            
-            let device = videoDevice!
-            
-            if device.isSmoothAutoFocusSupported {
-                do {
-                    try device.lockForConfiguration()
-                    device.isSmoothAutoFocusEnabled = false
-                    device.unlockForConfiguration()
-                } catch {
-                    print("Error Setting Configuration \(error)")
-                }
-            }
-            let outputURL = tempURL()!
-            movieOutput.startRecording(to: outputURL, recordingDelegate: self)
+        guard !isRecording else { return }
+        isRecording = true
+        sessionAtSourceTime = nil
+        videoWriter.startWriting()
+        print(isRecording)
+        print(videoWriter)
+        if videoWriter.status == .writing {
+            print("status writing")
+        } else if videoWriter.status == .failed {
+            print("status failed")
+        } else if videoWriter.status == .cancelled {
+            print("status cancelled")
+        } else if videoWriter.status == .unknown {
+            print("status unknown")
+        } else {
+            print("status completed")
         }
     }
     
     func stopRecording() {
-        if movieOutput.isRecording {
-            movieOutput.stopRecording()
+        guard isRecording else { return }
+        isRecording = false
+        videoWriterInput.markAsFinished()
+        print("marked as finished")
+        videoWriter.finishWriting {
+            
         }
+        print("finished writing \(videoWriter.outputURL)")
+        videoURL = videoWriter.outputURL
+        captureSession.stopRunning()
+    }
+    
+    func getVideoURL() -> URL {
+        return videoURL
     }
 }
 
@@ -285,6 +337,7 @@ extension VideoCapture: AVCaptureDataOutputSynchronizerDelegate {
             return
         }
         let videoSampleBuffer = syncedVideoData.sampleBuffer
+        print(videoSampleBuffer)
         
         let syncedDepthData = synchronizedDataCollection.synchronizedData(for: depthDataOutput) as? AVCaptureSynchronizedDepthData
         var depthData = syncedDepthData?.depthData
@@ -302,20 +355,39 @@ extension VideoCapture: AVCaptureDataOutputSynchronizerDelegate {
         guard let imagePixelBuffer = CMSampleBufferGetImageBuffer(videoSampleBuffer) else { fatalError() }
         
         syncedDataBufferHandler?(imagePixelBuffer, depthData, face)
-    }
-}
-
-extension VideoCapture: AVCaptureFileOutputRecordingDelegate {
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         
-        if (error != nil) {
-            
-            print("Error recording movie: \(error!.localizedDescription)")
-            
-        } else {
-            
-            let videoRecorded = outputFileURL
-            print(videoRecorded)
-        }
+        /*
+         if self.cameraMode == CameraMode.video {
+         let writable = canWrite()
+         
+         if writable, sessionAtSourceTime == nil {
+         // start writing
+         sessionAtSourceTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+         videoWriter.startSession(atSourceTime: sessionAtSourceTime)
+         print("Writing")
+         }
+         
+         if output == videoDataOutput {
+         connection.videoOrientation = .portrait
+         
+         if connection.isVideoMirroringSupported {
+         connection.isVideoMirrored = true
+         }
+         }
+         
+         if writable,
+         output == videoDataOutput,
+         (videoWriterInput.isReadyForMoreMediaData) {
+         // write video buffer
+         videoWriterInput.append(sampleBuffer)
+         //print("video buffering")
+         } else if writable,
+         output == audioDataOutput,
+         (audioWriterInput.isReadyForMoreMediaData) {
+         // write audio buffer
+         audioWriterInput?.append(sampleBuffer)
+         //print("audio buffering")
+         }
+         }*/
     }
 }

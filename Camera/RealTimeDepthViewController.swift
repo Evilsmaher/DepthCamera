@@ -33,10 +33,10 @@ public class RealtimeDepthMaskViewController: UIViewController {
     private var videoImage: CIImage?
     private var maskImage: CIImage?
     private var finalImage: CIImage!
-    private var completionHandler:((_ image:UIImage) -> Void)!
+    private var completionHandler:((_ image: UIImage?, _ videoUrl: URL?) -> Void)!
     private var indicesThatWereCut:[Int]!
     
-    public static func createRealTimeDepthCameraVC(completionHandler:@escaping ((_ image: UIImage) -> Void), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController{
+    public static func createRealTimeDepthCameraVC(completionHandler:@escaping ((_ image: UIImage?, _ videoUrl: URL?) -> Void), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController{
         let newViewController = UIStoryboard(name: "DepthCamera", bundle: Bundle(for: RealtimeDepthMaskViewController.self)).instantiateViewController(withIdentifier: "DepthCamera") as! RealtimeDepthMaskViewController
         newViewController.completionHandler = completionHandler
         if(backgroundImages != nil) {
@@ -65,7 +65,7 @@ public class RealtimeDepthMaskViewController: UIViewController {
         
         renderer = MetalRenderer(metalDevice: device, renderDestination: mtkView)
         
-        videoCapture = VideoCapture(cameraType: currentCameraType,
+        videoCapture = VideoCapture(cameraMode: self.currentCaptureMode, cameraType: currentCameraType,
                                     preferredSpec: nil,
                                     previewContainer: nil)
         
@@ -111,15 +111,16 @@ public class RealtimeDepthMaskViewController: UIViewController {
             if let finalImage = self.finalImage {
                 let image = UIImage(ciImage: finalImage)
                 let transparentImage = processPixels(in: image, finalImage)
-                self.completionHandler(transparentImage!)
+                self.completionHandler(transparentImage, nil)
             }
         }
         else {
-            if(videoCapture.isRecording()) {
+            if(!videoCapture.isVideoRecording()) {
                 videoCapture.startRecording()
             }
             else {
                 videoCapture.stopRecording()
+                self.completionHandler(nil, videoCapture.getVideoURL())
             }
         }
     }
@@ -153,6 +154,7 @@ public class RealtimeDepthMaskViewController: UIViewController {
             currentCaptureMode = .photo
             sender.setTitle("Current: Photo", for: .normal)
         }
+        self.videoCapture.setCameraMode(cameraMode: currentCaptureMode)
     }
     
     @IBAction func cameraSwitchBtnTapped(_ sender: UIButton) {
