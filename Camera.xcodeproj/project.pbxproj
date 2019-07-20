@@ -12,6 +12,7 @@
 		35B603A2A5D3E3B11C8B4815 /* Pods_CameraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32E4A11F3B7CE98EDE4F5307 /* Pods_CameraTests.framework */; };
 		E030900622DC473100082F81 /* VideoCameraMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E030900522DC473100082F81 /* VideoCameraMode.swift */; };
 		E072A0F722DA66BD0094522D /* PassThrough.metal in Sources */ = {isa = PBXBuildFile; fileRef = E072A0F622DA66BD0094522D /* PassThrough.metal */; };
+		E09244E622E2DE1300C82BDE /* VideoCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09244E522E2DE1300C82BDE /* VideoCreator.swift */; };
 		E0A6C1FD22D692CD002E1662 /* DepthCamera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0A6C1FB22D692CD002E1662 /* DepthCamera.storyboard */; };
 		E0B9DEF322CD800200C866EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9DEF222CD800200C866EA /* AppDelegate.swift */; };
 		E0B9DEFD22CD800600C866EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0B9DEFC22CD800600C866EA /* Assets.xcassets */; };
@@ -56,6 +57,7 @@
 		E030900522DC473100082F81 /* VideoCameraMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCameraMode.swift; sourceTree = "<group>"; };
 		E03A21934BB18847F29E1062 /* Pods-Camera.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Camera.debug.xcconfig"; path = "Target Support Files/Pods-Camera/Pods-Camera.debug.xcconfig"; sourceTree = "<group>"; };
 		E072A0F622DA66BD0094522D /* PassThrough.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PassThrough.metal; sourceTree = "<group>"; };
+		E09244E522E2DE1300C82BDE /* VideoCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCreator.swift; sourceTree = "<group>"; };
 		E0A6C1FC22D692CD002E1662 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DepthCamera.storyboard; sourceTree = "<group>"; };
 		E0B9DEEF22CD800200C866EA /* Camera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Camera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0B9DEF222CD800200C866EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				E030900522DC473100082F81 /* VideoCameraMode.swift */,
 				E0B9DF2522CDA33500C866EA /* VideoCameraType.swift */,
 				E0B9DF2722CDA35A00C866EA /* AVCaptureDevice+Extension.swift */,
+				E09244E522E2DE1300C82BDE /* VideoCreator.swift */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0B9DF2E22CDAC8A00C866EA /* MetalRenderer.swift in Sources */,
+				E09244E622E2DE1300C82BDE /* VideoCreator.swift in Sources */,
 				E072A0F722DA66BD0094522D /* PassThrough.metal in Sources */,
 				E0B9DF3822CE944F00C866EA /* Extensions.swift in Sources */,
 				E0B9DF2422CDA2FC00C866EA /* VideoCapture.swift in Sources */,

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="z5C-FL-5Zk">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Realtime Depth Mask View Controller-->
+        <scene sceneID="n4P-CN-DOb">
+            <objects>
+                <viewController storyboardIdentifier="DepthCamera" id="z5C-FL-5Zk" customClass="RealtimeDepthMaskViewController" customModule="Camera" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4sv-YP-8Rk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mtkView contentMode="scaleAspectFill" colorPixelFormat="BGRA8Unorm" depthStencilPixelFormat="Invalid" translatesAutoresizingMaskIntoConstraints="NO" id="miz-N2-WMG">
+                                <rect key="frame" x="0.0" y="156.33333333333334" width="375" height="499.33333333333326"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="miz-N2-WMG" secondAttribute="height" multiplier="2320:3088" id="rjM-tY-4Fa"/>
+                                </constraints>
+                            </mtkView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xds-55-juU">
+                                <rect key="frame" x="16" y="64" width="343" height="128"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Eh-2Y-YkG">
+                                        <rect key="frame" x="239" y="0.0" width="104" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="LtJ-TH-1Eo"/>
+                                        </constraints>
+                                        <state key="normal" title="Switch Camera"/>
+                                        <connections>
+                                            <action selector="cameraSwitchBtnTapped:" destination="z5C-FL-5Zk" eventType="touchUpInside" id="5xV-Wl-2Jo"/>
+                                        </connections>
+                                    </button>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="NgJ-yX-4DQ">
+                                        <rect key="frame" x="0.0" y="48" width="343" height="29"/>
+                                        <segments>
+                                            <segment title="Original"/>
+                                            <segment title="Blended"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rA4-rl-Gbx">
+                                        <rect key="frame" x="3" y="0.0" width="101" height="30"/>
+                                        <state key="normal" title="Current: Photo"/>
+                                        <connections>
+                                            <action selector="cameraModeBtnTapped:" destination="z5C-FL-5Zk" eventType="touchUpInside" id="l4W-6b-XYZ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="4Vo-qc-gOp"/>
+                                    <constraint firstItem="2Eh-2Y-YkG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xds-55-juU" secondAttribute="leading" constant="20" symbolic="YES" id="Mhr-Hb-xId"/>
+                                    <constraint firstAttribute="trailing" secondItem="2Eh-2Y-YkG" secondAttribute="trailing" id="Owh-tm-MFM"/>
+                                    <constraint firstItem="2Eh-2Y-YkG" firstAttribute="top" secondItem="xds-55-juU" secondAttribute="top" id="Qx7-Ka-E4K"/>
+                                    <constraint firstItem="NgJ-yX-4DQ" firstAttribute="top" secondItem="xds-55-juU" secondAttribute="top" constant="48" id="RiH-XV-5py"/>
+                                    <constraint firstItem="rA4-rl-Gbx" firstAttribute="leading" secondItem="xds-55-juU" secondAttribute="leading" constant="3" id="odR-2Z-rY6"/>
+                                    <constraint firstItem="rA4-rl-Gbx" firstAttribute="top" secondItem="2Eh-2Y-YkG" secondAttribute="top" id="rgQ-u8-t22"/>
+                                    <constraint firstAttribute="trailing" secondItem="NgJ-yX-4DQ" secondAttribute="trailing" id="vWU-70-bBx"/>
+                                    <constraint firstItem="NgJ-yX-4DQ" firstAttribute="leading" secondItem="xds-55-juU" secondAttribute="leading" id="yan-b2-FkL"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JjB-HT-fs1">
+                                <rect key="frame" x="150" y="703" width="75" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.27726205766379203" green="0.40234437188143057" blue="0.89813512563705444" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="displayP3"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornderRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isCircle" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="xds-55-juU" firstAttribute="top" secondItem="N2H-9G-Qsv" secondAttribute="top" constant="20" id="9Xd-3u-dgb"/>
+                            <constraint firstItem="N2H-9G-Qsv" firstAttribute="trailing" secondItem="xds-55-juU" secondAttribute="trailing" constant="16" id="Duk-CZ-Hfe"/>
+                            <constraint firstAttribute="trailing" secondItem="miz-N2-WMG" secondAttribute="trailing" id="I6j-YK-rtS"/>
+                            <constraint firstItem="miz-N2-WMG" firstAttribute="leading" secondItem="4sv-YP-8Rk" secondAttribute="leading" id="Krh-3x-OnT"/>
+                            <constraint firstItem="xds-55-juU" firstAttribute="leading" secondItem="N2H-9G-Qsv" secondAttribute="leading" constant="16" id="bvN-vg-EMj"/>
+                            <constraint firstItem="miz-N2-WMG" firstAttribute="centerY" secondItem="4sv-YP-8Rk" secondAttribute="centerY" id="ihG-4K-EwK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="N2H-9G-Qsv"/>
+                    </view>
+                    <connections>
+                        <outlet property="cameraButon" destination="JjB-HT-fs1" id="G1m-cx-lRY"/>
+                        <outlet property="mtkView" destination="miz-N2-WMG" id="ocg-sh-yAj"/>
+                        <outlet property="segmentedCtl" destination="NgJ-yX-4DQ" id="azS-yc-Cfk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5vk-tB-ihh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.23188405797103" y="117.1875"/>
+        </scene>
+    </scenes>
+</document>

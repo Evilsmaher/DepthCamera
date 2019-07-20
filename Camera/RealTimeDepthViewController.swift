@@ -17,7 +17,8 @@ public class RealtimeDepthMaskViewController: UIViewController {
     
     private var videoCapture: VideoCapture!
     private var currentCameraType: CameraType = .front(true)
-    private let serialQueue = DispatchQueue(label: "com.shu223.iOS-Depth-Sampler.queue")
+    private let serialQueue = DispatchQueue(label: "com.myQueue.queue")
+    private let imageQueue = DispatchQueue(label: "com.imageQueue.queue", qos: .utility)
     private var currentCaptureSize: CGSize = CGSize.zero
     private var currentCaptureMode: CameraMode = .photo
     
@@ -27,6 +28,9 @@ public class RealtimeDepthMaskViewController: UIViewController {
     
     private var renderer: MetalRenderer!
     
+    static var j:Int = 0
+    static var i:Int = 0
+    
     private var bgUIImages: [UIImage] = []
     private var bgImages: [CIImage] = []
     private var bgImageIndex: Int = 0
@@ -35,6 +39,11 @@ public class RealtimeDepthMaskViewController: UIViewController {
     private var finalImage: CIImage!
     private var completionHandler:((_ image: UIImage?, _ videoUrl: URL?) -> Void)!
     private var indicesThatWereCut:[Int]!
+    private var context:CGContext!
+    
+    private var videoCreator: VideoCreator!
+    private var isRecording:Bool = false
+    private var lastSetOfIndices:[Int]!
     
     public static func createRealTimeDepthCameraVC(completionHandler:@escaping ((_ image: UIImage?, _ videoUrl: URL?) -> Void), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController{
         let newViewController = UIStoryboard(name: "DepthCamera", bundle: Bundle(for: RealtimeDepthMaskViewController.self)).instantiateViewController(withIdentifier: "DepthCamera") as! RealtimeDepthMaskViewController
@@ -58,6 +67,7 @@ public class RealtimeDepthMaskViewController: UIViewController {
         #if targetEnvironment(simulator)
         print("Cannot use simulator")
         #else
+
         let device = MTLCreateSystemDefaultDevice()!
         mtkView.device = device
         mtkView.backgroundColor = UIColor.clear
@@ -91,10 +101,8 @@ public class RealtimeDepthMaskViewController: UIViewController {
             DispatchQueue.main.async(execute: {
                 let binarize = self.binarize
                 let gamma = self.gamma
-                self.serialQueue.async {
-                    guard let depthPixelBuffer = depthData?.depthDataMap else { return }
+                guard let depthPixelBuffer = depthData?.depthDataMap else { return }
                     self.processBuffer(videoPixelBuffer: videoPixelBuffer, depthPixelBuffer: depthPixelBuffer, face: face, shouldBinarize: binarize, shouldGamma: gamma)
-                }
             })
         }
         
@@ -109,18 +117,8 @@ public class RealtimeDepthMaskViewController: UIViewController {
     @objc func buttonClicked(sender: UIButton) {
         if(currentCaptureMode == .photo) {
             if let finalImage = self.finalImage {
-                let image = UIImage(ciImage: finalImage)
-                let transparentImage = processPixels(in: image, finalImage)
-                self.completionHandler(transparentImage, nil)
-            }
-        }
-        else {
-            if(!videoCapture.isVideoRecording()) {
-                videoCapture.startRecording()
-            }
-            else {
-                videoCapture.stopRecording()
-                self.completionHandler(nil, videoCapture.getVideoURL())
+                let transparentImage = processPixels(finalImage, indices: self.lastSetOfIndices)
+                self.completionHandler(transparentImage!, nil)
             }
         }
     }
@@ -197,7 +195,9 @@ extension RealtimeDepthMaskViewController {
         
         // Convert depth map in-place: every pixel above cutoff is converted to 1. otherwise it's 0
         if shouldBinarize {
-            self.indicesThatWereCut = depthPixelBuffer.binarize(cutOff: depthCutOff)
+
+            self.lastSetOfIndices = depthPixelBuffer.binarize(cutOff: depthCutOff, ciimage: self.videoImage!)
+
         }
         
         // Create the mask from that pixel buffer.
@@ -214,15 +214,16 @@ extension RealtimeDepthMaskViewController {
 
 extension CVPixelBuffer {
     
-    func binarize(cutOff: Float) -> [Int] {
-        var indicesCutOff:[Int] = []
+    func binarize(cutOff: Float, ciimage: CIImage) -> [Int] {
         CVPixelBufferLockBaseAddress(self, CVPixelBufferLockFlags(rawValue: 0))
-        let width = CVPixelBufferGetWidth(self)
-        let height = CVPixelBufferGetHeight(self)
-        for yMap in 0 ..< height {
+        let widthCI = CVPixelBufferGetWidth(self)
+        let heightCI = CVPixelBufferGetHeight(self)
+        var indices:[Int] = []
+        for yMap in 0 ..< heightCI {
             let rowData = CVPixelBufferGetBaseAddress(self)! + yMap * CVPixelBufferGetBytesPerRow(self)
-            let data = UnsafeMutableBufferPointer<Float32>(start: rowData.assumingMemoryBound(to: Float32.self), count: width)
-            for index in 0 ..< width {
+            let data = UnsafeMutableBufferPointer<Float32>(start: rowData.assumingMemoryBound(to: Float32.self), count: widthCI)
+            for index in 0 ..< widthCI {
+                //For Screen
                 let depth = data[index]
                 if depth.isNaN {
                     data[index] = 1.0
@@ -230,12 +231,14 @@ extension CVPixelBuffer {
                     data[index] = 1.0
                 } else {
                     data[index] = 0.0
-                    indicesCutOff.append(index)
+                    indices.append(index)
                 }
             }
         }
+    
         CVPixelBufferUnlockBaseAddress(self, CVPixelBufferLockFlags(rawValue: 0))
-        return indicesCutOff
+
+        return indices
     }
 }
 
@@ -281,14 +284,10 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
         }
     }
     
-    func convertCIImageToCGImage(inputImage: CIImage) -> CGImage! {
-        let context = CIContext(options: nil)
-        return context.createCGImage(inputImage, from: inputImage.extent)
-    }
-    
-    func processPixels(in image: UIImage, _ ciimage: CIImage) -> UIImage? {
-        
-        let inputCGImage = self.convertCIImageToCGImage(inputImage: ciimage)!
+    func processPixels(_ ciimage: CIImage, indices:[Int]) -> UIImage? {
+        let image = UIImage(ciImage: ciimage)
+        var indices = indices
+        let inputCGImage = ciimage.convertCIImageToCGImage()!
         
         let colorSpace       = CGColorSpaceCreateDeviceRGB()
         let width            = inputCGImage.width
@@ -298,9 +297,8 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
         let bytesPerRow      = bytesPerPixel * width
         let bitmapInfo       = RGBA32.bitmapInfo
         
-        guard let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo) else {
-            print("unable to create context")
-            return nil
+        if(context == nil) {
+            context = CGContext(data: nil, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo)
         }
         context.draw(inputCGImage, in: CGRect(x: 0, y: 0, width: width, height: height))
         
@@ -314,9 +312,9 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
         for row in 0 ..< Int(height) {
             for column in 0 ..< Int(width) {
                 let offset = row * width + column
-                if offset == self.indicesThatWereCut.first! {
+                if offset == indices.first! {
                     pixelBuffer[offset] = RGBA32.init(red: 0, green: 0, blue: 0, alpha: 0)
-                    self.indicesThatWereCut.remove(at: 0)
+                    indices.remove(at: 0)
                 }
             }
         }
@@ -368,5 +366,12 @@ struct RGBA32: Equatable {
     
     static func ==(lhs: RGBA32, rhs: RGBA32) -> Bool {
         return lhs.color == rhs.color
+    }
+}
+
+extension CIImage {
+    func convertCIImageToCGImage() -> CGImage! {
+        let context = CIContext(options: nil)
+        return context.createCGImage(self, from: self.extent)
     }
 }
