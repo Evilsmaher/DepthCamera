@@ -125,16 +125,16 @@ public class RealtimeDepthMaskViewController: UIViewController {
         if(currentCaptureMode == .photo) {
             if let finalImage = self.finalImage {
                 //xlet ciimage:CIImage = CIImage(cvPixelBuffer: self.lastDepthBuffer)
-                let ciimage = finalImage
-                let cgimage:CGImage = ciimage.convertCIImageToCGImage()
+                //                let ciimage = finalImage
+                //let cgimage:CGImage = ciimage.convertCIImageToCGImage()
                 //                let image:UIImage = UIImage(cgImage: cgimage)
                 //                let regImage:UIImage = UIImage(ciImage: finalImage)
                 //                let ratio = regImage.size.width/image.size.width
                 //                let sizedImage = resizeImage(image: image, toScale: ratio)
                 //                print(image.size, regImage.size, sizedImage.size)
-                
-                let transparentImage = processPixels(ciimage, image: UIImage(ciImage: ciimage))
-                self.completionHandler(transparentImage!, nil)
+                //                let transparentImage = UIImage(ciImage: finalImage)
+                let transparentImage = processPixels(finalImage, image: UIImage(ciImage: finalImage))
+                self.completionHandler(transparentImage, nil)
                 //                self.completionHandler(UIImage(ciImage: finalImage), nil)
             }
         }
@@ -150,35 +150,49 @@ public class RealtimeDepthMaskViewController: UIViewController {
                 var newImages:[UIImage] = []
                 for i in 0 ..< self.images.count {
                     let ciimage = self.images[i]
-                    //                    let cgimage:CGImage = ciimage.convertCIImageToCGImage()
-                    //                    let image:UIImage = UIImage(cgImage: cgimage)
-                    //                    let regImage:UIImage = UIImage(ciImage: ciimage)
-                    //                    let ratio = regImage.size.width/image.size.width
-                    //                    let sizedImage = resizeImage(image: image, toScale: ratio)
-                    //                    print(image.size, regImage.size, sizedImage.size)
-                    
                     let transparentImage = resizeImage(image: processPixels(ciimage, image: UIImage(ciImage: ciimage))!, toScale: 0.1)
                     newImages.append(transparentImage)
                 }
                 
                 
-                VideoGenerator.fileName = "Name"
-                VideoGenerator.videoBackgroundColor = .clear
-                VideoGenerator.shouldOptimiseImageForVideo = true
-                VideoGenerator.videoDurationInSeconds = 5
+                //                VideoGenerator.fileName = "Name"
+                //                VideoGenerator.videoBackgroundColor = .clear
+                //                VideoGenerator.shouldOptimiseImageForVideo = true
+                //                VideoGenerator.videoDurationInSeconds = 5
+                //
+                //                VideoGenerator.current.generate(withImages: newImages, andAudios: [], andType: .multiple, { (progress) in
+                //                    print(progress)
+                //                }, success: { (url) in
+                //                    self.completionHandler(nil, url)
+                //                }, failure: { (error) in
+                //                    print(error)
+                //                })
                 
-                VideoGenerator.current.generate(withImages: newImages, andAudios: [], andType: .multiple, { (progress) in
-                    print(progress)
-                }, success: { (url) in
-                    self.completionHandler(nil, url)
-                }, failure: { (error) in
-                    print(error)
-                })
-                
-//                self.videoCreator.startCreatingVideo(images: newImages) {
-//                    self.completionHandler(nil, self.videoCreator.getURL())
-//                }
+                self.videoCreator.startCreatingVideo(images: newImages) {
+                    let image = self.videoSnapshot(url: self.videoCreator.getURL(), time: CMTime(seconds: 0, preferredTimescale: 600))
+                    
+                    self.completionHandler(nil, self.videoCreator.getURL())
+                }
             }
+        }
+    }
+    
+    func videoSnapshot(url: URL, time:CMTime) -> UIImage? {
+        
+        let asset = AVURLAsset(url: url)
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        
+        let timestamp = time
+        
+        do {
+            let imageRef = try generator.copyCGImage(at: timestamp, actualTime: nil)
+            return UIImage(cgImage: imageRef)
+        }
+        catch let error as NSError
+        {
+            print("Image generation failed with error \(error)")
+            return nil
         }
     }
     
@@ -352,18 +366,13 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
             return
         }
         if(self.isRecording) {
-            //            let ciimage = CIImage(cvPixelBuffer: self.videoCapture.buffer)
             let ciimage = self.finalImage!
             let maskedImage = self.maskImage!
             let image = UIImage(ciImage: ciimage)
             
             if(image.size.width != 0) {
-                //                let newImage = resizeImage(image: image, toScale: 0.1)
                 self.images.append(ciimage)
                 self.maskedImages.append(maskedImage)
-                //                self.finalBuffers.append(self.lastDepthBuffer)
-                self.imageView1.image = image
-                self.imageView2.image = UIImage(ciImage: self.finalImage)
             }
         }
     }
@@ -385,6 +394,8 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
             return newImage!
         }
     }
+    
+    //Get Clear Pixels
     func processPixels(_ ciimage: CIImage, image:UIImage) -> UIImage? {
         let inputCGImage = ciimage.convertCIImageToCGImage()!
         
@@ -403,26 +414,6 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
         }
         
         context.draw(inputCGImage, in: CGRect(x: 0, y: 0, width: width, height: height))
-        
-        guard let buffer = context.data else {
-            print("unable to get context data")
-            return nil
-        }
-        
-        let pixelBuffer = buffer.bindMemory(to: RGBA32.self, capacity: width * height)
-        
-        
-        for row in 0 ..< Int(height) {
-            for column in 0 ..< Int(width) {
-                let offset = row * width + column
-                if(pixelBuffer[offset] == RGBA32.init(red: 0, green: 0, blue: 0, alpha: 0)) {
-                    //                    pixelBuffer[offset] = RGBA32.init(red: 255, green: 0, blue: 0, alpha: 255)
-                    //  pixelBuffer[offset] = RGBA32.init(red: 0, green: 0, blue: 0, alpha: 0)
-                }
-            }
-        }
-        
-        
         
         let outputCGImage = context.makeImage()!
         let outputImage = UIImage(cgImage: outputCGImage, scale: image.scale, orientation: image.imageOrientation)

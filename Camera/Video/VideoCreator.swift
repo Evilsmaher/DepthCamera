@@ -181,7 +181,32 @@ public class VideoWriter {
         return videoWriterInput?.isReadyForMoreMediaData ?? false
     }
     
-    class func pixelBufferFromImage(image: UIImage, pixelBufferPool: CVPixelBufferPool, size: CGSize) -> CVPixelBuffer {
+    class func pixelBufferFromImage(image: UIImage, pixelBufferPool: CVPixelBufferPool, size: CGSize, alpha:CGImageAlphaInfo) -> CVPixelBuffer? {
+        
+        //        let inputCGImage =  CIImage(image: image)!.convertCIImageToCGImage()!
+        //
+        //        let colorSpace       = CGColorSpaceCreateDeviceRGB()
+        //        let width            = inputCGImage.width
+        //        let height           = inputCGImage.height
+        //        let bytesPerPixel    = 4
+        //        let bitsPerComponent = 8
+        //        let bytesPerRow      = bytesPerPixel * width
+        //        let bitmapInfo       = RGBA32.bitmapInfo
+        //
+        //
+        //        guard let context1 = CGContext(data: nil, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo) else {
+        //            print("Couldn't create CGContext")
+        //            return nil
+        //        }
+        //
+        //        context1.draw(inputCGImage, in: CGRect(x: 0, y: 0, width: width, height: height))
+        //
+        //        guard let buffer = context1.data else {
+        //            print("unable to get context data")
+        //            return nil
+        //        }
+        //
+        //        let oldPixelBuffer = buffer.bindMemory(to: RGBA32.self, capacity: width * height)
         
         var pixelBufferOut: CVPixelBuffer?
         
@@ -197,7 +222,7 @@ public class VideoWriter {
         let data = CVPixelBufferGetBaseAddress(pixelBuffer)
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
         let context = CGContext(data: data, width: Int(size.width), height: Int(size.height),
-                                bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue)
+                                bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer), space: rgbColorSpace, bitmapInfo: alpha.rawValue)
         
         context!.clear(CGRect(x: 0, y: 0, width: size.width, height: size.height))
         
@@ -212,8 +237,20 @@ public class VideoWriter {
         let y = newSize.height < size.height ? (size.height - newSize.height) / 2 : 0
         
         context!.draw(image.cgImage!, in: CGRect(x: x, y: y, width: newSize.width, height: newSize.height))
-        CVPixelBufferUnlockBaseAddress(pixelBuffer, [])
         
+        let newPixelBuffer = data!.bindMemory(to: RGBA32.self, capacity: Int(newSize.width * newSize.height))
+        
+        for row in 0 ..< Int(newSize.height) {
+            for column in 0 ..< Int(newSize.width) {
+                let offset = row * Int(newSize.width) + column
+                //Blue -- GREEN -- RED --
+                if(newPixelBuffer[offset] == RGBA32.black) {
+                    newPixelBuffer[offset] = RGBA32.init(red: 0, green: 255, blue: 0, alpha: 255)
+                }
+            }
+        }
+        
+        CVPixelBufferUnlockBaseAddress(pixelBuffer, [])
         return pixelBuffer
     }
     
@@ -300,7 +337,10 @@ public class VideoWriter {
         
         precondition(pixelBufferAdaptor != nil, "Call start() to initialze the writer")
         
-        let pixelBuffer = VideoWriter.pixelBufferFromImage(image: image, pixelBufferPool: pixelBufferAdaptor.pixelBufferPool!, size: renderSettings.size)
+        //1
+        let pixelBuffer = VideoWriter.pixelBufferFromImage(image: image, pixelBufferPool: pixelBufferAdaptor.pixelBufferPool!, size: renderSettings.size, alpha: CGImageAlphaInfo.premultipliedFirst)!
+        let image1 = UIImage(pixelBuffer: pixelBuffer)
+        
         return pixelBufferAdaptor.append(pixelBuffer, withPresentationTime: presentationTime)
     }
     
