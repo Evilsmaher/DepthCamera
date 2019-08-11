@@ -8,6 +8,7 @@
 import UIKit
 import MetalKit
 import AVFoundation
+import SwiftVideoGenerator
 
 public class RealtimeDepthMaskViewController: UIViewController {
     
@@ -160,9 +161,23 @@ public class RealtimeDepthMaskViewController: UIViewController {
                     newImages.append(transparentImage)
                 }
                 
-                self.videoCreator.startCreatingVideo(images: newImages) {
-                    self.completionHandler(nil, self.videoCreator.getURL())
-                }
+                
+                VideoGenerator.fileName = "Name"
+                VideoGenerator.videoBackgroundColor = .clear
+                VideoGenerator.shouldOptimiseImageForVideo = true
+                VideoGenerator.videoDurationInSeconds = 5
+                
+                VideoGenerator.current.generate(withImages: newImages, andAudios: [], andType: .multiple, { (progress) in
+                    print(progress)
+                }, success: { (url) in
+                    self.completionHandler(nil, url)
+                }, failure: { (error) in
+                    print(error)
+                })
+                
+//                self.videoCreator.startCreatingVideo(images: newImages) {
+//                    self.completionHandler(nil, self.videoCreator.getURL())
+//                }
             }
         }
     }
