@@ -8,6 +8,7 @@
 import AVFoundation
 import Foundation
 import UIKit
+import Accelerate.vImage
 
 struct VideoSpec {
     var fps: Int32?
@@ -15,7 +16,8 @@ struct VideoSpec {
 }
 
 typealias ImageBufferHandler = (CVPixelBuffer, CMTime, CVPixelBuffer?) -> Void
-typealias SynchronizedDataBufferHandler = (CVPixelBuffer, AVDepthData?, AVMetadataObject?) -> Void
+//typealias SynchronizedDataBufferHandler = (CVPixelBuffer, AVDepthData?, AVMetadataObject?) -> Void
+typealias SynchronizedDataBufferHandler = (CVPixelBuffer, CVPixelBuffer, AVMetadataObject?) -> Void
 
 extension AVCaptureDevice {
     func printDepthFormats() {
@@ -54,6 +56,20 @@ class VideoCapture: NSObject {
     private var audioWriterInput:AVAssetWriterInput!
     private var sessionAtSourceTime:CMTime!
     private var videoURL:URL!
+    
+    var buffer:CVPixelBuffer!
+    var depthBuffer:CVPixelBuffer!
+    private var converter: vImageConverter?
+    var cgImageFormat = vImage_CGImageFormat(
+        bitsPerComponent: 8,
+        bitsPerPixel: 32,
+        colorSpace: nil,
+        bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.first.rawValue),
+        version: 0,
+        decode: nil,
+        renderingIntent: .defaultIntent)
+    var sourceBuffers = [vImage_Buffer]()
+    var destinationBuffer = vImage_Buffer()
     
     init(cameraMode: CameraMode, cameraType: CameraType, preferredSpec: VideoSpec?, previewContainer: CALayer?)
     {
@@ -227,27 +243,105 @@ extension VideoCapture: AVCaptureDataOutputSynchronizerDelegate {
     
     func dataOutputSynchronizer(_ synchronizer: AVCaptureDataOutputSynchronizer, didOutput synchronizedDataCollection: AVCaptureSynchronizedDataCollection) {
         
-        guard let syncedVideoData = synchronizedDataCollection.synchronizedData(for: videoDataOutput) as? AVCaptureSynchronizedSampleBufferData else { return }
+        guard let syncedVideoData = synchronizedDataCollection.synchronizedData(for: self.videoDataOutput) as? AVCaptureSynchronizedSampleBufferData else { return }
         guard !syncedVideoData.sampleBufferWasDropped else {
-            //print("dropped video:\(syncedVideoData)")
+            print(syncedVideoData.droppedReason.rawValue)
             return
         }
         let videoSampleBuffer = syncedVideoData.sampleBuffer
         
-        let syncedDepthData = synchronizedDataCollection.synchronizedData(for: depthDataOutput) as? AVCaptureSynchronizedDepthData
+        let syncedDepthData = synchronizedDataCollection.synchronizedData(for: self.depthDataOutput) as? AVCaptureSynchronizedDepthData
         var depthData = syncedDepthData?.depthData
         if let syncedDepthData = syncedDepthData, syncedDepthData.depthDataWasDropped {
             print("dropped depth:\(syncedDepthData)")
             depthData = nil
         }
         
-        let syncedMetaData = synchronizedDataCollection.synchronizedData(for: metadataOutput) as? AVCaptureSynchronizedMetadataObjectData
+        let syncedMetaData = synchronizedDataCollection.synchronizedData(for: self.metadataOutput) as? AVCaptureSynchronizedMetadataObjectData
         var face: AVMetadataObject? = nil
         if let firstFace = syncedMetaData?.metadataObjects.first {
-            face = videoDataOutput.transformedMetadataObject(for: firstFace, connection: videoConnection)
+            face = self.videoDataOutput.transformedMetadataObject(for: firstFace, connection: self.videoConnection)
         }
         guard let imagePixelBuffer = CMSampleBufferGetImageBuffer(videoSampleBuffer) else { fatalError() }
+        guard let depthMap = depthData?.depthDataMap else { return }
         
-        syncedDataBufferHandler?(imagePixelBuffer, depthData, face)
+        CVPixelBufferLockBaseAddress(imagePixelBuffer,
+                                     CVPixelBufferLockFlags.readOnly)
+        
+        self.buffer = displayEqualizedPixelBuffer(pixelBuffer: imagePixelBuffer)
+        
+        CVPixelBufferUnlockBaseAddress(imagePixelBuffer,
+                                       CVPixelBufferLockFlags.readOnly)
+        
+        CVPixelBufferLockBaseAddress(depthMap,
+                                     CVPixelBufferLockFlags.readOnly)
+        
+        self.depthBuffer = displayEqualizedPixelBuffer(pixelBuffer: depthMap)
+        
+        CVPixelBufferUnlockBaseAddress(depthMap, CVPixelBufferLockFlags.readOnly)
+        
+        self.syncedDataBufferHandler?(self.buffer, self.depthBuffer, face)
+        
+    }
+    
+    func displayEqualizedPixelBuffer(pixelBuffer: CVPixelBuffer) -> CVPixelBuffer? {
+        
+        let scaleWidth:Int = CVPixelBufferGetWidth(pixelBuffer)
+        let scaleHeight:Int = CVPixelBufferGetHeight(pixelBuffer)
+        
+        let flags = CVPixelBufferLockFlags(rawValue: 0)
+        guard kCVReturnSuccess == CVPixelBufferLockBaseAddress(pixelBuffer, flags) else {
+            return nil
+        }
+        
+        defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, flags) }
+        
+        guard let srcData = CVPixelBufferGetBaseAddress(pixelBuffer) else {
+            print("Error: could not get pixel buffer base address")
+            return nil
+        }
+        
+        let srcBytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer)
+        var srcBuffer = vImage_Buffer(data: srcData,
+                                      height: vImagePixelCount(CVPixelBufferGetHeight(pixelBuffer)),
+                                      width: vImagePixelCount(CVPixelBufferGetWidth(pixelBuffer)),
+                                      rowBytes: srcBytesPerRow)
+        
+        let destBytesPerRow = scaleWidth*4
+        guard let destData = malloc(scaleHeight*destBytesPerRow) else {
+            print("Error: out of memory")
+            return nil
+        }
+        
+        var destBuffer = vImage_Buffer(data: destData,
+                                       height: vImagePixelCount(scaleHeight),
+                                       width: vImagePixelCount(scaleWidth),
+                                       rowBytes: destBytesPerRow)
+        
+        let error = vImageScale_ARGB8888(&srcBuffer, &destBuffer, nil, vImage_Flags(kvImageLeaveAlphaUnchanged))
+        if error != kvImageNoError {
+            print("Error:", error)
+            free(destData)
+            return nil
+        }
+        
+        let releaseCallback: CVPixelBufferReleaseBytesCallback = { _, ptr in
+            if let ptr = ptr {
+                free(UnsafeMutableRawPointer(mutating: ptr))
+            }
+        }
+        
+        let pixelFormat = CVPixelBufferGetPixelFormatType(pixelBuffer)
+        var dstPixelBuffer: CVPixelBuffer?
+        let status = CVPixelBufferCreateWithBytes(nil, scaleWidth, scaleHeight,
+                                                  pixelFormat, destData,
+                                                  destBytesPerRow, releaseCallback,
+                                                  nil, nil, &dstPixelBuffer)
+        if status != kCVReturnSuccess {
+            print("Error: could not create new pixel buffer")
+            free(destData)
+            return nil
+        }
+        return dstPixelBuffer
     }
 }
