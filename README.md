@@ -17,7 +17,23 @@ The `MTKViewDelegate` inside "RealTimeDepthViewController" is what calls the asy
 
 *Video Recording*
 
+To take an image:
+```
+let controller = RealtimeDepthMaskViewController.createRealTimeDepthCameraVC(imageOrVideoCaptureMode: .photo, completionHandler: { (image, _) in
+                    //Do something with image
+                }, backgroundImages: nil)
+self.present(controller, animated: true, completion: nil)
+```
 
+To take a video:
+```
+let controller = RealtimeDepthMaskViewController.createRealTimeDepthCameraVC(imageOrVideoCaptureMode: .video, completionHandler: { (_, url) in
+                    //Do something with url
+                }, backgroundImages: nil)
+self.present(controller, animated: true, completion: nil)
+```
+
+It's as simple as creating a `RealTimeDepthViewController` and presenting it. You just need to state whether it is a video or a photo. From there, just make sure to use the completion handler to access the `URL` or the `UIImage` once you are done. 
 
 *Video Viewing*
 
