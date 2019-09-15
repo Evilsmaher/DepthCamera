@@ -3,6 +3,7 @@ _DepthCamera_
 
 *Add To Your Project*
 In your `Podfile` add `pod 'DepthCamera'`.
+Then, wherever you need to make calls, `import DepthCamera` into that specific file. 
 
 *Details*
 
@@ -37,4 +38,35 @@ It's as simple as creating a `RealTimeDepthViewController` and presenting it. Yo
 
 *Video Viewing*
 
-2D: To view the video in 2D, you can record a video using _Video Recording Above_ for 2D. Then, 
+Note: When I say 2D and 3D, I am talking about the type of viewer. `2D = AVPlayer` and `3D = SCNNode / ARKit`.
+
+2D Video: 
+```
+//You need to create an AVVideoComposition that removes the green pixels using a ChromaKey
+let composition = AVMutableVideoComposition(asset: asset) { (request) in
+    let source = request.sourceImage.clampedToExtent()
+    let filteredImage = RealtimeDepthMaskViewController.filteredImage(ciimage: source)!.clamped(to: source.extent)
+    request.finish(with: filteredImage, context: nil)
+}
+
+let url = URL(string: "Wherever you store the video")
+let asset = AVURLAsset(url: url)
+let playerItem = AVPlayerItem(asset: asset)
+playerItem.videoComposition = composition
+```
+
+2D Image: just get the image of wherever you stored. It should be a black background since an `AVPlayer` cannot see alpha channel, although the alpha channel for specific pixels is `0.0`.
+
+3D Video: 
+
+```
+let scene = SKScene(size: videoNode.size)
+//Add videoNode to scene
+scene.addChild(videoNode)
+
+let chromaKeyMaterial = RealtimeDepthMaskViewController.get3DChromaKey()
+chromaKeyMaterial.diffuse.contents = scene
+node.geometry!.materials = [chromaKeyMaterial]
+```
+
+3D Image: just get the image of wherever you stored. It should be a clear background since in `ARKit` the `SCNNode` can see alpha channels.
