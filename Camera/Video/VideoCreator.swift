@@ -22,10 +22,10 @@ public class VideoCreator: NSObject {
         self.imageAnimator = ImageAnimator(renderSettings: self.settings)
     }
     
-    public convenience init(fps: Int32, width: CGFloat, height: CGFloat) {
+    public convenience init(fps: Int32, width: CGFloat, height: CGFloat, audioSettings: [String:Any]?) {
         self.init()
         self.settings = RenderSettings(fps: fps, width: width, height: height)
-        self.imageAnimator = ImageAnimator(renderSettings: self.settings)
+        self.imageAnimator = ImageAnimator(renderSettings: self.settings, audioSettings: audioSettings)
     }
     
     public convenience init(width: CGFloat, height: CGFloat) {
@@ -34,19 +34,26 @@ public class VideoCreator: NSObject {
         self.imageAnimator = ImageAnimator(renderSettings: self.settings)
     }
     
-    func startCreatingVideo(images:[UIImage], completion: @escaping (() -> Void)) {
-        self.setImages(images: images)
-        self.imageAnimator.render {
+    func startCreatingVideo(initialBuffer: CMSampleBuffer?, completion: @escaping (() -> Void)) {
+        self.imageAnimator.render(initialBuffer: initialBuffer) {
             completion()
         }
     }
     
-    private func setImages(images:[UIImage]) {
-        self.imageAnimator.setImages(images: images)
+    func finishWriting() {
+        self.imageAnimator.isDone = true
+    }
+    
+    func addImageAndAudio(image:UIImage, audio:CMSampleBuffer?, time:CFAbsoluteTime) {
+        self.imageAnimator.addImageAndAudio(image: image, audio: audio, time: time)
     }
     
     func getURL() -> URL {
         return settings!.outputURL
+    }
+    
+    func addAudio(audio: CMSampleBuffer) {
+        self.imageAnimator.videoWriter.addAudio(buffer: audio)
     }
 }
 
@@ -101,7 +108,9 @@ public class ImageAnimator {
     
     let settings: RenderSettings
     let videoWriter: VideoWriter
-    var images:[UIImage] = []
+    var imagesAndAudio:SynchronizedArray<(UIImage, CMSampleBuffer?, CFAbsoluteTime)> = SynchronizedArray<(UIImage, CMSampleBuffer?, CFAbsoluteTime)>()
+    var isDone:Bool = false
+    let semaphore = DispatchSemaphore(value: 1)
     
     var frameNum = 0
     
@@ -114,21 +123,22 @@ public class ImageAnimator {
         }
     }
     
-    init(renderSettings: RenderSettings) {
+    init(renderSettings: RenderSettings, audioSettings:[String:Any]? = nil) {
         settings = renderSettings
-        videoWriter = VideoWriter(renderSettings: settings)
+        videoWriter = VideoWriter(renderSettings: settings, audioSettings: audioSettings)
     }
     
-    func setImages(images: [UIImage]) {
-        self.images = images
+    func addImageAndAudio(image: UIImage, audio: CMSampleBuffer?, time:CFAbsoluteTime) {
+        self.imagesAndAudio.append((image, audio, time))
+//        print("Adding to array -- \(self.imagesAndAudio.count)")
     }
     
-    func render(completion: @escaping ()->Void) {
+    func render(initialBuffer: CMSampleBuffer?, completion: @escaping ()->Void) {
         
         // The VideoWriter will fail if a file exists at the URL, so clear it out first.
         ImageAnimator.removeFileAtURL(fileURL: settings.outputURL)
         
-        videoWriter.start()
+        videoWriter.start(initialBuffer: initialBuffer)
         videoWriter.render(appendPixelBuffers: appendPixelBuffers) {
             //ImageAnimator.saveToLibrary(self.settings.outputURL)
             completion()
@@ -139,29 +149,52 @@ public class ImageAnimator {
     // This is the callback function for VideoWriter.render()
     func appendPixelBuffers(writer: VideoWriter) -> Bool {
         
-        let frameDuration = CMTimeMake(value: Int64(ImageAnimator.kTimescale / settings.fps), timescale: ImageAnimator.kTimescale)
-        
         //Don't stop while images are NOT empty
-        while !images.isEmpty {
+        while !imagesAndAudio.isEmpty || !isDone {
             
-            if writer.isReadyForData == false {
-                // Inform writer we have more buffers to write.
-                return false
+            if(!imagesAndAudio.isEmpty) {
+                let date = Date()
+                
+                if writer.isReadyForData == false {
+                    // Inform writer we have more buffers to write.
+                    print("Writer is not ready for more data")
+                    return false
+                }
+                
+                autoreleasepool {
+                    //This should help but truly doesn't suffice - still need a mutex/lock
+                    if(!imagesAndAudio.isEmpty) {
+                        semaphore.wait() // requesting resource
+                        let imageAndAudio = imagesAndAudio.first()!
+                        let image = imageAndAudio.0
+                        let audio = imageAndAudio.1
+                        let time = imageAndAudio.2
+                        self.imagesAndAudio.removeAtIndex(index: 0)
+                        semaphore.signal() // releasing resource
+                        let presentationTime = CMTime(seconds: time, preferredTimescale: 600)
+                        
+//                        if(audio != nil) { videoWriter.addAudio(buffer: audio!) }
+                        let success = videoWriter.addImage(image: image, withPresentationTime: presentationTime)
+                        if success == false {
+                            fatalError("addImage() failed")
+                        }
+                        else {
+                            print("Added image @ frame \(frameNum) with presTime: \(presentationTime)")
+                        }
+                    
+                        frameNum += 1
+                        let final = Date()
+                        let timeDiff = final.timeIntervalSince(date)
+                        print("Time: \(timeDiff)")
+                    }
+                    else {
+                        print("Images was empty")
+                    }
+                }
             }
-            
-            let image = images.removeFirst()
-            let presentationTime = CMTimeMultiply(frameDuration, multiplier: Int32(frameNum))
-            let success = videoWriter.addImage(image: image, withPresentationTime: presentationTime)
-            if success == false {
-                fatalError("addImage() failed")
-            }
-            else {
-                print("Added image @ frame \(frameNum) with presTime: \(presentationTime)")
-            }
-            
-            frameNum += 1
         }
         
+        print("Done writing")
         // Inform writer all buffers have been written.
         return true
     }
@@ -172,41 +205,19 @@ public class ImageAnimator {
 public class VideoWriter {
     
     let renderSettings: RenderSettings
-    
+    var audioSettings: [String:Any]?
     var videoWriter: AVAssetWriter!
     var videoWriterInput: AVAssetWriterInput!
     var pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor!
+    var audioWriterInput: AVAssetWriterInput!
+    static var ci:Int = 0
+    var initialTime:CMTime!
     
     var isReadyForData: Bool {
-        return videoWriterInput?.isReadyForMoreMediaData ?? false
+        return (videoWriterInput == nil ? true : videoWriterInput!.isReadyForMoreMediaData ) && (audioWriterInput == nil ? true : audioWriterInput!.isReadyForMoreMediaData )
     }
     
     class func pixelBufferFromImage(image: UIImage, pixelBufferPool: CVPixelBufferPool, size: CGSize, alpha:CGImageAlphaInfo) -> CVPixelBuffer? {
-        
-        //        let inputCGImage =  CIImage(image: image)!.convertCIImageToCGImage()!
-        //
-        //        let colorSpace       = CGColorSpaceCreateDeviceRGB()
-        //        let width            = inputCGImage.width
-        //        let height           = inputCGImage.height
-        //        let bytesPerPixel    = 4
-        //        let bitsPerComponent = 8
-        //        let bytesPerRow      = bytesPerPixel * width
-        //        let bitmapInfo       = RGBA32.bitmapInfo
-        //
-        //
-        //        guard let context1 = CGContext(data: nil, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo) else {
-        //            print("Couldn't create CGContext")
-        //            return nil
-        //        }
-        //
-        //        context1.draw(inputCGImage, in: CGRect(x: 0, y: 0, width: width, height: height))
-        //
-        //        guard let buffer = context1.data else {
-        //            print("unable to get context data")
-        //            return nil
-        //        }
-        //
-        //        let oldPixelBuffer = buffer.bindMemory(to: RGBA32.self, capacity: width * height)
         
         var pixelBufferOut: CVPixelBuffer?
         
@@ -236,36 +247,29 @@ public class VideoWriter {
         let x = newSize.width < size.width ? (size.width - newSize.width) / 2 : 0
         let y = newSize.height < size.height ? (size.height - newSize.height) / 2 : 0
         
-        context!.draw(image.cgImage!, in: CGRect(x: x, y: y, width: newSize.width, height: newSize.height))
+        let cgImage = image.cgImage != nil ? image.cgImage! : image.ciImage!.convertCIImageToCGImage()
         
-        let newPixelBuffer = data!.bindMemory(to: RGBA32.self, capacity: Int(newSize.width * newSize.height))
-        
-        for row in 0 ..< Int(newSize.height) {
-            for column in 0 ..< Int(newSize.width) {
-                let offset = row * Int(newSize.width) + column
-                //Blue -- GREEN -- RED --
-                if(newPixelBuffer[offset] == RGBA32.black) {
-                    newPixelBuffer[offset] = RGBA32.init(red: 0, green: 255, blue: 0, alpha: 255)
-                }
-            }
-        }
+        context!.draw(cgImage!, in: CGRect(x: x, y: y, width: newSize.width, height: newSize.height))
         
         CVPixelBufferUnlockBaseAddress(pixelBuffer, [])
         return pixelBuffer
     }
     
     @available(iOS 11.0, *)
-    init(renderSettings: RenderSettings) {
+    init(renderSettings: RenderSettings, audioSettings:[String:Any]? = nil) {
         self.renderSettings = renderSettings
+        self.audioSettings = audioSettings
     }
     
-    func start() {
+    func start(initialBuffer: CMSampleBuffer?) {
         
         let avOutputSettings: [String: AnyObject] = [
             AVVideoCodecKey: renderSettings.avCodecKey as AnyObject,
             AVVideoWidthKey: NSNumber(value: Float(renderSettings.width)),
             AVVideoHeightKey: NSNumber(value: Float(renderSettings.height))
         ]
+        
+        let avAudioSettings = audioSettings
         
         func createPixelBufferAdaptor() {
             let sourcePixelBufferAttributesDictionary = [
@@ -278,7 +282,7 @@ public class VideoWriter {
         }
         
         func createAssetWriter(outputURL: URL) -> AVAssetWriter {
-            guard let assetWriter = try? AVAssetWriter(outputURL: outputURL, fileType: AVFileType.mp4) else {
+            guard let assetWriter = try? AVAssetWriter(outputURL: outputURL, fileType: AVFileType.mov) else {
                 fatalError("AVAssetWriter() failed")
             }
             
@@ -291,6 +295,10 @@ public class VideoWriter {
         
         videoWriter = createAssetWriter(outputURL: renderSettings.outputURL)
         videoWriterInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: avOutputSettings)
+//        if(audioSettings != nil) {
+        audioWriterInput = AVAssetWriterInput(mediaType: .audio, outputSettings: nil)
+        audioWriterInput.expectsMediaDataInRealTime = true
+//        }
         
         if videoWriter.canAdd(videoWriterInput) {
             videoWriter.add(videoWriterInput)
@@ -299,6 +307,15 @@ public class VideoWriter {
             fatalError("canAddInput() returned false")
         }
         
+//        if(audioSettings != nil) {
+            if videoWriter.canAdd(audioWriterInput) {
+                videoWriter.add(audioWriterInput)
+            }
+            else {
+                fatalError("canAddInput() returned false")
+            }
+//        }
+        
         // The pixel buffer adaptor must be created before we start writing.
         createPixelBufferAdaptor()
         
@@ -306,7 +323,9 @@ public class VideoWriter {
             fatalError("startWriting() failed")
         }
         
-        videoWriter.startSession(atSourceTime: CMTime.zero)
+        
+        self.initialTime = initialBuffer != nil ? CMSampleBufferGetPresentationTimeStamp(initialBuffer!) : CMTime.zero
+        videoWriter.startSession(atSourceTime: self.initialTime)
         
         precondition(pixelBufferAdaptor.pixelBufferPool != nil, "nil pixelBufferPool")
     }
@@ -333,15 +352,20 @@ public class VideoWriter {
         }
     }
     
+    func addAudio(buffer: CMSampleBuffer) {
+        if(self.audioWriterInput != nil && self.audioWriterInput.isReadyForMoreMediaData) {
+            print("Writing audio \(VideoWriter.ci) of a time of \(CMSampleBufferGetPresentationTimeStamp(buffer))")
+            self.audioWriterInput.append(buffer)
+        }
+        VideoWriter.ci += 1
+    }
+    
     func addImage(image: UIImage, withPresentationTime presentationTime: CMTime) -> Bool {
         
         precondition(pixelBufferAdaptor != nil, "Call start() to initialze the writer")
-        
         //1
         let pixelBuffer = VideoWriter.pixelBufferFromImage(image: image, pixelBufferPool: pixelBufferAdaptor.pixelBufferPool!, size: renderSettings.size, alpha: CGImageAlphaInfo.premultipliedFirst)!
-        let image1 = UIImage(pixelBuffer: pixelBuffer)
         
-        return pixelBufferAdaptor.append(pixelBuffer, withPresentationTime: presentationTime)
+        return pixelBufferAdaptor.append(pixelBuffer, withPresentationTime: presentationTime + self.initialTime)
     }
-    
 }

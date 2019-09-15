@@ -8,20 +8,21 @@
 import UIKit
 import MetalKit
 import AVFoundation
-import SwiftVideoGenerator
+import CoreImage
+import Accelerate
 
 public class RealtimeDepthMaskViewController: UIViewController {
     
     @IBOutlet weak var mtkView: MTKView!
     @IBOutlet weak var segmentedCtl: UISegmentedControl!
     @IBOutlet weak var cameraButon: UIButton!
-    @IBOutlet weak var imageView1: UIImageView!
-    @IBOutlet weak var imageView2: UIImageView!
+    @IBOutlet weak var cameraLabel: UILabel!
     
     private var videoCapture: VideoCapture!
     private var currentCameraType: CameraType = .front(true)
     private let serialQueue = DispatchQueue(label: "com.myQueue.queue")
     private let imageQueue = DispatchQueue(label: "com.imageQueue.queue", qos: .utility)
+    private let dispatchGroup = DispatchGroup()
     private var currentCaptureSize: CGSize = CGSize.zero
     private var currentCaptureMode: CameraMode = .photo
     
@@ -37,19 +38,15 @@ public class RealtimeDepthMaskViewController: UIViewController {
     private var videoImage: CIImage?
     private var maskImage: CIImage?
     private var finalImage: CIImage!
+    private var curAudioSnip: CMSampleBuffer!
     private var completionHandler:((_ image: UIImage?, _ videoUrl: URL?) -> Void)!
-    //    private var context:CGContext!
-    private var maskedContext:CGContext!
     
     private var videoCreator: VideoCreator!
     private var isRecording:Bool = false
-    //private var lastDepthBuffer:CVPixelBuffer!
+    private var initTime:CFAbsoluteTime!
+    private static var filter:CIFilter!
     
-    var images:[CIImage] = []
-    var maskedImages:[CIImage] = []
-    //    var finalBuffers:[CVPixelBuffer] = []
-    
-    public static func createRealTimeDepthCameraVC(completionHandler:@escaping ((_ image: UIImage?, _ videoUrl: URL?) -> Void), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController{
+    public static func createRealTimeDepthCameraVC(imageOrVideoCaptureMode: CameraMode, completionHandler:@escaping ((_ image: UIImage?, _ videoUrl: URL?) -> Void), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController {
         let newViewController = UIStoryboard(name: "DepthCamera", bundle: Bundle(for: RealtimeDepthMaskViewController.self)).instantiateViewController(withIdentifier: "DepthCamera") as! RealtimeDepthMaskViewController
         newViewController.completionHandler = completionHandler
         if(backgroundImages != nil) {
@@ -57,6 +54,7 @@ public class RealtimeDepthMaskViewController: UIViewController {
                 newViewController.bgUIImages.append(image)
             }
         }
+        newViewController.currentCaptureMode = imageOrVideoCaptureMode
         return newViewController
     }
     
@@ -72,6 +70,8 @@ public class RealtimeDepthMaskViewController: UIViewController {
         print("Cannot use simulator")
         #else
         
+//        self.currentCaptureMode =
+
         let device = MTLCreateSystemDefaultDevice()!
         mtkView.device = device
         mtkView.backgroundColor = UIColor.clear
@@ -87,7 +87,6 @@ public class RealtimeDepthMaskViewController: UIViewController {
             guard let self = self else { return }
             
             self.videoImage = CIImage(cvPixelBuffer: videoPixelBuffer)
-            //self.videoImage = CIImage(cvPixelBuffer: self.videoCapture.buffer)
             
             let videoWidth = CVPixelBufferGetWidth(videoPixelBuffer)
             let videoHeight = CVPixelBufferGetHeight(videoPixelBuffer)
@@ -107,10 +106,17 @@ public class RealtimeDepthMaskViewController: UIViewController {
                 let binarize = self.binarize
                 let gamma = self.gamma
                 self.serialQueue.async {
-                    //guard let depthPixelBuffer = depthData?.depthDataMap else { return }
                     self.processBuffer(videoPixelBuffer: videoPixelBuffer, depthPixelBuffer: depthDataBuffer, face: face, shouldBinarize: binarize, shouldGamma: gamma)
                 }
             })
+        }
+        
+        videoCapture.audioBufferHandler = { [weak self] audio in
+            print("Setting Audio Snip")
+            self!.curAudioSnip = audio
+            if(self!.isRecording) {
+                self!.videoCreator.addAudio(audio: audio)
+            }
         }
         
         videoCapture.setDepthFilterEnabled(self.filter)
@@ -121,58 +127,31 @@ public class RealtimeDepthMaskViewController: UIViewController {
         #endif
     }
     
+    func getAudioSettingsFromVideoCapture() -> [String:Any]? {
+        return videoCapture!.audioSettings as? [String : Any]
+    }
+    
     @objc func buttonClicked(sender: UIButton) {
         if(currentCaptureMode == .photo) {
             if let finalImage = self.finalImage {
-                //xlet ciimage:CIImage = CIImage(cvPixelBuffer: self.lastDepthBuffer)
-                //                let ciimage = finalImage
-                //let cgimage:CGImage = ciimage.convertCIImageToCGImage()
-                //                let image:UIImage = UIImage(cgImage: cgimage)
-                //                let regImage:UIImage = UIImage(ciImage: finalImage)
-                //                let ratio = regImage.size.width/image.size.width
-                //                let sizedImage = resizeImage(image: image, toScale: ratio)
-                //                print(image.size, regImage.size, sizedImage.size)
-                //                let transparentImage = UIImage(ciImage: finalImage)
                 let transparentImage = processPixels(finalImage, image: UIImage(ciImage: finalImage))
                 self.completionHandler(transparentImage, nil)
-                //                self.completionHandler(UIImage(ciImage: finalImage), nil)
             }
         }
         else if(currentCaptureMode == .video){
+            sender.backgroundColor = sender.backgroundColor == UIColor.red ? UIColor(displayP3Red: 0.238155, green: 0.406666, blue: 0.930306, alpha: 0.847059) : UIColor.red
             if(!self.isRecording) {
+                let image = UIImage(ciImage: self.finalImage!)
+                self.videoCreator = VideoCreator(fps: self.videoCapture.frameRate, width: image.size.width, height: image.size.height, audioSettings: AVCaptureAudioDataOutput().recommendedAudioSettingsForAssetWriter(writingTo: .mp4) as? [String:Any])
+                initTime = CFAbsoluteTimeGetCurrent()
                 self.isRecording = true
-            }
-            else {
-                self.videoCapture.stopCapture()
-                let image = UIImage(ciImage: self.images[0])
-                self.videoCreator = VideoCreator(fps: 1, width: image.size.width, height: image.size.height)
-                
-                var newImages:[UIImage] = []
-                for i in 0 ..< self.images.count {
-                    let ciimage = self.images[i]
-                    let transparentImage = resizeImage(image: processPixels(ciimage, image: UIImage(ciImage: ciimage))!, toScale: 0.1)
-                    newImages.append(transparentImage)
-                }
-                
-                
-                //                VideoGenerator.fileName = "Name"
-                //                VideoGenerator.videoBackgroundColor = .clear
-                //                VideoGenerator.shouldOptimiseImageForVideo = true
-                //                VideoGenerator.videoDurationInSeconds = 5
-                //
-                //                VideoGenerator.current.generate(withImages: newImages, andAudios: [], andType: .multiple, { (progress) in
-                //                    print(progress)
-                //                }, success: { (url) in
-                //                    self.completionHandler(nil, url)
-                //                }, failure: { (error) in
-                //                    print(error)
-                //                })
-                
-                self.videoCreator.startCreatingVideo(images: newImages) {
-                    let image = self.videoSnapshot(url: self.videoCreator.getURL(), time: CMTime(seconds: 0, preferredTimescale: 600))
-                    
+                self.videoCreator.startCreatingVideo(initialBuffer: self.curAudioSnip) {
                     self.completionHandler(nil, self.videoCreator.getURL())
                 }
+            }
+            else {
+                self.isRecording = false
+                self.videoCapture.stopCapture()
             }
         }
     }
@@ -214,18 +193,6 @@ public class RealtimeDepthMaskViewController: UIViewController {
         videoCapture.stopCapture()
         mtkView.delegate = nil
         super.viewWillDisappear(animated)
-    }
-    
-    @IBAction func cameraModeBtnTapped(_ sender: UIButton) {
-        switch currentCaptureMode {
-        case .photo:
-            currentCaptureMode = .video
-            sender.setTitle("Current: Video", for: .normal)
-        case .video:
-            currentCaptureMode = .photo
-            sender.setTitle("Current: Photo", for: .normal)
-        }
-        self.videoCapture.setCameraMode(cameraMode: currentCaptureMode)
     }
     
     @IBAction func cameraSwitchBtnTapped(_ sender: UIButton) {
@@ -295,6 +262,144 @@ extension RealtimeDepthMaskViewController {
         
         self.maskImage = processedDepth.applyingFilter("CIBicubicScaleTransform", parameters: ["inputScale": alphaUpscaleFactor])
     }
+    
+    public static func createFilter() {
+        RealtimeDepthMaskViewController.filter = chromaKeyFilter(fromHue: 114/360, toHue: 126/360)!
+    }
+    
+    public static func filteredImage(ciimage: CIImage) -> CIImage? {
+        RealtimeDepthMaskViewController.filter.setValue(ciimage, forKey: kCIInputImageKey)
+        return RealtimeDepthMaskViewController.filter.outputImage
+    }
+    
+    static func chromaKeyFilter(fromHue: CGFloat, toHue: CGFloat) -> CIFilter?
+    {
+        // 1
+        let size = 64
+        var cubeRGB = [Float]()
+        
+        // 2
+        for z in 0 ..< size {
+            let blue = CGFloat(z) / CGFloat(size-1)
+            for y in 0 ..< size {
+                let green = CGFloat(y) / CGFloat(size-1)
+                for x in 0 ..< size {
+                    let red = CGFloat(x) / CGFloat(size-1)
+                    
+                    // 3
+                    let hue = getHue(red: red, green: green, blue: blue)
+                    let alpha: CGFloat = (hue >= fromHue && hue <= toHue) ? 0: 1
+                    
+                    // 4
+                    cubeRGB.append(Float(red * alpha))
+                    cubeRGB.append(Float(green * alpha))
+                    cubeRGB.append(Float(blue * alpha))
+                    cubeRGB.append(Float(alpha))
+                }
+            }
+        }
+        
+        let data = Data(buffer: UnsafeBufferPointer(start: &cubeRGB, count: cubeRGB.count))
+        
+        // 5
+        let colorCubeFilter = CIFilter(name: "CIColorCube", parameters: ["inputCubeDimension": size, "inputCubeData": data])
+        return colorCubeFilter
+    }
+    
+    static func getHue(red: CGFloat, green: CGFloat, blue: CGFloat) -> CGFloat
+    {
+        let color = UIColor(red: red, green: green, blue: blue, alpha: 1)
+        var hue: CGFloat = 0
+        color.getHue(&hue, saturation: nil, brightness: nil, alpha: nil)
+        return hue
+    }
+    
+    static func getAudioFromURL(url: URL, completionHandlerPerBuffer: @escaping ((_ buffer:CMSampleBuffer) -> Void)) {
+        let asset = AVURLAsset(url: url, options: [AVURLAssetPreferPreciseDurationAndTimingKey: NSNumber(value: true as Bool)])
+        
+        guard let assetTrack = asset.tracks(withMediaType: AVMediaType.audio).first else {
+            fatalError("Couldn't load AVAssetTrack")
+        }
+        
+        
+        guard let reader = try? AVAssetReader(asset: asset)
+            else {
+                fatalError("Couldn't initialize the AVAssetReader")
+        }
+        reader.timeRange = CMTimeRange(start: .zero, duration: asset.duration)
+        
+        let outputSettingsDict: [String : Any] = [
+            AVFormatIDKey: Int(kAudioFormatLinearPCM),
+            AVLinearPCMBitDepthKey: 16,
+            AVLinearPCMIsBigEndianKey: false,
+            AVLinearPCMIsFloatKey: false,
+            AVLinearPCMIsNonInterleaved: false
+        ]
+        let readerOutput = AVAssetReaderTrackOutput(track: assetTrack,
+                                                    outputSettings: outputSettingsDict)
+        readerOutput.alwaysCopiesSampleData = false
+        reader.add(readerOutput)
+        
+        while reader.status == .reading {
+            guard let readSampleBuffer = readerOutput.copyNextSampleBuffer() else { break }
+            completionHandlerPerBuffer(readSampleBuffer)
+            
+        }
+    }
+    
+    //Removes the color from the AVAsset
+    public static func create2DVideo(asset: AVAsset, completionHandler: @escaping (_ asset: AVAsset) -> Void) {
+        let url = (asset as? AVURLAsset)!.url
+        let snapshot = url.videoSnapshot()
+        guard let image = snapshot else { return }
+        let fps = Int32(asset.tracks(withMediaType: .video)[0].nominalFrameRate)
+        print("FPS: \(fps)")
+        let writer = VideoCreator(fps: Int32(fps), width: image.size.width, height: image.size.height, audioSettings: nil)
+        
+        let timeScale = asset.duration.timescale
+        let timeValue = asset.duration.value
+        let frameTime = 1/Double(fps) * Double(timeScale)
+        let numberOfImages = Int(Double(timeValue)/Double(frameTime))
+        let queue = DispatchQueue(label: "com.queue.queue", qos: .utility)
+        let composition = AVVideoComposition(asset: asset) { (request) in
+            let source = request.sourceImage.clampedToExtent()
+            let filteredImage = RealtimeDepthMaskViewController.filteredImage(ciimage: source)!.clamped(to: source.extent)
+            request.finish(with: filteredImage, context: nil)
+        }
+        
+        var i = 0
+        RealtimeDepthMaskViewController.getAudioFromURL(url: url) { (buffer) in
+            writer.addAudio(audio: buffer)
+            i == 0 ? writer.startCreatingVideo(initialBuffer: buffer, completion: {}) : nil
+            i += 1
+        }
+        
+        let group = DispatchGroup()
+        for i in 0..<numberOfImages {
+            group.enter()
+            autoreleasepool {
+                let time = CMTime(seconds: Double(Double(i) * frameTime / Double(timeScale)), preferredTimescale: timeScale)
+                let image = url.videoSnapshot(time: time, composition: composition)
+                queue.async {
+                    
+                    writer.addImageAndAudio(image: image!, audio: nil, time: time.seconds)
+                    group.leave()
+                }
+            }
+        }
+        group.notify(queue: queue) {
+            writer.finishWriting()
+            let url = writer.getURL()
+            
+            //Now create exporter to add audio then do completion handler
+            completionHandler(AVAsset(url: url))
+            
+        }
+    }
+    
+    public static func get3DChromaKey() -> ChromaKeyMaterial {
+        return ChromaKeyMaterial()
+    }
 }
 
 extension CVPixelBuffer {
@@ -325,6 +430,10 @@ extension CVPixelBuffer {
     }
 }
 
+extension AVAsset {
+    
+}
+
 extension CIImage {
     func applyBlurAndGamma() -> CIImage {
         return clampedToExtent()
@@ -348,7 +457,7 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
             }
         case 1:
             // blended
-            guard let image = videoImage, let maskImage = maskImage else { return }
+            guard let image = self.videoImage, let maskImage = self.maskImage else { return }
             
             var parameters = ["inputMaskImage": maskImage]
             
@@ -365,16 +474,47 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
         default:
             return
         }
+        
         if(self.isRecording) {
-            let ciimage = self.finalImage!
-            let maskedImage = self.maskImage!
-            let image = UIImage(ciImage: ciimage)
-            
-            if(image.size.width != 0) {
-                self.images.append(ciimage)
-                self.maskedImages.append(maskedImage)
+            let time = CFAbsoluteTimeGetCurrent()
+            let presTime = time - self.initTime
+            print(presTime)
+            self.dispatchGroup.enter()
+            autoreleasepool { [weak self] in
+                let regImage = self!.resizeImage(image: UIImage(ciImage: self!.videoImage!), toScale: 0.1)
+                let maskedImage = self!.resizeImage(image: UIImage(ciImage: self!.maskImage!), toScale: 0.1)
+                let audioBuffer = self!.curAudioSnip!
+                self!.imageQueue.async { [weak self] in
+                    autoreleasepool { [weak self] in
+                        guard let self = self else { return }
+                        guard let correctCIImage = self.recreateDepthMaskFromTwoUIImages(regImage: regImage, maskImage: maskedImage) else { return }
+                        let transparentImage = self.processPixels(correctCIImage, image: UIImage(ciImage: correctCIImage), fromColor: RGBA32.init(red: 0, green: 0, blue: 0, alpha: 0), toColor: RGBA32.green)!
+                        self.videoCreator.addImageAndAudio(image: transparentImage, audio: audioBuffer, time: presTime)
+                        self.dispatchGroup.leave()
+                    }
+                }
+            }
+            self.dispatchGroup.notify(queue: self.imageQueue) {
+                print("Done Writing")
+                self.videoCreator.finishWriting()
+                let elapsed = CFAbsoluteTimeGetCurrent() - self.initTime
+                print("Your video should be about \(elapsed) seconds")
             }
         }
+    }
+    
+    private func recreateDepthMaskFromTwoUIImages(regImage:UIImage, maskImage:UIImage) -> CIImage? {
+        //Convert each to CIImage
+        let regCIImage = CIImage(image: regImage)
+        let maskImage = CIImage(image: maskImage)
+        
+        //Apply filters using backgrounds
+        let filter = CIFilter(name: "CIBlendWithMask")
+        filter!.setValue(maskImage, forKey: "inputMaskImage")
+        filter!.setValue(regCIImage, forKey: "inputImage")
+        
+        //Get outputimage from filters
+        return filter!.outputImage!
     }
     
     private func resizeImage(image: UIImage, toScale: CGFloat) -> UIImage {
@@ -396,7 +536,7 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
     }
     
     //Get Clear Pixels
-    func processPixels(_ ciimage: CIImage, image:UIImage) -> UIImage? {
+    func processPixels(_ ciimage: CIImage, image:UIImage, fromColor:RGBA32? = nil, toColor:RGBA32? = nil) -> UIImage? {
         let inputCGImage = ciimage.convertCIImageToCGImage()!
         
         let colorSpace       = CGColorSpaceCreateDeviceRGB()
@@ -414,6 +554,24 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
         }
         
         context.draw(inputCGImage, in: CGRect(x: 0, y: 0, width: width, height: height))
+        
+        if(toColor != nil && fromColor != nil) {
+            guard let buffer = context.data else {
+                print("unable to get context data")
+                return nil
+            }
+            
+            let pixelBuffer = buffer.bindMemory(to: RGBA32.self, capacity: width * height)
+            
+            for row in 0 ..< Int(height) {
+                for column in 0 ..< Int(width) {
+                    let offset = row * width + column
+                    if pixelBuffer[offset] == fromColor! {
+                        pixelBuffer[offset] = toColor!
+                    }
+                }
+            }
+        }
         
         let outputCGImage = context.makeImage()!
         let outputImage = UIImage(cgImage: outputCGImage, scale: image.scale, orientation: image.imageOrientation)
@@ -483,6 +641,29 @@ extension RangeReplaceableCollection where Element: Hashable {
     }
 }
 
+extension URL {
+    func videoSnapshot(time:CMTime? = nil, composition:AVVideoComposition? = nil) -> UIImage? {
+        let asset = AVURLAsset(url: self)
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        generator.requestedTimeToleranceBefore = .zero
+        generator.requestedTimeToleranceAfter = .zero
+        generator.videoComposition = composition
+        
+        let timestamp = time == nil ? CMTime(seconds: 1, preferredTimescale: 60) : time
+        
+        do {
+            let imageRef = try generator.copyCGImage(at: timestamp!, actualTime: nil)
+            return UIImage(cgImage: imageRef)
+        }
+        catch let error as NSError
+        {
+            print("Image generation failed with error \(error)")
+            return nil
+        }
+    }
+}
+
 extension UIImage {
     /// Get the pixel color at a point in the image
     func pixelColor(atLocation point: CGPoint) -> UIColor? {
@@ -502,3 +683,25 @@ extension UIImage {
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }
 }
+
+struct AudioContext {
+    /// The audio asset URL used to load the context
+    public let audioURL: URL
+    
+    /// Total number of samples in loaded asset
+    public let totalSamples: Int
+    
+    /// Loaded asset
+    public let asset: AVAsset
+    
+    // Loaded assetTrack
+    public let assetTrack: AVAssetTrack
+    
+    init(audioURL: URL, totalSamples: Int, asset: AVAsset, assetTrack: AVAssetTrack) {
+        self.audioURL = audioURL
+        self.totalSamples = totalSamples
+        self.asset = asset
+        self.assetTrack = assetTrack
+    }
+}
+

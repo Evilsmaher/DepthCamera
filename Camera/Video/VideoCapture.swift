@@ -16,7 +16,7 @@ struct VideoSpec {
 }
 
 typealias ImageBufferHandler = (CVPixelBuffer, CMTime, CVPixelBuffer?) -> Void
-//typealias SynchronizedDataBufferHandler = (CVPixelBuffer, AVDepthData?, AVMetadataObject?) -> Void
+typealias AudioBufferHandler = (CMSampleBuffer) -> Void
 typealias SynchronizedDataBufferHandler = (CVPixelBuffer, CVPixelBuffer, AVMetadataObject?) -> Void
 
 extension AVCaptureDevice {
@@ -35,14 +35,20 @@ class VideoCapture: NSObject {
     private let captureSession = AVCaptureSession()
     private var videoDevice: AVCaptureDevice!
     private var videoConnection: AVCaptureConnection!
+    private var audioConnection: AVCaptureConnection!
     private var previewLayer: AVCaptureVideoPreviewLayer?
     
     let dataOutputQueue = DispatchQueue(label: "video data queue",
                                         qos: .userInitiated,
                                         attributes: [],
                                         autoreleaseFrequency: .workItem)
+    let audioOutputQueue = DispatchQueue(label: "audio data queue",
+                                        qos: .userInitiated,
+                                        attributes: [],
+                                        autoreleaseFrequency: .workItem)
     
     var imageBufferHandler: ImageBufferHandler?
+    var audioBufferHandler: AudioBufferHandler?
     var syncedDataBufferHandler: SynchronizedDataBufferHandler?
     
     private var dataOutputSynchronizer: AVCaptureDataOutputSynchronizer!
@@ -53,7 +59,6 @@ class VideoCapture: NSObject {
     private let metadataOutput = AVCaptureMetadataOutput()
     
     private var cameraMode:CameraMode!
-    private var audioWriterInput:AVAssetWriterInput!
     private var sessionAtSourceTime:CMTime!
     private var videoURL:URL!
     
@@ -70,6 +75,8 @@ class VideoCapture: NSObject {
         renderingIntent: .defaultIntent)
     var sourceBuffers = [vImage_Buffer]()
     var destinationBuffer = vImage_Buffer()
+    var frameRate:Int32!
+    lazy var audioSettings = AVCaptureAudioDataOutput().recommendedAudioSettingsForAssetWriter(writingTo: .mp4)
     
     init(cameraMode: CameraMode, cameraType: CameraType, preferredSpec: VideoSpec?, previewContainer: CALayer?)
     {
@@ -82,6 +89,7 @@ class VideoCapture: NSObject {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
         
         setupCaptureVideoDevice(with: cameraType)
+        setupCaptureAudioDevice()
         
         // setup preview
         if let previewContainer = previewContainer {
@@ -98,6 +106,7 @@ class VideoCapture: NSObject {
             // video output
             videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)]
             videoDataOutput.alwaysDiscardsLateVideoFrames = true
+            audioDataOutput.recommendedAudioSettingsForAssetWriter(writingTo: .mp4)
             
             videoDataOutput.setSampleBufferDelegate(self, queue: dataOutputQueue)
             guard captureSession.canAddOutput(videoDataOutput) else { fatalError() }
@@ -111,6 +120,12 @@ class VideoCapture: NSObject {
             depthDataOutput.isFilteringEnabled = false
             guard let connection = depthDataOutput.connection(with: .depthData) else { fatalError() }
             connection.isEnabled = true
+            
+            // audio output
+            guard captureSession.canAddOutput(audioDataOutput) else { fatalError() }
+            captureSession.addOutput(audioDataOutput)
+            audioDataOutput.setSampleBufferDelegate(self, queue: audioOutputQueue)
+            audioConnection = audioDataOutput.connection(with: .audio)
             
             // metadata output
             guard captureSession.canAddOutput(metadataOutput) else { fatalError() }
@@ -129,6 +144,21 @@ class VideoCapture: NSObject {
         captureSession.commitConfiguration()
     }
     
+    private func setupCaptureAudioDevice() {
+        guard let audioDevice = AVCaptureDevice.default(for: .audio) else {fatalError()}
+        let audioDeviceInput: AVCaptureDeviceInput
+        do {
+            audioDeviceInput = try AVCaptureDeviceInput(device: audioDevice)
+        }
+        catch {
+            fatalError("Could not create AVCaptureDeviceInput instance with error: \(error).")
+        }
+        guard captureSession.canAddInput(audioDeviceInput) else {
+            fatalError()
+        }
+        captureSession.addInput(audioDeviceInput)
+    }
+    
     private func setupCaptureVideoDevice(with cameraType: CameraType) {
         
         videoDevice = cameraType.captureDevice()
@@ -142,6 +172,8 @@ class VideoCapture: NSObject {
         let videoDeviceInput = try! AVCaptureDeviceInput(device: videoDevice)
         guard captureSession.canAddInput(videoDeviceInput) else { fatalError() }
         captureSession.addInput(videoDeviceInput)
+        
+        self.frameRate = videoDevice.getBestFPS() ?? 24 //24 is slowest anyone should use -- this shouldn't fail, but incase it does
     }
     
     private func setupConnections(with cameraType: CameraType) {
@@ -209,7 +241,7 @@ class VideoCapture: NSObject {
     }
 }
 
-extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate {
     
     func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         //        print("\(self.classForCoder)/" + #function)
@@ -217,12 +249,20 @@ extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     // synchronizer使ってる場合は呼ばれない
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+//        print("Handling here")
         if let imageBufferHandler = imageBufferHandler, connection == videoConnection
         {
+            print("Video Data")
             guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { fatalError() }
             
             let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
             imageBufferHandler(imageBuffer, timestamp, nil)
+        }
+        
+        else if let audioBufferHandler = audioBufferHandler, connection == audioConnection {
+            let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+            print("Obtaining Audio Stamp")
+            audioBufferHandler(sampleBuffer)
         }
     }
 }
@@ -243,6 +283,7 @@ extension VideoCapture: AVCaptureDataOutputSynchronizerDelegate {
     
     func dataOutputSynchronizer(_ synchronizer: AVCaptureDataOutputSynchronizer, didOutput synchronizedDataCollection: AVCaptureSynchronizedDataCollection) {
         
+//        print(self.videoDevice.activeVideoMinFrameDuration, self.videoDevice.activeVideoMaxFrameDuration)
         guard let syncedVideoData = synchronizedDataCollection.synchronizedData(for: self.videoDataOutput) as? AVCaptureSynchronizedSampleBufferData else { return }
         guard !syncedVideoData.sampleBufferWasDropped else {
             print(syncedVideoData.droppedReason.rawValue)
@@ -343,5 +384,25 @@ extension VideoCapture: AVCaptureDataOutputSynchronizerDelegate {
             return nil
         }
         return dstPixelBuffer
+    }
+}
+
+extension AVCaptureDevice {
+    func getBestFPS() -> Int32? {
+        guard let range = activeFormat.videoSupportedFrameRateRanges.first else {
+            print("Couldn't get a supported FPS")
+            return nil
+        }
+        do {
+            try lockForConfiguration()
+            activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: Int32(range.maxFrameRate))
+            activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: Int32(range.maxFrameRate))
+            print("Frame Rate is: \(activeVideoMinFrameDuration) and \(activeVideoMaxFrameDuration)")
+            unlockForConfiguration()
+            return Int32(range.maxFrameRate)
+        } catch {
+            print("LockForConfiguration failed with error: \(error.localizedDescription)")
+            return nil
+        }
     }
 }

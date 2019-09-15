@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum CameraMode {
+public enum CameraMode {
     case photo
     case video
 }
