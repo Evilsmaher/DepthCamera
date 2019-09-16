@@ -3,6 +3,7 @@ _DepthCamera_
 
 *Add To Your Project*
 In your `Podfile` add `pod 'DepthCamera'`.
+
 Then, wherever you need to make calls, `import DepthCamera` into that specific file. 
 
 ## Details About DepthCamera
