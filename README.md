@@ -38,7 +38,7 @@ It's as simple as creating a `RealTimeDepthViewController` and presenting it. Yo
 
 *Video Viewing*
 
-Note: When I say 2D and 3D, I am talking about the type of viewer. `2D = AVPlayer` and `3D = SCNNode / ARKit`.
+Note: When I say 2D and 3D, I am talking about the type of viewer. `2D = AVPlayer` and `3D = SCNNode / ARKit`. I assume the video is a 3D video. If the video taken is not 3D, then it is a normal video and does not need any filtering done to it.
 
 2D Video: 
 ```
