@@ -9,7 +9,7 @@ Then, wherever you need to make calls, `import DepthCamera` into that specific f
 ## Details About DepthCamera
 
 Usage: Record a video or image in a 2D or 3D format. 
-How: Reads data buffers in using a `AVCaptureDataOutputSynchronizerDelegate`. If using the 3D environment, it then applies a filter from the depth data. This is the simulated 3D affect. If recording a video, it will asynchronously add images to a video. To achieve this affect, the images are added at an unknown rate. To further explain this, look @ _Video Creation Details_ below. If an image, then it simply records the image. From there, the image or video can be obtained and represented in either a 2D (AVPlayer) format or 3D (ARKit) format. To see how to use each of these, please reference the _Video Viewing_  below. On how to record a video, please reference _Video Recording_ below.
+How: Reads data buffers in using a `AVCaptureDataOutputSynchronizerDelegate`. If using the 3D environment, it then applies a filter from the depth data. This is the simulated 3D affect. If recording a video, it will asynchronously add images to a video. To achieve this affect, the images are added at an unknown rate. To further explain this, look @ _Video Creation Details_ below. If an image, then it simply records the image. From there, the image or video can be obtained and represented in either a 2D (AVPlayer) format or 3D (ARKit) format. To see how to use each of these, please reference the _Video Viewing_  below. On how to record a video, please reference _Video Recording_ below. 
 Assumptions: The user has a phone that is capable of using these assets.
 
 ## Current Issues
@@ -19,6 +19,8 @@ The color of green used in the `ChromaKey` is a tad off. Right now it blocks out
 ## Video Creation Details
 
 The `MTKViewDelegate` inside "RealTimeDepthViewController" is what calls the asynchronous calls to adding images to the `VideoCreator` that creates the video. Well, although, the delegate is supposed to record at a specific FPS, the code inside causes it to record "when it can". This leads to unidentified times per frame. Since that is the case, I have to set a presentation time for each frame. But, those frames can range at unknown times. For my tests, I have seen between 0.04 and 0.08 frame times, which is between 14 - 25 fps. Although it isn't perfect, it's pretty good looking. However, the audio is recorded at a normal rate and can be heard as if it was recorded at a normal rate.
+
+To create a 3D video, we needed a way to distinguish between videos. So, for each image during video creation, we take the depth map and turn all the pixels that are too far away to a green color. We now have a video with a green background. From here, we can filter out the green pixels. The current filtering isn't perfect as it filters out just about every green, but I am working on it. Once filtered using a `ChromaKey`, we now have our original video. 
 
 ## Video Recording
 
