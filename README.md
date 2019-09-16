@@ -44,6 +44,8 @@ It's as simple as creating a `RealTimeDepthViewController` and presenting it. Yo
 Note: When I say 2D and 3D, I am talking about the type of viewer. `2D = AVPlayer` and `3D = SCNNode / ARKit`. I assume the video is a 3D video. If the video taken is not 3D, then it is a normal video and does not need any filtering done to it.
 
 #### 2D Video: 
+Since the video has a green background, we need to remove it. To do this, we can simply apply a filter to this! The filter is already made, and I plan on creating a method that creates the composition, but have not done so quite yet. From there, we can apply the `AVVideoComposition` to the `AVPlayerItem` and we have a normal video!
+
 ```
 //You need to create an AVVideoComposition that removes the green pixels using a ChromaKey
 let composition = AVMutableVideoComposition(asset: asset) { (request) in
@@ -59,9 +61,11 @@ playerItem.videoComposition = composition
 ```
 
 #### 2D Image: 
-Just get the image of wherever you stored. It should be a black background since an `AVPlayer` cannot see alpha channel, although the alpha channel for specific pixels is `0.0`.
+Just get the image of wherever you stored. It should be a black background since an `AVPlayer` cannot see alpha channel, although the alpha channel for specific pixels is `0.0`. Thus, a black background.
 
 #### 3D Video: 
+
+The code below speaks for itself. Have a scene with your contents. `RealtimeDepthMaskViewController.get3DChromaKey` is of type `SCNMaterial`. From here, we can apply the contents of the scene of your video onto the new material. Then you have your `SCNNode` that you represent materials onto and apply the `ChromaKey` onto the node.
 
 ```
 let scene = SKScene(size: videoNode.size)
@@ -74,4 +78,4 @@ node.geometry!.materials = [chromaKeyMaterial]
 ```
 
 #### 3D Image: 
-Just get the image of wherever you stored. It should be a clear background since in `ARKit` the `SCNNode` can see alpha channels.
+Just get the image of wherever you stored. It should be a clear background since in `ARKit` the `SCNNode` can see alpha channels. The reason this isn't an issue is because an image can contain alpha channels whereas a video cannot.
