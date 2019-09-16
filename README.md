@@ -37,7 +37,7 @@ let controller = RealtimeDepthMaskViewController.createRealTimeDepthCameraVC(ima
 self.present(controller, animated: true, completion: nil)
 ```
 
-It's as simple as creating a `RealTimeDepthViewController` and presenting it. You just need to state whether it is a video or a photo. From there, just make sure to use the completion handler to access the `URL` or the `UIImage` once you are done. 
+It's as simple as creating a `RealTimeDepthViewController` and presenting it. You just need to state whether it is a `.video` or a `.photo`. From there, just make sure to use the completion handler to access the `URL` or the `UIImage` once you are done. 
 
 ## Video Viewing
 
@@ -58,7 +58,8 @@ let playerItem = AVPlayerItem(asset: asset)
 playerItem.videoComposition = composition
 ```
 
-#### 2D Image: just get the image of wherever you stored. It should be a black background since an `AVPlayer` cannot see alpha channel, although the alpha channel for specific pixels is `0.0`.
+#### 2D Image: 
+Just get the image of wherever you stored. It should be a black background since an `AVPlayer` cannot see alpha channel, although the alpha channel for specific pixels is `0.0`.
 
 #### 3D Video: 
 
@@ -72,4 +73,5 @@ chromaKeyMaterial.diffuse.contents = scene
 node.geometry!.materials = [chromaKeyMaterial]
 ```
 
-#### 3D Image: just get the image of wherever you stored. It should be a clear background since in `ARKit` the `SCNNode` can see alpha channels.
+#### 3D Image: 
+Just get the image of wherever you stored. It should be a clear background since in `ARKit` the `SCNNode` can see alpha channels.
