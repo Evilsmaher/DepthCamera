@@ -69,7 +69,7 @@ class MetalRenderer {
                 strongSelf.inFlightSemaphore.signal()
             }
         }
-        //Won't ever get here if not simulator because I also check this inside RealTimeDepthViewController but need to check so the pod will compile
+        //Won't ever get here if simulator because I also check this inside RealTimeDepthViewController but need to check so the pod will compile
         #if targetEnvironment(simulator)
         #else
         ciContext.render(ciImage, to: currentDrawable.texture, commandBuffer: commandBuffer, bounds: ciImage.extent, colorSpace: colorSpace)

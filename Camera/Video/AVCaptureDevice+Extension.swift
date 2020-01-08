@@ -32,6 +32,7 @@ extension AVCaptureDevice {
         guard let selectedFormat = formatWithHighestResolution(availableFormats) else { fatalError() }
         
         let depthFormats = selectedFormat.supportedDepthDataFormats
+        print(depthFormats)
         let depth32formats = depthFormats.filter {
             CMFormatDescriptionGetMediaSubType($0.formatDescription) == kCVPixelFormatType_DepthFloat32
         }

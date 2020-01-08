@@ -16,7 +16,7 @@ struct VideoSpec {
 }
 
 typealias ImageBufferHandler = (CVPixelBuffer, CMTime, CVPixelBuffer?) -> Void
-typealias AudioBufferHandler = (CMSampleBuffer) -> Void
+typealias AudioBufferHandler = (CMSampleBuffer, CMTime) -> Void
 typealias SynchronizedDataBufferHandler = (CVPixelBuffer, CVPixelBuffer, AVMetadataObject?) -> Void
 
 extension AVCaptureDevice {
@@ -46,12 +46,15 @@ class VideoCapture: NSObject {
                                         qos: .userInitiated,
                                         attributes: [],
                                         autoreleaseFrequency: .workItem)
+    private let serialQueue = DispatchQueue(label: "com.myQueue.queue")
+
     
     var imageBufferHandler: ImageBufferHandler?
     var audioBufferHandler: AudioBufferHandler?
     var syncedDataBufferHandler: SynchronizedDataBufferHandler?
     
     private var dataOutputSynchronizer: AVCaptureDataOutputSynchronizer!
+    private var audioDeviceInput: AVCaptureDeviceInput!
     
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private let audioDataOutput = AVCaptureAudioDataOutput()
@@ -77,6 +80,9 @@ class VideoCapture: NSObject {
     var destinationBuffer = vImage_Buffer()
     var frameRate:Int32!
     lazy var audioSettings = AVCaptureAudioDataOutput().recommendedAudioSettingsForAssetWriter(writingTo: .mp4)
+    var totalLag:Double = 0
+    var currentLag:UInt64 = 0
+    var observer:NSKeyValueObservation!
     
     init(cameraMode: CameraMode, cameraType: CameraType, preferredSpec: VideoSpec?, previewContainer: CALayer?)
     {
@@ -86,9 +92,15 @@ class VideoCapture: NSObject {
         
         captureSession.beginConfiguration()
         
-        captureSession.sessionPreset = AVCaptureSession.Preset.photo
+        //If I use video - it inverts the green and regular
+//        captureSession.sessionPreset = self.cameraMode == .photo ? AVCaptureSession.Preset.photo : AVCaptureSession.Preset.high
+        captureSession.sessionPreset = .photo
+        print("Session is: \(captureSession.sessionPreset)")
         
         setupCaptureVideoDevice(with: cameraType)
+        
+        self.frameRate = videoDevice.getBestFPS() ?? 24 //24 is slowest anyone should use -- this shouldn't fail, but incase it does
+        
         setupCaptureAudioDevice()
         
         // setup preview
@@ -142,11 +154,18 @@ class VideoCapture: NSObject {
         setupConnections(with: cameraType)
         
         captureSession.commitConfiguration()
+        self.observer = self.captureSession.observe(\.isRunning, options: [.initial]) { [weak self](session, change) in
+            guard let self = self else { return }
+            if(!session.isRunning) { self.currentLag = DispatchTime.now().uptimeNanoseconds }
+            else {
+                self.currentLag = (DispatchTime.now().uptimeNanoseconds - self.currentLag)
+                self.totalLag += Double(Double(self.currentLag) / Double(1_000_000_000))
+            }
+        }
     }
     
     private func setupCaptureAudioDevice() {
         guard let audioDevice = AVCaptureDevice.default(for: .audio) else {fatalError()}
-        let audioDeviceInput: AVCaptureDeviceInput
         do {
             audioDeviceInput = try AVCaptureDeviceInput(device: audioDevice)
         }
@@ -166,14 +185,16 @@ class VideoCapture: NSObject {
         
         videoDevice.selectDepthFormat()
         
+
         captureSession.inputs.forEach { (captureInput) in
-            captureSession.removeInput(captureInput)
+            if(captureInput != audioDeviceInput) {
+                captureSession.removeInput(captureInput)
+            }
         }
+        
         let videoDeviceInput = try! AVCaptureDeviceInput(device: videoDevice)
         guard captureSession.canAddInput(videoDeviceInput) else { fatalError() }
         captureSession.addInput(videoDeviceInput)
-        
-        self.frameRate = videoDevice.getBestFPS() ?? 24 //24 is slowest anyone should use -- this shouldn't fail, but incase it does
     }
     
     private func setupConnections(with cameraType: CameraType) {
@@ -252,7 +273,7 @@ extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureA
 //        print("Handling here")
         if let imageBufferHandler = imageBufferHandler, connection == videoConnection
         {
-            print("Video Data")
+//            print("Video Data")
             guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { fatalError() }
             
             let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
@@ -260,9 +281,9 @@ extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureA
         }
         
         else if let audioBufferHandler = audioBufferHandler, connection == audioConnection {
-            let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-            print("Obtaining Audio Stamp")
-            audioBufferHandler(sampleBuffer)
+//            print("Obtaining Audio Stamp")
+            let time = CMTime(seconds: self.totalLag, preferredTimescale: 600)
+            audioBufferHandler(sampleBuffer, time)
         }
     }
 }
@@ -270,12 +291,12 @@ extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureA
 extension VideoCapture: AVCaptureDepthDataOutputDelegate {
     
     func depthDataOutput(_ output: AVCaptureDepthDataOutput, didDrop depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection, reason: AVCaptureOutput.DataDroppedReason) {
-        print("\(self.classForCoder)/\(#function)")
+//        print("\(self.classForCoder)/\(#function)")
     }
     
     // synchronizer使ってる場合は呼ばれない
     func depthDataOutput(_ output: AVCaptureDepthDataOutput, didOutput depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection) {
-        print("\(self.classForCoder)/\(#function)")
+//        print("\(self.classForCoder)/\(#function)")
     }
 }
 
@@ -317,18 +338,17 @@ extension VideoCapture: AVCaptureDataOutputSynchronizerDelegate {
         CVPixelBufferLockBaseAddress(depthMap,
                                      CVPixelBufferLockFlags.readOnly)
         
-        self.depthBuffer = displayEqualizedPixelBuffer(pixelBuffer: depthMap)
+        self.depthBuffer = displayEqualizedPixelBuffer(pixelBuffer: depthMap, scaleToBuffer: imagePixelBuffer)
         
         CVPixelBufferUnlockBaseAddress(depthMap, CVPixelBufferLockFlags.readOnly)
         
         self.syncedDataBufferHandler?(self.buffer, self.depthBuffer, face)
-        
     }
     
-    func displayEqualizedPixelBuffer(pixelBuffer: CVPixelBuffer) -> CVPixelBuffer? {
+    func displayEqualizedPixelBuffer(pixelBuffer: CVPixelBuffer, scaleToBuffer: CVPixelBuffer? = nil) -> CVPixelBuffer? {
         
-        let scaleWidth:Int = CVPixelBufferGetWidth(pixelBuffer)
-        let scaleHeight:Int = CVPixelBufferGetHeight(pixelBuffer)
+        let scaleWidth:Int = scaleToBuffer != nil ? CVPixelBufferGetWidth(scaleToBuffer!) : CVPixelBufferGetWidth(pixelBuffer)
+        let scaleHeight:Int = scaleToBuffer != nil ? CVPixelBufferGetHeight(scaleToBuffer!) : CVPixelBufferGetHeight(pixelBuffer)
         
         let flags = CVPixelBufferLockFlags(rawValue: 0)
         guard kCVReturnSuccess == CVPixelBufferLockBaseAddress(pixelBuffer, flags) else {

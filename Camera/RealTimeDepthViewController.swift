@@ -17,11 +17,14 @@ public class RealtimeDepthMaskViewController: UIViewController {
     @IBOutlet weak var segmentedCtl: UISegmentedControl!
     @IBOutlet weak var cameraButon: UIButton!
     @IBOutlet weak var cameraLabel: UILabel!
+    @IBOutlet weak var switchCameraButton: UIButton!
     
     private var videoCapture: VideoCapture!
     private var currentCameraType: CameraType = .front(true)
     private let serialQueue = DispatchQueue(label: "com.myQueue.queue")
     private let imageQueue = DispatchQueue(label: "com.imageQueue.queue", qos: .utility)
+    private var imageQueueIsEmpty = false
+    
     private let dispatchGroup = DispatchGroup()
     private var currentCaptureSize: CGSize = CGSize.zero
     private var currentCaptureMode: CameraMode = .photo
@@ -39,14 +42,14 @@ public class RealtimeDepthMaskViewController: UIViewController {
     private var maskImage: CIImage?
     private var finalImage: CIImage!
     private var curAudioSnip: CMSampleBuffer!
-    private var completionHandler:((_ image: UIImage?, _ videoUrl: URL?) -> Void)!
+    private var completionHandler:((_ image: UIImage?, _ videoUrl: URL?, _ is3D:Bool?) -> Void)!
     
     private var videoCreator: VideoCreator!
     private var isRecording:Bool = false
     private var initTime:CFAbsoluteTime!
     private static var filter:CIFilter!
     
-    public static func createRealTimeDepthCameraVC(imageOrVideoCaptureMode: CameraMode, completionHandler:@escaping ((_ image: UIImage?, _ videoUrl: URL?) -> Void), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController {
+    public static func createRealTimeDepthCameraVC(imageOrVideoCaptureMode: CameraMode, completionHandler:@escaping ((_ image: UIImage?, _ videoUrl: URL?, _ is3D:Bool?) -> Void), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController {
         let newViewController = UIStoryboard(name: "DepthCamera", bundle: Bundle(for: RealtimeDepthMaskViewController.self)).instantiateViewController(withIdentifier: "DepthCamera") as! RealtimeDepthMaskViewController
         newViewController.completionHandler = completionHandler
         if(backgroundImages != nil) {
@@ -69,12 +72,11 @@ public class RealtimeDepthMaskViewController: UIViewController {
         #if targetEnvironment(simulator)
         print("Cannot use simulator")
         #else
-        
-//        self.currentCaptureMode =
 
         let device = MTLCreateSystemDefaultDevice()!
         mtkView.device = device
         mtkView.backgroundColor = UIColor.clear
+        mtkView.framebufferOnly = false
         mtkView.delegate = self
         
         renderer = MetalRenderer(metalDevice: device, renderDestination: mtkView)
@@ -85,37 +87,52 @@ public class RealtimeDepthMaskViewController: UIViewController {
         
         videoCapture.syncedDataBufferHandler = { [weak self] videoPixelBuffer, depthDataBuffer, face in
             guard let self = self else { return }
-            
+            if(self.isRecording) {
+                let elapsed = CFAbsoluteTimeGetCurrent() - self.initTime
+                if(elapsed > 60) { self.isRecording = false }
+            }
             self.videoImage = CIImage(cvPixelBuffer: videoPixelBuffer)
             
             let videoWidth = CVPixelBufferGetWidth(videoPixelBuffer)
             let videoHeight = CVPixelBufferGetHeight(videoPixelBuffer)
             
             let captureSize = CGSize(width: videoWidth, height: videoHeight)
-            guard self.currentCaptureSize == captureSize else {
-                // Update the images' size
-                self.bgImages.removeAll()
-                self.bgImages = self.bgUIImages.map {
-                    return $0.adjustedCIImage(targetSize: captureSize)!
-                }
-                self.currentCaptureSize = captureSize
-                return
-            }
+//            print("Size: \(captureSize)")
             
-            DispatchQueue.main.async(execute: {
-                let binarize = self.binarize
-                let gamma = self.gamma
-                self.serialQueue.async {
-                    self.processBuffer(videoPixelBuffer: videoPixelBuffer, depthPixelBuffer: depthDataBuffer, face: face, shouldBinarize: binarize, shouldGamma: gamma)
+            //1) Only need to apply backgroundImages if it is in 3D
+            //2) Only need to get maskedImage if it is 3D
+            if(self.segmentedCtl.selectedSegmentIndex == 1) {
+//                print("Segment 1")
+                guard self.currentCaptureSize == captureSize else {
+                    // Update the images' size
+                    self.bgImages.removeAll()
+                    self.bgImages = self.bgUIImages.map {
+                        return $0.adjustedCIImage(targetSize: captureSize)!
+                    }
+                    self.currentCaptureSize = captureSize
+                    return
                 }
-            })
+                
+                DispatchQueue.main.async(execute: {
+                    let binarize = self.binarize
+                    let gamma = self.gamma
+                    self.serialQueue.async {
+//                        let x = CFAbsoluteTimeGetCurrent()m
+                        self.processBuffer(videoPixelBuffer: videoPixelBuffer, depthPixelBuffer: depthDataBuffer, face: face, shouldBinarize: binarize, shouldGamma: gamma)
+//                        print(CFAbsoluteTimeGetCurrent() - x)
+                    }
+                })
+            }
+            else {
+//                print("Segment 0")
+            }
         }
         
-        videoCapture.audioBufferHandler = { [weak self] audio in
-            print("Setting Audio Snip")
+        videoCapture.audioBufferHandler = { [weak self] (audio, time) in
+//            print("Setting Audio Snip")
             self!.curAudioSnip = audio
             if(self!.isRecording) {
-                self!.videoCreator.addAudio(audio: audio)
+                self!.videoCreator.addAudio(audio: audio, time: time)
             }
         }
         
@@ -132,26 +149,41 @@ public class RealtimeDepthMaskViewController: UIViewController {
     }
     
     @objc func buttonClicked(sender: UIButton) {
+        self.segmentedCtl.isUserInteractionEnabled = false
         if(currentCaptureMode == .photo) {
             if let finalImage = self.finalImage {
                 let transparentImage = processPixels(finalImage, image: UIImage(ciImage: finalImage))
-                self.completionHandler(transparentImage, nil)
+                self.completionHandler(transparentImage, nil, self.segmentedCtl.selectedSegmentIndex == 0)
             }
         }
         else if(currentCaptureMode == .video){
             sender.backgroundColor = sender.backgroundColor == UIColor.red ? UIColor(displayP3Red: 0.238155, green: 0.406666, blue: 0.930306, alpha: 0.847059) : UIColor.red
             if(!self.isRecording) {
+                self.switchCameraButton.isHidden = true
+                self.switchCameraButton.isUserInteractionEnabled = false
                 let image = UIImage(ciImage: self.finalImage!)
                 self.videoCreator = VideoCreator(fps: self.videoCapture.frameRate, width: image.size.width, height: image.size.height, audioSettings: AVCaptureAudioDataOutput().recommendedAudioSettingsForAssetWriter(writingTo: .mp4) as? [String:Any])
                 initTime = CFAbsoluteTimeGetCurrent()
                 self.isRecording = true
+                //We save the current segment selection incase user changes it later - like right at end before the video is done -- easier if we just save the current selection and push that in later
+                let currentSelection = self.segmentedCtl.selectedSegmentIndex
                 self.videoCreator.startCreatingVideo(initialBuffer: self.curAudioSnip) {
-                    self.completionHandler(nil, self.videoCreator.getURL())
+                    //image, videoURL, is3D
+                    self.completionHandler(nil, self.videoCreator.getURL(), currentSelection == 1)
                 }
             }
             else {
+                self.switchCameraButton.isHidden = false
+                self.switchCameraButton.isUserInteractionEnabled = true
                 self.isRecording = false
                 self.videoCapture.stopCapture()
+                //I do a check here incase because the queue might be empty for 2D (but probably won't be for 3D) but since the queue is empty, the DispatchGroup.notify will never get called
+                if(self.imageQueueIsEmpty) {
+                    print("Done Writing")
+                    self.videoCreator.finishWriting()
+                    let elapsed = CFAbsoluteTimeGetCurrent() - self.initTime
+                    print("Your video should be about \(elapsed) seconds")
+                }
             }
         }
     }
@@ -177,8 +209,10 @@ public class RealtimeDepthMaskViewController: UIViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.cameraLabel.text = self.currentCaptureMode == .photo ? "Photo" : "Video"
         guard let videoCapture = videoCapture else {return}
         videoCapture.startCapture()
+        mtkView.delegate = self
     }
     
     public override func viewDidLayoutSubviews() {
@@ -205,20 +239,6 @@ public class RealtimeDepthMaskViewController: UIViewController {
         bgImageIndex = 0
         videoCapture.changeCamera(with: currentCameraType)
     }
-    
-    func printTimeElapsedWhenRunningCode(title:String, operation:()->()) {
-        let startTime = CFAbsoluteTimeGetCurrent()
-        operation()
-        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-        print("Time elapsed for \(title): \(timeElapsed) s.")
-    }
-    
-    func timeElapsedInSecondsWhenRunningCode(operation: ()->()) -> Double {
-        let startTime = CFAbsoluteTimeGetCurrent()
-        operation()
-        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-        return Double(timeElapsed)
-    }
 }
 
 extension RealtimeDepthMaskViewController {
@@ -239,6 +259,7 @@ extension RealtimeDepthMaskViewController {
         let videoWidth = CVPixelBufferGetWidth(videoPixelBuffer)
         let depthWidth = CVPixelBufferGetWidth(depthPixelBuffer)
         
+        let initDepth = CFAbsoluteTimeGetCurrent()
         var depthCutOff: Float = 1.0
         if let face = face {
             let faceCenter = CGPoint(x: face.bounds.midX, y: face.bounds.midY)
@@ -246,10 +267,13 @@ extension RealtimeDepthMaskViewController {
             let faceCenterDepth = readDepth(from: depthPixelBuffer, at: faceCenter, scaleFactor: scaleFactor)
             depthCutOff = faceCenterDepth + 0.25
         }
+//        print("Time Depth: \(CFAbsoluteTimeGetCurrent() - initDepth)")
         
         // Convert depth map in-place: every pixel above cutoff is converted to 1. otherwise it's 0
         if shouldBinarize {
+            let initBinarize = CFAbsoluteTimeGetCurrent()
             let _ = depthPixelBuffer.binarize(cutOff: depthCutOff, ciimage: self.videoImage!)
+//            print("Time Binarize: \(CFAbsoluteTimeGetCurrent() - initBinarize)")
         }
         
         // Create the mask from that pixel buffer.
@@ -260,7 +284,9 @@ extension RealtimeDepthMaskViewController {
         let processedDepth: CIImage
         processedDepth = shouldGamma ? depthImage.applyBlurAndGamma() : depthImage
         
+        let timeFilter = CFAbsoluteTimeGetCurrent()
         self.maskImage = processedDepth.applyingFilter("CIBicubicScaleTransform", parameters: ["inputScale": alphaUpscaleFactor])
+//        print("Time Filter: \(CFAbsoluteTimeGetCurrent() - timeFilter)")
     }
     
     public static func createFilter() {
@@ -306,8 +332,7 @@ extension RealtimeDepthMaskViewController {
         return colorCubeFilter
     }
     
-    static func getHue(red: CGFloat, green: CGFloat, blue: CGFloat) -> CGFloat
-    {
+    static func getHue(red: CGFloat, green: CGFloat, blue: CGFloat) -> CGFloat {
         let color = UIColor(red: red, green: green, blue: blue, alpha: 1)
         var hue: CGFloat = 0
         color.getHue(&hue, saturation: nil, brightness: nil, alpha: nil)
@@ -353,7 +378,7 @@ extension RealtimeDepthMaskViewController {
         let snapshot = url.videoSnapshot()
         guard let image = snapshot else { return }
         let fps = Int32(asset.tracks(withMediaType: .video)[0].nominalFrameRate)
-        print("FPS: \(fps)")
+//        print("FPS: \(fps)")
         let writer = VideoCreator(fps: Int32(fps), width: image.size.width, height: image.size.height, audioSettings: nil)
         
         let timeScale = asset.duration.timescale
@@ -369,7 +394,7 @@ extension RealtimeDepthMaskViewController {
         
         var i = 0
         RealtimeDepthMaskViewController.getAudioFromURL(url: url) { (buffer) in
-            writer.addAudio(audio: buffer)
+            writer.addAudio(audio: buffer, time: .zero)
             i == 0 ? writer.startCreatingVideo(initialBuffer: buffer, completion: {}) : nil
             i += 1
         }
@@ -423,7 +448,6 @@ extension CVPixelBuffer {
                 }
             }
         }
-        
         CVPixelBufferUnlockBaseAddress(self, CVPixelBufferLockFlags(rawValue: 0))
         
         return self
@@ -444,8 +468,7 @@ extension CIImage {
 }
 
 extension RealtimeDepthMaskViewController: MTKViewDelegate {
-    public func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
-    }
+    public func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {}
     
     public func draw(in view: MTKView) {
         switch segmentedCtl.selectedSegmentIndex {
@@ -474,31 +497,55 @@ extension RealtimeDepthMaskViewController: MTKViewDelegate {
         default:
             return
         }
+//        print(UIImage(ciImage: self.finalImage).size)
         
         if(self.isRecording) {
             let time = CFAbsoluteTimeGetCurrent()
             let presTime = time - self.initTime
-            print(presTime)
+//            print(presTime)
             self.dispatchGroup.enter()
+            self.imageQueueIsEmpty = false
             autoreleasepool { [weak self] in
-                let regImage = self!.resizeImage(image: UIImage(ciImage: self!.videoImage!), toScale: 0.1)
-                let maskedImage = self!.resizeImage(image: UIImage(ciImage: self!.maskImage!), toScale: 0.1)
-                let audioBuffer = self!.curAudioSnip!
-                self!.imageQueue.async { [weak self] in
-                    autoreleasepool { [weak self] in
-                        guard let self = self else { return }
-                        guard let correctCIImage = self.recreateDepthMaskFromTwoUIImages(regImage: regImage, maskImage: maskedImage) else { return }
-                        let transparentImage = self.processPixels(correctCIImage, image: UIImage(ciImage: correctCIImage), fromColor: RGBA32.init(red: 0, green: 0, blue: 0, alpha: 0), toColor: RGBA32.green)!
-                        self.videoCreator.addImageAndAudio(image: transparentImage, audio: audioBuffer, time: presTime)
-                        self.dispatchGroup.leave()
+                //3D video
+                if(self!.segmentedCtl.selectedSegmentIndex == 1) {
+                    let regImage = self!.resizeImage(image: UIImage(ciImage: self!.videoImage!), toScale: 0.25)
+                    let maskedImage = self!.resizeImage(image: UIImage(ciImage: self!.maskImage!), toScale: 0.25)
+                    let audioBuffer = self!.curAudioSnip!
+                    print("Reg Image: \(regImage.size)")
+                    print("Masked Image: \(maskedImage.size)")
+                    self!.imageQueue.async { [weak self] in
+                        autoreleasepool { [weak self] in
+                            guard let self = self else { return }
+                            guard let correctCIImage = self.recreateDepthMaskFromTwoUIImages(regImage: regImage, maskImage: maskedImage) else { return }
+                            let transparentImage = self.processPixels(correctCIImage, image: UIImage(ciImage: correctCIImage), fromColor: RGBA32.init(red: 0, green: 0, blue: 0, alpha: 0), toColor: RGBA32.green)!
+                            print(transparentImage.size)
+                            self.videoCreator.addImageAndAudio(image: transparentImage, audio: audioBuffer, time: presTime)
+                            self.dispatchGroup.leave()
+                        }
+                    }
+                }
+                //2D video
+                else {
+                    let regImage = self!.resizeImage(image: UIImage(ciImage: self!.videoImage!), toScale: 0.1)
+                    let audioBuffer = self!.curAudioSnip!
+                    self!.imageQueue.async { [weak self] in
+                        autoreleasepool { [weak self] in
+                            guard let self = self else { return }
+                            self.videoCreator.addImageAndAudio(image: regImage, audio: audioBuffer, time: presTime)
+                            self.dispatchGroup.leave()
+                        }
                     }
                 }
             }
+            //I do a check here incase because the done button might be clicked but the video processing is still continuing in the background. Need to make sure we wait until all data is ready.
             self.dispatchGroup.notify(queue: self.imageQueue) {
-                print("Done Writing")
-                self.videoCreator.finishWriting()
-                let elapsed = CFAbsoluteTimeGetCurrent() - self.initTime
-                print("Your video should be about \(elapsed) seconds")
+                self.imageQueueIsEmpty = true
+                if(!self.isRecording) {
+                    print("Done Writing")
+                    self.videoCreator.finishWriting()
+                    let elapsed = CFAbsoluteTimeGetCurrent() - self.initTime
+                    print("Your video should be about \(elapsed) seconds")
+                }
             }
         }
     }
@@ -681,27 +728,6 @@ extension UIImage {
         let a = CGFloat(data[pixelInfo+3]) / CGFloat(255.0)
         
         return UIColor(red: r, green: g, blue: b, alpha: a)
-    }
-}
-
-struct AudioContext {
-    /// The audio asset URL used to load the context
-    public let audioURL: URL
-    
-    /// Total number of samples in loaded asset
-    public let totalSamples: Int
-    
-    /// Loaded asset
-    public let asset: AVAsset
-    
-    // Loaded assetTrack
-    public let assetTrack: AVAssetTrack
-    
-    init(audioURL: URL, totalSamples: Int, asset: AVAsset, assetTrack: AVAssetTrack) {
-        self.audioURL = audioURL
-        self.totalSamples = totalSamples
-        self.asset = asset
-        self.assetTrack = assetTrack
     }
 }
 

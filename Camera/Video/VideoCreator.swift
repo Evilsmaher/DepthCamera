@@ -52,8 +52,8 @@ public class VideoCreator: NSObject {
         return settings!.outputURL
     }
     
-    func addAudio(audio: CMSampleBuffer) {
-        self.imageAnimator.videoWriter.addAudio(buffer: audio)
+    func addAudio(audio: CMSampleBuffer, time: CMTime) {
+        self.imageAnimator.videoWriter.addAudio(buffer: audio, time: time)
     }
 }
 
@@ -155,9 +155,9 @@ public class ImageAnimator {
             if(!imagesAndAudio.isEmpty) {
                 let date = Date()
                 
-                if writer.isReadyForData == false {
+                if writer.isReadyForVideoData == false {
                     // Inform writer we have more buffers to write.
-                    print("Writer is not ready for more data")
+//                    print("Writer is not ready for more data")
                     return false
                 }
                 
@@ -167,7 +167,7 @@ public class ImageAnimator {
                         semaphore.wait() // requesting resource
                         let imageAndAudio = imagesAndAudio.first()!
                         let image = imageAndAudio.0
-                        let audio = imageAndAudio.1
+//                        let audio = imageAndAudio.1
                         let time = imageAndAudio.2
                         self.imagesAndAudio.removeAtIndex(index: 0)
                         semaphore.signal() // releasing resource
@@ -179,16 +179,16 @@ public class ImageAnimator {
                             fatalError("addImage() failed")
                         }
                         else {
-                            print("Added image @ frame \(frameNum) with presTime: \(presentationTime)")
+//                            print("Added image @ frame \(frameNum) with presTime: \(presentationTime)")
                         }
                     
                         frameNum += 1
                         let final = Date()
                         let timeDiff = final.timeIntervalSince(date)
-                        print("Time: \(timeDiff)")
+//                        print("Time: \(timeDiff)")
                     }
                     else {
-                        print("Images was empty")
+//                        print("Images was empty")
                     }
                 }
             }
@@ -213,8 +213,12 @@ public class VideoWriter {
     static var ci:Int = 0
     var initialTime:CMTime!
     
-    var isReadyForData: Bool {
-        return (videoWriterInput == nil ? true : videoWriterInput!.isReadyForMoreMediaData ) && (audioWriterInput == nil ? true : audioWriterInput!.isReadyForMoreMediaData )
+    var isReadyForVideoData: Bool {
+        return (videoWriterInput == nil ? false : videoWriterInput!.isReadyForMoreMediaData )
+    }
+    
+    var isReadyForAudioData: Bool {
+        return (audioWriterInput == nil ? false : audioWriterInput!.isReadyForMoreMediaData)
     }
     
     class func pixelBufferFromImage(image: UIImage, pixelBufferPool: CVPixelBufferPool, size: CGSize, alpha:CGImageAlphaInfo) -> CVPixelBuffer? {
@@ -352,7 +356,7 @@ public class VideoWriter {
         }
     }
     
-    func addAudio(buffer: CMSampleBuffer) {
+    func addAudio(buffer: CMSampleBuffer, time: CMTime) {
         if(self.audioWriterInput != nil && self.audioWriterInput.isReadyForMoreMediaData) {
             print("Writing audio \(VideoWriter.ci) of a time of \(CMSampleBufferGetPresentationTimeStamp(buffer))")
             self.audioWriterInput.append(buffer)
