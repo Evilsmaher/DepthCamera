@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'DepthCamera'
-  s.version          = '1.1.8'
+  s.version          = '1.2.0'
   s.summary          = 'Basic DepthCamera to obtain and render Depth Imagery'
  
   s.description      = <<-DESC

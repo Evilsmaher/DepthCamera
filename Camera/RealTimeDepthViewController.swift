@@ -200,7 +200,7 @@ public class RealtimeDepthMaskViewController: UIViewController {
     }
     
     @objc func updateTimer() {
-        progress = progress + (CGFloat(0.05) / maxDuration)
+        progress = progress + (CGFloat(0.05) / maxVideoTime)
         self.cameraButon.setProgress(progress)
         if(progress >= 1) {
             timer.invalidate()
