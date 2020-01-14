@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="z5C-FL-5Zk">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="z5C-FL-5Zk">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,7 +11,7 @@
         <!--Realtime Depth Mask View Controller-->
         <scene sceneID="n4P-CN-DOb">
             <objects>
-                <viewController storyboardIdentifier="DepthCamera" id="z5C-FL-5Zk" customClass="RealtimeDepthMaskViewController" customModule="DepthCamera" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DepthCamera" id="z5C-FL-5Zk" customClass="RealtimeDepthMaskViewController" customModule="Camera" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4sv-YP-8Rk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,7 +37,7 @@
                                         </connections>
                                     </button>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="NgJ-yX-4DQ">
-                                        <rect key="frame" x="0.0" y="48" width="343" height="29"/>
+                                        <rect key="frame" x="0.0" y="48" width="343" height="32"/>
                                         <segments>
                                             <segment title="Original"/>
                                             <segment title="Blended"/>
@@ -63,7 +62,7 @@
                                     <constraint firstItem="NgJ-yX-4DQ" firstAttribute="leading" secondItem="xds-55-juU" secondAttribute="leading" id="yan-b2-FkL"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JjB-HT-fs1">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JjB-HT-fs1" customClass="RecordButton" customModule="RecordButton">
                                 <rect key="frame" x="150" y="703" width="75" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.27726205766379203" green="0.40234437188143057" blue="0.89813512563705444" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="displayP3"/>
@@ -94,6 +93,7 @@
                         <outlet property="cameraLabel" destination="Mpv-ir-nme" id="WKA-fa-6DO"/>
                         <outlet property="mtkView" destination="miz-N2-WMG" id="ocg-sh-yAj"/>
                         <outlet property="segmentedCtl" destination="NgJ-yX-4DQ" id="azS-yc-Cfk"/>
+                        <outlet property="switchCameraButton" destination="2Eh-2Y-YkG" id="WTB-cI-xKP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5vk-tB-ihh" sceneMemberID="firstResponder"/>

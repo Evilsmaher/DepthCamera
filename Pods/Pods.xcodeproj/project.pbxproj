@@ -7,22 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03AF832BC7554CB4989891277B8AB6C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		0FB5F4AA32668453BDE6B6DF09A315E7 /* VideoGeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E09D9648E4980780EED75491A45B365 /* VideoGeneratorError.swift */; };
+		03AF832BC7554CB4989891277B8AB6C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
+		0FB5F4AA32668453BDE6B6DF09A315E7 /* VideoGeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD406E610BE7901F91B875225909EC92 /* VideoGeneratorError.swift */; };
 		161C666DD5B17E944CD8DC40E46B579F /* Pods-CameraTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AAE7BEF947BE21B3C467CBE1398E5F64 /* Pods-CameraTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		468AD066117B1E9DAD4141C1DEFB56DF /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85BF4C4E0A7A55BC6C7406274F81B27 /* ImageExtension.swift */; };
-		58B302C641187449BD817438E5B88873 /* AVAssetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705279D3478025FF95343CC12645DAA4 /* AVAssetExtension.swift */; };
-		597F4F80B5A8CD6AFB90CFD14CCBC08B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		34DF34C02407D627DBDF518330CB7011 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E19C70F7AB3F57A56EB3A827090D62 /* RecordButton.swift */; };
+		44CCF1526DEE499A5C281139C6E685FA /* Pods-Camera-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 87C088C807C482C17AA66D939DF2A123 /* Pods-Camera-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		468AD066117B1E9DAD4141C1DEFB56DF /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4DE0C07EAA9152C6A68102074E30C6 /* ImageExtension.swift */; };
+		58B302C641187449BD817438E5B88873 /* AVAssetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66E3BC9BAC9CA26B2A0D98B9C581C9A /* AVAssetExtension.swift */; };
+		597F4F80B5A8CD6AFB90CFD14CCBC08B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
 		60B5CE0C5C2C06E466D2E1AD64CB5BE8 /* Pods-CameraTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 251F1DF1971699416E557CC33F853940 /* Pods-CameraTests-dummy.m */; };
-		61ACB666B7DC23EF411CDBF501957BE2 /* SwiftVideoGenerator-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C07EA6CD3CF34FC570DC382EA3AA47 /* SwiftVideoGenerator-dummy.m */; };
+		61ACB666B7DC23EF411CDBF501957BE2 /* SwiftVideoGenerator-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B000511DF5C0D231CDD83D7F540303A /* SwiftVideoGenerator-dummy.m */; };
+		7021CFF80EDB577DF447424A1C5DAA47 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
+		7B1B18C77E0E1534DCB2B7FF3ED25B6C /* Pods-Camera-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCD91B6E025D4806DB0E99F71DC8A3A /* Pods-Camera-dummy.m */; };
+		7EAAED32156164EF5C85DAEDE2A6C80E /* RecordButton-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A9786198FF904A09193F6DCB837F456C /* RecordButton-dummy.m */; };
 		8D70325B73124D1ECE62978C9519C5F8 /* Pods-CameraUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D8ED316D623A124B233A1E225D585296 /* Pods-CameraUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		91CE647EADC9ECAEB2E8E3E8083AB8B6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		AE40A3CAC89EB84B58E251262D277139 /* VideoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDEA4DA0B991DF5E3A3A8E0086DFE6F /* VideoGenerator.swift */; };
-		AF00D829B812BDF3C1412E97335E3B63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		91CE647EADC9ECAEB2E8E3E8083AB8B6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
+		93B8D44C64D637C2516749D8A1DD52C0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312B988EF117AE4DE76A268D970131FE /* UIKit.framework */; };
+		9668C5290C52AC4B9989AF75ED6E47AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */; };
+		AE40A3CAC89EB84B58E251262D277139 /* VideoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A36518A6D4D87CD496E4426A15DC91 /* VideoGenerator.swift */; };
 		B9E96D0C33DD8B154D774BA617DBB1B5 /* Pods-CameraUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FC60E7BBD3E0B9DF7996C75B4E8CA706 /* Pods-CameraUITests-dummy.m */; };
-		C18C85D451928E98F278F33D023733B5 /* SwiftVideoGenerator-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 23C93D320A63C3A9BC9BBE085D0D55CF /* SwiftVideoGenerator-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D05D614BAA91F61D4798731D4D8304A9 /* Pods-Camera-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 87C088C807C482C17AA66D939DF2A123 /* Pods-Camera-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F8125C7309B4E90C2EAA676C593D9825 /* Pods-Camera-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCD91B6E025D4806DB0E99F71DC8A3A /* Pods-Camera-dummy.m */; };
+		C18C85D451928E98F278F33D023733B5 /* SwiftVideoGenerator-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D98B2D4FAFB81BFB4C68C3242115F204 /* SwiftVideoGenerator-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F0EC0118BBC44B8A831F374C4B67A554 /* RecordButton-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B7D192C88AFAE48AD0F67BB217DD15EB /* RecordButton-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +38,7 @@
 			remoteGlobalIDString = 7E079F093E98AD95A939001D74027C67;
 			remoteInfo = "Pods-Camera";
 		};
-		CBDF4A89F1D291E57A3A4E4B09E1FCF6 /* PBXContainerItemProxy */ = {
+		3B4EC2506E5BF48D345843BBD24AC23B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -47,49 +52,65 @@
 			remoteGlobalIDString = 7E079F093E98AD95A939001D74027C67;
 			remoteInfo = "Pods-Camera";
 		};
+		E36457CCD6B0A5F5AA2ACC293B988F11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3AC1021B94985C1DF670DE01ED11B5C7;
+			remoteInfo = RecordButton;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		02C07EA6CD3CF34FC570DC382EA3AA47 /* SwiftVideoGenerator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftVideoGenerator-dummy.m"; sourceTree = "<group>"; };
+		0A2EA781B6CA087DD63C4715B1579147 /* RecordButton-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RecordButton-prefix.pch"; sourceTree = "<group>"; };
 		0D30DB4A625B1E458B3475664118A38E /* Pods-Camera.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Camera.debug.xcconfig"; sourceTree = "<group>"; };
 		0DCD91B6E025D4806DB0E99F71DC8A3A /* Pods-Camera-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Camera-dummy.m"; sourceTree = "<group>"; };
-		16D4BE0266241F4BF562E3DDE6672870 /* SwiftVideoGenerator-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftVideoGenerator-prefix.pch"; sourceTree = "<group>"; };
+		170FCE3D2D9E4EA98EA5098D4A10EA3B /* RecordButton.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RecordButton.framework; path = RecordButton.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		179BDE78045086063CC19D4722C83083 /* SwiftVideoGenerator.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftVideoGenerator.xcconfig; sourceTree = "<group>"; };
 		22F8F06A5DDBAC98BD1BCCE5C8763A12 /* Pods-CameraUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CameraUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		23C93D320A63C3A9BC9BBE085D0D55CF /* SwiftVideoGenerator-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftVideoGenerator-umbrella.h"; sourceTree = "<group>"; };
 		251F1DF1971699416E557CC33F853940 /* Pods-CameraTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CameraTests-dummy.m"; sourceTree = "<group>"; };
+		26A36518A6D4D87CD496E4426A15DC91 /* VideoGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoGenerator.swift; path = SwiftVideoGenerator/Classes/VideoGenerator.swift; sourceTree = "<group>"; };
 		27D264141FB6D6781776636CEDF3BE8B /* Pods-Camera-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Camera-acknowledgements.plist"; sourceTree = "<group>"; };
-		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		3DDEA4DA0B991DF5E3A3A8E0086DFE6F /* VideoGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoGenerator.swift; path = SwiftVideoGenerator/Classes/VideoGenerator.swift; sourceTree = "<group>"; };
+		312B988EF117AE4DE76A268D970131FE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		3F4DE0C07EAA9152C6A68102074E30C6 /* ImageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageExtension.swift; path = SwiftVideoGenerator/Classes/Extensions/ImageExtension.swift; sourceTree = "<group>"; };
+		436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		45109D162562CDF565BAA97EB9AFA493 /* Pods-CameraTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CameraTests.release.xcconfig"; sourceTree = "<group>"; };
 		46CA87CBCFE67AC0B8B432116A66F732 /* Pods-Camera-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Camera-Info.plist"; sourceTree = "<group>"; };
+		4B000511DF5C0D231CDD83D7F540303A /* SwiftVideoGenerator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftVideoGenerator-dummy.m"; sourceTree = "<group>"; };
 		59036D9DF8516C51E1F6C0AF6F40EFB0 /* SwiftVideoGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftVideoGenerator.framework; path = SwiftVideoGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5E09D9648E4980780EED75491A45B365 /* VideoGeneratorError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoGeneratorError.swift; path = SwiftVideoGenerator/Classes/Error/VideoGeneratorError.swift; sourceTree = "<group>"; };
 		61178FC2CACD2C0A2A423A4E7500D574 /* Pods-CameraUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CameraUITests.release.xcconfig"; sourceTree = "<group>"; };
-		61882B8BE7CEBC9A09842E926C9B05BD /* SwiftVideoGenerator-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftVideoGenerator-Info.plist"; sourceTree = "<group>"; };
 		67DD74DCD17733F0B6B74560DF3D9A94 /* Pods-CameraTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CameraTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		69CBCCD39FBF562CF76063D8C28C8135 /* Pods-CameraTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CameraTests.modulemap"; sourceTree = "<group>"; };
 		6A702271131B5BD97D6F512CF52F797F /* Pods-CameraTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CameraTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		6ADA47BDBAA6E2669182C1BD47359557 /* SwiftVideoGenerator.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftVideoGenerator.modulemap; sourceTree = "<group>"; };
-		705279D3478025FF95343CC12645DAA4 /* AVAssetExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AVAssetExtension.swift; path = SwiftVideoGenerator/Classes/Extensions/AVAssetExtension.swift; sourceTree = "<group>"; };
+		6F1CF12B47DF8B5E247BAFDEE3C01FD3 /* SwiftVideoGenerator-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftVideoGenerator-prefix.pch"; sourceTree = "<group>"; };
+		79C392B5A4C4852D8C42A9A6071FA8AA /* RecordButton-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "RecordButton-Info.plist"; sourceTree = "<group>"; };
 		87C088C807C482C17AA66D939DF2A123 /* Pods-Camera-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Camera-umbrella.h"; sourceTree = "<group>"; };
-		8DDB5EB3ECABB603DEB7C2E56C328CBA /* SwiftVideoGenerator.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftVideoGenerator.xcconfig; sourceTree = "<group>"; };
+		9090B8F9FC950378670AEC6FFDFC6BB4 /* SwiftVideoGenerator-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftVideoGenerator-Info.plist"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A85BF4C4E0A7A55BC6C7406274F81B27 /* ImageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageExtension.swift; path = SwiftVideoGenerator/Classes/Extensions/ImageExtension.swift; sourceTree = "<group>"; };
+		A9786198FF904A09193F6DCB837F456C /* RecordButton-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RecordButton-dummy.m"; sourceTree = "<group>"; };
 		AAE7BEF947BE21B3C467CBE1398E5F64 /* Pods-CameraTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CameraTests-umbrella.h"; sourceTree = "<group>"; };
 		AD1D853D10BD3E626110B0BD24440B94 /* Pods-CameraUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CameraUITests.modulemap"; sourceTree = "<group>"; };
 		AE466D843A04B4842BC9F7D9624AC009 /* Pods-Camera.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Camera.release.xcconfig"; sourceTree = "<group>"; };
+		B2E19C70F7AB3F57A56EB3A827090D62 /* RecordButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RecordButton.swift; path = Pod/Classes/RecordButton.swift; sourceTree = "<group>"; };
 		B645761EA31A827F8CF98E77B8B20ED9 /* Pods_Camera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Camera.framework; path = "Pods-Camera.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B776923DADD0433CACC50D6637C63F70 /* Pods_CameraTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CameraTests.framework; path = "Pods-CameraTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7D192C88AFAE48AD0F67BB217DD15EB /* RecordButton-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RecordButton-umbrella.h"; sourceTree = "<group>"; };
+		BD406E610BE7901F91B875225909EC92 /* VideoGeneratorError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoGeneratorError.swift; path = SwiftVideoGenerator/Classes/Error/VideoGeneratorError.swift; sourceTree = "<group>"; };
 		BE1C194964B7B4036891D6A8002A7A24 /* Pods-Camera-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Camera-acknowledgements.markdown"; sourceTree = "<group>"; };
 		C013AB82655D7132A0DD95FB26F1553E /* Pods-CameraUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CameraUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CB8D8B606C19FC682FD149042F0EF683 /* Pods-CameraTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CameraTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CE33FA37C49DCEFD2C8F26D648895F65 /* RecordButton.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = RecordButton.modulemap; sourceTree = "<group>"; };
 		D51AF7835F79E1E6A0A87B61EFCBDE55 /* Pods-CameraTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CameraTests-Info.plist"; sourceTree = "<group>"; };
 		D8ED316D623A124B233A1E225D585296 /* Pods-CameraUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CameraUITests-umbrella.h"; sourceTree = "<group>"; };
+		D98B2D4FAFB81BFB4C68C3242115F204 /* SwiftVideoGenerator-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftVideoGenerator-umbrella.h"; sourceTree = "<group>"; };
 		DF0A145A85FFDE5B90ECEB5614667DB3 /* Pods-CameraUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CameraUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		EA93C63AC298FD1F921A4929682D14EE /* RecordButton.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RecordButton.xcconfig; sourceTree = "<group>"; };
 		EA9B086ED1953CC0B462075D92DA2243 /* Pods-CameraUITests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CameraUITests-Info.plist"; sourceTree = "<group>"; };
+		EEA896D7D6CA390AD56B98BF79FCDC43 /* SwiftVideoGenerator.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftVideoGenerator.modulemap; sourceTree = "<group>"; };
 		F15752E936B2D23462CC1F644A78326B /* Pods_CameraUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CameraUITests.framework; path = "Pods-CameraUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2329A49A93258A1B235B65F214C14E1 /* Pods-Camera.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Camera.modulemap"; sourceTree = "<group>"; };
 		F32E4909904B63618668B7B0DA08FD20 /* Pods-Camera-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Camera-frameworks.sh"; sourceTree = "<group>"; };
+		F66E3BC9BAC9CA26B2A0D98B9C581C9A /* AVAssetExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AVAssetExtension.swift; path = SwiftVideoGenerator/Classes/Extensions/AVAssetExtension.swift; sourceTree = "<group>"; };
 		FC60E7BBD3E0B9DF7996C75B4E8CA706 /* Pods-CameraUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CameraUITests-dummy.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,40 +139,41 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BA04F792E34DF59CE976DA1F7E2E9F16 /* Frameworks */ = {
+		596140341FCEE7514344C596DA5B88F9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF00D829B812BDF3C1412E97335E3B63 /* Foundation.framework in Frameworks */,
+				7021CFF80EDB577DF447424A1C5DAA47 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67E4857B1C1838CE96FE645C09C66C50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9668C5290C52AC4B9989AF75ED6E47AC /* Foundation.framework in Frameworks */,
+				93B8D44C64D637C2516749D8A1DD52C0 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0CD994C2B148EE0B0A960CF4C89C856B /* Products */ = {
+		0D0C4AFAC0346F27C597ACF1A3871BF4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B645761EA31A827F8CF98E77B8B20ED9 /* Pods_Camera.framework */,
-				B776923DADD0433CACC50D6637C63F70 /* Pods_CameraTests.framework */,
-				F15752E936B2D23462CC1F644A78326B /* Pods_CameraUITests.framework */,
-				59036D9DF8516C51E1F6C0AF6F40EFB0 /* SwiftVideoGenerator.framework */,
+				5A55FE499CB4078CEBD489E715A56BB5 /* RecordButton */,
+				6F0EAE90FCCDE02800E48B3EC74C5F5F /* SwiftVideoGenerator */,
 			);
-			name = Products;
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		2FDA7A2FC25EC49F31E0B84F74CAD6F5 /* Support Files */ = {
+		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6ADA47BDBAA6E2669182C1BD47359557 /* SwiftVideoGenerator.modulemap */,
-				8DDB5EB3ECABB603DEB7C2E56C328CBA /* SwiftVideoGenerator.xcconfig */,
-				02C07EA6CD3CF34FC570DC382EA3AA47 /* SwiftVideoGenerator-dummy.m */,
-				61882B8BE7CEBC9A09842E926C9B05BD /* SwiftVideoGenerator-Info.plist */,
-				16D4BE0266241F4BF562E3DDE6672870 /* SwiftVideoGenerator-prefix.pch */,
-				23C93D320A63C3A9BC9BBE085D0D55CF /* SwiftVideoGenerator-umbrella.h */,
+				E2983683FD097A93297E2F5D4E382B36 /* iOS */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/SwiftVideoGenerator";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		32C00D34F9B4BF55C538823105B04A94 /* Targets Support Files */ = {
@@ -162,6 +184,69 @@
 				B386C7B7D88AD120911E18AFEF1EF1A5 /* Pods-CameraUITests */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		4A025BFDF209F3A09FFE8F5775C84427 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B645761EA31A827F8CF98E77B8B20ED9 /* Pods_Camera.framework */,
+				B776923DADD0433CACC50D6637C63F70 /* Pods_CameraTests.framework */,
+				F15752E936B2D23462CC1F644A78326B /* Pods_CameraUITests.framework */,
+				170FCE3D2D9E4EA98EA5098D4A10EA3B /* RecordButton.framework */,
+				59036D9DF8516C51E1F6C0AF6F40EFB0 /* SwiftVideoGenerator.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5A55FE499CB4078CEBD489E715A56BB5 /* RecordButton */ = {
+			isa = PBXGroup;
+			children = (
+				B2E19C70F7AB3F57A56EB3A827090D62 /* RecordButton.swift */,
+				8186D88376AD736FFD7643FB5FFFD3EA /* Support Files */,
+			);
+			name = RecordButton;
+			path = RecordButton;
+			sourceTree = "<group>";
+		};
+		65F62617996FF38A354543BD7C56A01F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				EEA896D7D6CA390AD56B98BF79FCDC43 /* SwiftVideoGenerator.modulemap */,
+				179BDE78045086063CC19D4722C83083 /* SwiftVideoGenerator.xcconfig */,
+				4B000511DF5C0D231CDD83D7F540303A /* SwiftVideoGenerator-dummy.m */,
+				9090B8F9FC950378670AEC6FFDFC6BB4 /* SwiftVideoGenerator-Info.plist */,
+				6F1CF12B47DF8B5E247BAFDEE3C01FD3 /* SwiftVideoGenerator-prefix.pch */,
+				D98B2D4FAFB81BFB4C68C3242115F204 /* SwiftVideoGenerator-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftVideoGenerator";
+			sourceTree = "<group>";
+		};
+		6F0EAE90FCCDE02800E48B3EC74C5F5F /* SwiftVideoGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				F66E3BC9BAC9CA26B2A0D98B9C581C9A /* AVAssetExtension.swift */,
+				3F4DE0C07EAA9152C6A68102074E30C6 /* ImageExtension.swift */,
+				26A36518A6D4D87CD496E4426A15DC91 /* VideoGenerator.swift */,
+				BD406E610BE7901F91B875225909EC92 /* VideoGeneratorError.swift */,
+				65F62617996FF38A354543BD7C56A01F /* Support Files */,
+			);
+			name = SwiftVideoGenerator;
+			path = SwiftVideoGenerator;
+			sourceTree = "<group>";
+		};
+		8186D88376AD736FFD7643FB5FFFD3EA /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				CE33FA37C49DCEFD2C8F26D648895F65 /* RecordButton.modulemap */,
+				EA93C63AC298FD1F921A4929682D14EE /* RecordButton.xcconfig */,
+				A9786198FF904A09193F6DCB837F456C /* RecordButton-dummy.m */,
+				79C392B5A4C4852D8C42A9A6071FA8AA /* RecordButton-Info.plist */,
+				0A2EA781B6CA087DD63C4715B1579147 /* RecordButton-prefix.pch */,
+				B7D192C88AFAE48AD0F67BB217DD15EB /* RecordButton-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/RecordButton";
 			sourceTree = "<group>";
 		};
 		81C94F3572216F7C262178F3D3AB38D1 /* Pods-Camera */ = {
@@ -197,19 +282,6 @@
 			path = "Target Support Files/Pods-CameraTests";
 			sourceTree = "<group>";
 		};
-		8F6F8502B09755EA96BE50F208D26204 /* SwiftVideoGenerator */ = {
-			isa = PBXGroup;
-			children = (
-				705279D3478025FF95343CC12645DAA4 /* AVAssetExtension.swift */,
-				A85BF4C4E0A7A55BC6C7406274F81B27 /* ImageExtension.swift */,
-				3DDEA4DA0B991DF5E3A3A8E0086DFE6F /* VideoGenerator.swift */,
-				5E09D9648E4980780EED75491A45B365 /* VideoGeneratorError.swift */,
-				2FDA7A2FC25EC49F31E0B84F74CAD6F5 /* Support Files */,
-			);
-			name = SwiftVideoGenerator;
-			path = SwiftVideoGenerator;
-			sourceTree = "<group>";
-		};
 		B386C7B7D88AD120911E18AFEF1EF1A5 /* Pods-CameraUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,49 +298,34 @@
 			path = "Target Support Files/Pods-CameraUITests";
 			sourceTree = "<group>";
 		};
-		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				EBADA8D75E030A6696CFF3F96828B612 /* Pods */,
-				0CD994C2B148EE0B0A960CF4C89C856B /* Products */,
+				1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */,
+				0D0C4AFAC0346F27C597ACF1A3871BF4 /* Pods */,
+				4A025BFDF209F3A09FFE8F5775C84427 /* Products */,
 				32C00D34F9B4BF55C538823105B04A94 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+		E2983683FD097A93297E2F5D4E382B36 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				C0834CEBB1379A84116EF29F93051C60 /* iOS */,
+				436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */,
+				312B988EF117AE4DE76A268D970131FE /* UIKit.framework */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		EBADA8D75E030A6696CFF3F96828B612 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				8F6F8502B09755EA96BE50F208D26204 /* SwiftVideoGenerator */,
-			);
-			name = Pods;
+			name = iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		1FC13549622C626426A6C9BEA02A102B /* Headers */ = {
+		2FE838E822AC638296663131A9ADCD92 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D05D614BAA91F61D4798731D4D8304A9 /* Pods-Camera-umbrella.h in Headers */,
+				44CCF1526DEE499A5C281139C6E685FA /* Pods-Camera-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +353,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DE0BB3D91E67D8333C5E24B3BEE5C8C1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0EC0118BBC44B8A831F374C4B67A554 /* RecordButton-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -318,19 +383,38 @@
 			productReference = F15752E936B2D23462CC1F644A78326B /* Pods_CameraUITests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		7E079F093E98AD95A939001D74027C67 /* Pods-Camera */ = {
+		3AC1021B94985C1DF670DE01ED11B5C7 /* RecordButton */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FEE894596319133094D209CACCDB75E9 /* Build configuration list for PBXNativeTarget "Pods-Camera" */;
+			buildConfigurationList = 1C1DBB5B735FFF661077AF29FA7F735D /* Build configuration list for PBXNativeTarget "RecordButton" */;
 			buildPhases = (
-				1FC13549622C626426A6C9BEA02A102B /* Headers */,
-				0D8FB9C95E1801C2B9C2B6D30DDB7DB4 /* Sources */,
-				BA04F792E34DF59CE976DA1F7E2E9F16 /* Frameworks */,
-				3957156F3346C0AD138A2C6C01732763 /* Resources */,
+				DE0BB3D91E67D8333C5E24B3BEE5C8C1 /* Headers */,
+				DBA69309D977550A832E40D3E01D2A30 /* Sources */,
+				67E4857B1C1838CE96FE645C09C66C50 /* Frameworks */,
+				CD4FCDC8DA7918DA0E115891F24FBE76 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E85D4128F9B3692EFCBF70646ABA7E86 /* PBXTargetDependency */,
+			);
+			name = RecordButton;
+			productName = RecordButton;
+			productReference = 170FCE3D2D9E4EA98EA5098D4A10EA3B /* RecordButton.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7E079F093E98AD95A939001D74027C67 /* Pods-Camera */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84DB39F63E62420BFE29B1B2731E37F3 /* Build configuration list for PBXNativeTarget "Pods-Camera" */;
+			buildPhases = (
+				2FE838E822AC638296663131A9ADCD92 /* Headers */,
+				19E635C331F0430D47845D35BDC4B775 /* Sources */,
+				596140341FCEE7514344C596DA5B88F9 /* Frameworks */,
+				144C19C4BD93C6D1DFBA1D7E2F767CBC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF0B0BFA363F248A69D85FBC1E2A134C /* PBXTargetDependency */,
+				61902B172DC8CA961E3B570F942DA085 /* PBXTargetDependency */,
 			);
 			name = "Pods-Camera";
 			productName = "Pods-Camera";
@@ -391,27 +475,28 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 0CD994C2B148EE0B0A960CF4C89C856B /* Products */;
+			productRefGroup = 4A025BFDF209F3A09FFE8F5775C84427 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				7E079F093E98AD95A939001D74027C67 /* Pods-Camera */,
 				DABEB8762D1F5A4AFC856D83E1B0858A /* Pods-CameraTests */,
 				062033716D6199D50A51E422028F343D /* Pods-CameraUITests */,
+				3AC1021B94985C1DF670DE01ED11B5C7 /* RecordButton */,
 				877B00E6DE7D4DC1416DB002A9C00848 /* SwiftVideoGenerator */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2ADAABC50327CC6B4982563D0DC390AB /* Resources */ = {
+		144C19C4BD93C6D1DFBA1D7E2F767CBC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3957156F3346C0AD138A2C6C01732763 /* Resources */ = {
+		2ADAABC50327CC6B4982563D0DC390AB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -432,14 +517,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD4FCDC8DA7918DA0E115891F24FBE76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0D8FB9C95E1801C2B9C2B6D30DDB7DB4 /* Sources */ = {
+		19E635C331F0430D47845D35BDC4B775 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8125C7309B4E90C2EAA676C593D9825 /* Pods-Camera-dummy.m in Sources */,
+				7B1B18C77E0E1534DCB2B7FF3ED25B6C /* Pods-Camera-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +563,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DBA69309D977550A832E40D3E01D2A30 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7EAAED32156164EF5C85DAEDE2A6C80E /* RecordButton-dummy.m in Sources */,
+				34DF34C02407D627DBDF518330CB7011 /* RecordButton.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -486,11 +587,17 @@
 			target = 7E079F093E98AD95A939001D74027C67 /* Pods-Camera */;
 			targetProxy = DF82BA7B7E532C7C52BB30F0B092A3CA /* PBXContainerItemProxy */;
 		};
-		E85D4128F9B3692EFCBF70646ABA7E86 /* PBXTargetDependency */ = {
+		61902B172DC8CA961E3B570F942DA085 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SwiftVideoGenerator;
 			target = 877B00E6DE7D4DC1416DB002A9C00848 /* SwiftVideoGenerator */;
-			targetProxy = CBDF4A89F1D291E57A3A4E4B09E1FCF6 /* PBXContainerItemProxy */;
+			targetProxy = 3B4EC2506E5BF48D345843BBD24AC23B /* PBXContainerItemProxy */;
+		};
+		BF0B0BFA363F248A69D85FBC1E2A134C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RecordButton;
+			target = 3AC1021B94985C1DF670DE01ED11B5C7 /* RecordButton */;
+			targetProxy = E36457CCD6B0A5F5AA2ACC293B988F11 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -556,6 +663,44 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		23CE630321CE576FC9B86CB6922F0FA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D30DB4A625B1E458B3475664118A38E /* Pods-Camera.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Camera/Pods-Camera-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Camera/Pods-Camera.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
@@ -696,6 +841,42 @@
 			};
 			name = Debug;
 		};
+		504F945217E6D983011871FB010B2C13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA93C63AC298FD1F921A4929682D14EE /* RecordButton.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/RecordButton/RecordButton-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/RecordButton/RecordButton-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/RecordButton/RecordButton.modulemap";
+				PRODUCT_MODULE_NAME = RecordButton;
+				PRODUCT_NAME = RecordButton;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		50DC094394777C815BC24935FB46E0FA /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 45109D162562CDF565BAA97EB9AFA493 /* Pods-CameraTests.release.xcconfig */;
@@ -735,12 +916,10 @@
 			};
 			name = Release;
 		};
-		7953A18557E1C39411AE496284CE0003 /* Debug */ = {
+		8B97E47A0F7A2AE8A799320384F43579 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D30DB4A625B1E458B3475664118A38E /* Pods-Camera.debug.xcconfig */;
+			baseConfigurationReference = EA93C63AC298FD1F921A4929682D14EE /* RecordButton.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -750,23 +929,22 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Camera/Pods-Camera-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/RecordButton/RecordButton-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/RecordButton/RecordButton-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Camera/Pods-Camera.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				MODULEMAP_FILE = "Target Support Files/RecordButton/RecordButton.modulemap";
+				PRODUCT_MODULE_NAME = RecordButton;
+				PRODUCT_NAME = RecordButton;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -811,7 +989,7 @@
 			};
 			name = Debug;
 		};
-		BB7EA5DCDEBBB50A5ED304D5E5C003FD /* Release */ = {
+		D5C9DC9E0E2D54B65CAFC4CD0E3333E7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AE466D843A04B4842BC9F7D9624AC009 /* Pods-Camera.release.xcconfig */;
 			buildSettings = {
@@ -852,7 +1030,7 @@
 		};
 		DF31AD17A3A69EEB68D3A65A709CD92E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8DDB5EB3ECABB603DEB7C2E56C328CBA /* SwiftVideoGenerator.xcconfig */;
+			baseConfigurationReference = 179BDE78045086063CC19D4722C83083 /* SwiftVideoGenerator.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -888,7 +1066,7 @@
 		};
 		DF35D70FDEB025443722AD66D3336796 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8DDB5EB3ECABB603DEB7C2E56C328CBA /* SwiftVideoGenerator.xcconfig */;
+			baseConfigurationReference = 179BDE78045086063CC19D4722C83083 /* SwiftVideoGenerator.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -935,11 +1113,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		1C1DBB5B735FFF661077AF29FA7F735D /* Build configuration list for PBXNativeTarget "RecordButton" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B97E47A0F7A2AE8A799320384F43579 /* Debug */,
+				504F945217E6D983011871FB010B2C13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				204B8AEA4AE90A551A1768B355C2F9F0 /* Debug */,
 				3CCC6195EDBEE5DA2A49DF962113BE16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84DB39F63E62420BFE29B1B2731E37F3 /* Build configuration list for PBXNativeTarget "Pods-Camera" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23CE630321CE576FC9B86CB6922F0FA7 /* Debug */,
+				D5C9DC9E0E2D54B65CAFC4CD0E3333E7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -958,15 +1154,6 @@
 			buildConfigurations = (
 				A4572EB870870B6785F0F4A18F8E96CF /* Debug */,
 				50DC094394777C815BC24935FB46E0FA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FEE894596319133094D209CACCDB75E9 /* Build configuration list for PBXNativeTarget "Pods-Camera" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7953A18557E1C39411AE496284CE0003 /* Debug */,
-				BB7EA5DCDEBBB50A5ED304D5E5C003FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

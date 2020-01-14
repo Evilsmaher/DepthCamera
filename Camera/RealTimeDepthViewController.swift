@@ -10,14 +10,17 @@ import MetalKit
 import AVFoundation
 import CoreImage
 import Accelerate
+import RecordButton
 
 public class RealtimeDepthMaskViewController: UIViewController {
     
     @IBOutlet weak var mtkView: MTKView!
     @IBOutlet weak var segmentedCtl: UISegmentedControl!
-    @IBOutlet weak var cameraButon: UIButton!
+    @IBOutlet weak var cameraButon: RecordButton!
     @IBOutlet weak var cameraLabel: UILabel!
     @IBOutlet weak var switchCameraButton: UIButton!
+    
+    private var timer: Timer!
     
     private var videoCapture: VideoCapture!
     private var currentCameraType: CameraType = .front(true)
@@ -48,6 +51,9 @@ public class RealtimeDepthMaskViewController: UIViewController {
     private var isRecording:Bool = false
     private var initTime:CFAbsoluteTime!
     private static var filter:CIFilter!
+    
+    private var maxVideoTime:CGFloat = CGFloat(60)
+    private var progress:CGFloat = CGFloat(0)
     
     public static func createRealTimeDepthCameraVC(imageOrVideoCaptureMode: CameraMode, completionHandler:@escaping ((_ image: UIImage?, _ videoUrl: URL?, _ is3D:Bool?) -> Void), backgroundImages:[UIImage]?) -> RealtimeDepthMaskViewController {
         let newViewController = UIStoryboard(name: "DepthCamera", bundle: Bundle(for: RealtimeDepthMaskViewController.self)).instantiateViewController(withIdentifier: "DepthCamera") as! RealtimeDepthMaskViewController
@@ -87,10 +93,13 @@ public class RealtimeDepthMaskViewController: UIViewController {
         
         videoCapture.syncedDataBufferHandler = { [weak self] videoPixelBuffer, depthDataBuffer, face in
             guard let self = self else { return }
-            if(self.isRecording) {
-                let elapsed = CFAbsoluteTimeGetCurrent() - self.initTime
-                if(elapsed > 60) { self.isRecording = false }
-            }
+//            if(self.isRecording) {
+//                let elapsed = CFAbsoluteTimeGetCurrent() - self.initTime
+//                if(elapsed > 60) {
+//                    self.isRecording = false
+//                    self.timer.invalidate()
+//                }
+//            }
             self.videoImage = CIImage(cvPixelBuffer: videoPixelBuffer)
             
             let videoWidth = CVPixelBufferGetWidth(videoPixelBuffer)
@@ -157,6 +166,7 @@ public class RealtimeDepthMaskViewController: UIViewController {
             }
         }
         else if(currentCaptureMode == .video){
+            self.timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
             sender.backgroundColor = sender.backgroundColor == UIColor.red ? UIColor(displayP3Red: 0.238155, green: 0.406666, blue: 0.930306, alpha: 0.847059) : UIColor.red
             if(!self.isRecording) {
                 self.switchCameraButton.isHidden = true
@@ -173,6 +183,7 @@ public class RealtimeDepthMaskViewController: UIViewController {
                 }
             }
             else {
+                timer.invalidate()
                 self.switchCameraButton.isHidden = false
                 self.switchCameraButton.isUserInteractionEnabled = true
                 self.isRecording = false
@@ -185,6 +196,15 @@ public class RealtimeDepthMaskViewController: UIViewController {
                     print("Your video should be about \(elapsed) seconds")
                 }
             }
+        }
+    }
+    
+    @objc func updateTimer() {
+        progress = progress + (CGFloat(0.05) / maxDuration)
+        self.cameraButon.setProgress(progress)
+        if(progress >= 1) {
+            timer.invalidate()
+            self.isRecording = false
         }
     }
     
