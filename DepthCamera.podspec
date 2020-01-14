@@ -18,6 +18,7 @@ Camera that displays Depth Imagery for the user. Can choose between original ima
   s.exclude_files = "Camera/*.plist"
   s.resources = ["Camera/*/**/*.storyboard"]
   s.dependency 'SwiftVideoGenerator'
+  s.dependency 'RecordButton'
   s.platform = :ios, '12.0'
  
 end
