@@ -118,30 +118,30 @@
     fileprivate func setRecording(_ recording: Bool) {
         
         let duration: TimeInterval = 0.15
-        circleLayer.contentsGravity = CALayerContentsGravity(rawValue: "center")
+        circleLayer.contentsGravity = "center"
         
         let scale = CABasicAnimation(keyPath: "transform.scale")
         scale.fromValue = recording ? 1.0 : 0.88
         scale.toValue = recording ? 0.88 : 1
         scale.duration = duration
-        scale.fillMode = CAMediaTimingFillMode.forwards
+        scale.fillMode = kCAFillModeForwards
         scale.isRemovedOnCompletion = false
         
         let color = CABasicAnimation(keyPath: "backgroundColor")
         color.duration = duration
-        color.fillMode = CAMediaTimingFillMode.forwards
+        color.fillMode = kCAFillModeForwards
         color.isRemovedOnCompletion = false
         color.toValue = recording ? progressColor.cgColor : buttonColor.cgColor
         
         let circleAnimations = CAAnimationGroup()
         circleAnimations.isRemovedOnCompletion = false
-        circleAnimations.fillMode = CAMediaTimingFillMode.forwards
+        circleAnimations.fillMode = kCAFillModeForwards
         circleAnimations.duration = duration
         circleAnimations.animations = [scale, color]
         
         let borderColor: CABasicAnimation = CABasicAnimation(keyPath: "borderColor")
         borderColor.duration = duration
-        borderColor.fillMode = CAMediaTimingFillMode.forwards
+        borderColor.fillMode = kCAFillModeForwards
         borderColor.isRemovedOnCompletion = false
         borderColor.toValue = recording ? UIColor(red: 0.83, green: 0.86, blue: 0.89, alpha: 1).cgColor : buttonColor
         
@@ -149,12 +149,12 @@
         borderScale.fromValue = recording ? 1.0 : 0.88
         borderScale.toValue = recording ? 0.88 : 1.0
         borderScale.duration = duration
-        borderScale.fillMode = CAMediaTimingFillMode.forwards
+        borderScale.fillMode = kCAFillModeForwards
         borderScale.isRemovedOnCompletion = false
         
         let borderAnimations = CAAnimationGroup()
         borderAnimations.isRemovedOnCompletion = false
-        borderAnimations.fillMode = CAMediaTimingFillMode.forwards
+        borderAnimations.fillMode = kCAFillModeForwards
         borderAnimations.duration = duration
         borderAnimations.animations = [borderColor, borderScale]
         
@@ -162,7 +162,7 @@
         fade.fromValue = recording ? 0.0 : 1.0
         fade.toValue = recording ? 1.0 : 0.0
         fade.duration = duration
-        fade.fillMode = CAMediaTimingFillMode.forwards
+        fade.fillMode = kCAFillModeForwards
         fade.isRemovedOnCompletion = false
         
         circleLayer.add(circleAnimations, forKey: "circleAnimations")
@@ -190,11 +190,11 @@
     }
     
     
-    @objc open func didTouchDown(){
+    open func didTouchDown(){
         self.buttonState = .recording
     }
     
-    @objc open func didTouchUp() {
+    open func didTouchUp() {
         if(closeWhenFinished) {
             self.setProgress(1)
             
