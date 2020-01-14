@@ -5,7 +5,7 @@ target 'Camera' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'SwiftVideoGenerator', :git => 'https://github.com/Evilsmaher/swift-video-generator'
-  pod 'RecordButton' #Record Button
+  pod 'RecordButton', :git => 'https://github.com/Evilsmaher/RecordButton' #Record Button
   
   target 'CameraTests' do
     inherit! :search_paths
