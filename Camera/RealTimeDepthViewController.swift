@@ -10,7 +10,6 @@ import MetalKit
 import AVFoundation
 import CoreImage
 import Accelerate
-import RecordButton
 
 public class RealtimeDepthMaskViewController: UIViewController {
     

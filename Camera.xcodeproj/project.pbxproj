@@ -3,13 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		60940C2B75AA8C789E9ED828 /* Pods_CameraUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93E1D77366C3D852F90CB722 /* Pods_CameraUITests.framework */; };
-		680C6BB383CB77F1D15887F0 /* Pods_CameraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80DFE495DE718F47DB89A936 /* Pods_CameraTests.framework */; };
-		96FB0AC047A292EA5B0EB82D /* Pods_Camera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6283040004E6C724AC0CC73A /* Pods_Camera.framework */; };
+		329FDDD5971562D1D8209572 /* Pods_CameraUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433C336897EFE3E3CDAAA576 /* Pods_CameraUITests.framework */; };
+		54008ABA6CC29425F9B6EDF9 /* Pods_Camera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D58AF31F83238B13033EBC9 /* Pods_Camera.framework */; };
+		CF07C21C4C3A73688A8CE2BF /* Pods_CameraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8879F05093D20DFD19D12F38 /* Pods_CameraTests.framework */; };
 		E030900622DC473100082F81 /* VideoCameraMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E030900522DC473100082F81 /* VideoCameraMode.swift */; };
 		E072A0F722DA66BD0094522D /* PassThrough.metal in Sources */ = {isa = PBXBuildFile; fileRef = E072A0F622DA66BD0094522D /* PassThrough.metal */; };
 		E09244E622E2DE1300C82BDE /* VideoCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09244E522E2DE1300C82BDE /* VideoCreator.swift */; };
@@ -26,6 +26,7 @@
 		E0B9DF2E22CDAC8A00C866EA /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9DF2D22CDAC8A00C866EA /* MetalRenderer.swift */; };
 		E0B9DF3122CDB19A00C866EA /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9DF3022CDB19A00C866EA /* UIImage+Utils.swift */; };
 		E0B9DF3822CE944F00C866EA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9DF3722CE944F00C866EA /* Extensions.swift */; };
+		E0E0368B23CE90D9002CFD8D /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E0368A23CE90D9002CFD8D /* RecordButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,15 +47,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		47FD11911FAB039E148DDFF9 /* Pods-Camera.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Camera.debug.xcconfig"; path = "Target Support Files/Pods-Camera/Pods-Camera.debug.xcconfig"; sourceTree = "<group>"; };
-		4BEC7D4360AFE1140431EDF2 /* Pods-CameraTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraTests.release.xcconfig"; path = "Target Support Files/Pods-CameraTests/Pods-CameraTests.release.xcconfig"; sourceTree = "<group>"; };
-		6283040004E6C724AC0CC73A /* Pods_Camera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Camera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		65563E243510A9448D1C0F63 /* Pods-CameraUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraUITests.release.xcconfig"; path = "Target Support Files/Pods-CameraUITests/Pods-CameraUITests.release.xcconfig"; sourceTree = "<group>"; };
-		80DFE495DE718F47DB89A936 /* Pods_CameraTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CameraTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E1F3D8CA24C816633610D66 /* Pods-CameraTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraTests.debug.xcconfig"; path = "Target Support Files/Pods-CameraTests/Pods-CameraTests.debug.xcconfig"; sourceTree = "<group>"; };
-		93E1D77366C3D852F90CB722 /* Pods_CameraUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CameraUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F4168D4EA5E9EF15FC20906 /* Pods-CameraUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraUITests.debug.xcconfig"; path = "Target Support Files/Pods-CameraUITests/Pods-CameraUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		DFC394EE1BBD7A73F66B9683 /* Pods-Camera.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Camera.release.xcconfig"; path = "Target Support Files/Pods-Camera/Pods-Camera.release.xcconfig"; sourceTree = "<group>"; };
+		0410E66964F254394FE09EA9 /* Pods-Camera.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Camera.debug.xcconfig"; path = "Target Support Files/Pods-Camera/Pods-Camera.debug.xcconfig"; sourceTree = "<group>"; };
+		155F602C2A52DDDCBC7FCF2B /* Pods-Camera.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Camera.release.xcconfig"; path = "Target Support Files/Pods-Camera/Pods-Camera.release.xcconfig"; sourceTree = "<group>"; };
+		1E9D0AA9206BA976A41128E2 /* Pods-CameraTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraTests.release.xcconfig"; path = "Target Support Files/Pods-CameraTests/Pods-CameraTests.release.xcconfig"; sourceTree = "<group>"; };
+		3F88213C6D5D35450355EDF4 /* Pods-CameraUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraUITests.debug.xcconfig"; path = "Target Support Files/Pods-CameraUITests/Pods-CameraUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		433C336897EFE3E3CDAAA576 /* Pods_CameraUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CameraUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8879F05093D20DFD19D12F38 /* Pods_CameraTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CameraTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D58AF31F83238B13033EBC9 /* Pods_Camera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Camera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E030900522DC473100082F81 /* VideoCameraMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCameraMode.swift; sourceTree = "<group>"; };
 		E072A0F622DA66BD0094522D /* PassThrough.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PassThrough.metal; sourceTree = "<group>"; };
 		E09244E522E2DE1300C82BDE /* VideoCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCreator.swift; sourceTree = "<group>"; };
@@ -77,6 +76,9 @@
 		E0B9DF2D22CDAC8A00C866EA /* MetalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalRenderer.swift; sourceTree = "<group>"; };
 		E0B9DF3022CDB19A00C866EA /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
 		E0B9DF3722CE944F00C866EA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E0E0368A23CE90D9002CFD8D /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
+		F1983ED95A2C2B0DD03E5CEB /* Pods-CameraUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraUITests.release.xcconfig"; path = "Target Support Files/Pods-CameraUITests/Pods-CameraUITests.release.xcconfig"; sourceTree = "<group>"; };
+		FE809994A925D5E2CD8D8D33 /* Pods-CameraTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraTests.debug.xcconfig"; path = "Target Support Files/Pods-CameraTests/Pods-CameraTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96FB0AC047A292EA5B0EB82D /* Pods_Camera.framework in Frameworks */,
+				54008ABA6CC29425F9B6EDF9 /* Pods_Camera.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				680C6BB383CB77F1D15887F0 /* Pods_CameraTests.framework in Frameworks */,
+				CF07C21C4C3A73688A8CE2BF /* Pods_CameraTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,19 +102,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60940C2B75AA8C789E9ED828 /* Pods_CameraUITests.framework in Frameworks */,
+				329FDDD5971562D1D8209572 /* Pods_CameraUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0ECD272705B3BAA2CBFD493E /* Frameworks */ = {
+		16CB55FD5E5D09C5522B5F32 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6283040004E6C724AC0CC73A /* Pods_Camera.framework */,
-				80DFE495DE718F47DB89A936 /* Pods_CameraTests.framework */,
-				93E1D77366C3D852F90CB722 /* Pods_CameraUITests.framework */,
+				8D58AF31F83238B13033EBC9 /* Pods_Camera.framework */,
+				8879F05093D20DFD19D12F38 /* Pods_CameraTests.framework */,
+				433C336897EFE3E3CDAAA576 /* Pods_CameraUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -125,7 +127,7 @@
 				E0B9DF1422CD800600C866EA /* CameraUITests */,
 				E0B9DEF022CD800200C866EA /* Products */,
 				F1A307B7CD9F8C34B52DB4AB /* Pods */,
-				0ECD272705B3BAA2CBFD493E /* Frameworks */,
+				16CB55FD5E5D09C5522B5F32 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,6 +146,7 @@
 			children = (
 				E0B9DEF222CD800200C866EA /* AppDelegate.swift */,
 				E0B9DF2A22CDA89300C866EA /* RealTimeDepthViewController.swift */,
+				E0E0368A23CE90D9002CFD8D /* RecordButton.swift */,
 				E0B9DF2F22CDB18700C866EA /* Utils */,
 				E0B9DF2C22CDAC7200C866EA /* Renderer */,
 				E0B9DF2922CDA36D00C866EA /* Video */,
@@ -206,12 +209,12 @@
 		F1A307B7CD9F8C34B52DB4AB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				47FD11911FAB039E148DDFF9 /* Pods-Camera.debug.xcconfig */,
-				DFC394EE1BBD7A73F66B9683 /* Pods-Camera.release.xcconfig */,
-				8E1F3D8CA24C816633610D66 /* Pods-CameraTests.debug.xcconfig */,
-				4BEC7D4360AFE1140431EDF2 /* Pods-CameraTests.release.xcconfig */,
-				9F4168D4EA5E9EF15FC20906 /* Pods-CameraUITests.debug.xcconfig */,
-				65563E243510A9448D1C0F63 /* Pods-CameraUITests.release.xcconfig */,
+				0410E66964F254394FE09EA9 /* Pods-Camera.debug.xcconfig */,
+				155F602C2A52DDDCBC7FCF2B /* Pods-Camera.release.xcconfig */,
+				FE809994A925D5E2CD8D8D33 /* Pods-CameraTests.debug.xcconfig */,
+				1E9D0AA9206BA976A41128E2 /* Pods-CameraTests.release.xcconfig */,
+				3F88213C6D5D35450355EDF4 /* Pods-CameraUITests.debug.xcconfig */,
+				F1983ED95A2C2B0DD03E5CEB /* Pods-CameraUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -223,11 +226,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E0B9DF1A22CD800600C866EA /* Build configuration list for PBXNativeTarget "Camera" */;
 			buildPhases = (
-				DFA5E700F5081B524444EBF5 /* [CP] Check Pods Manifest.lock */,
+				CE675947DDE3C614D9496245 /* [CP] Check Pods Manifest.lock */,
 				E0B9DEEB22CD800200C866EA /* Sources */,
 				E0B9DEEC22CD800200C866EA /* Frameworks */,
 				E0B9DEED22CD800200C866EA /* Resources */,
-				99A3C8B953CF54883A155A69 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -242,7 +244,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E0B9DF1D22CD800600C866EA /* Build configuration list for PBXNativeTarget "CameraTests" */;
 			buildPhases = (
-				743276A161EB1C0F22540B5F /* [CP] Check Pods Manifest.lock */,
+				F40447935679EB1AC322AA9F /* [CP] Check Pods Manifest.lock */,
 				E0B9DF0222CD800600C866EA /* Sources */,
 				E0B9DF0322CD800600C866EA /* Frameworks */,
 				E0B9DF0422CD800600C866EA /* Resources */,
@@ -261,7 +263,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E0B9DF2022CD800600C866EA /* Build configuration list for PBXNativeTarget "CameraUITests" */;
 			buildPhases = (
-				BFEAB70835FB1DF7421A281B /* [CP] Check Pods Manifest.lock */,
+				2B74DA89321144F62F4C9EC5 /* [CP] Check Pods Manifest.lock */,
 				E0B9DF0D22CD800600C866EA /* Sources */,
 				E0B9DF0E22CD800600C866EA /* Frameworks */,
 				E0B9DF0F22CD800600C866EA /* Resources */,
@@ -347,46 +349,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		743276A161EB1C0F22540B5F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CameraTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		99A3C8B953CF54883A155A69 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Camera/Pods-Camera-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Camera/Pods-Camera-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Camera/Pods-Camera-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BFEAB70835FB1DF7421A281B /* [CP] Check Pods Manifest.lock */ = {
+		2B74DA89321144F62F4C9EC5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -408,7 +371,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DFA5E700F5081B524444EBF5 /* [CP] Check Pods Manifest.lock */ = {
+		CE675947DDE3C614D9496245 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -430,6 +393,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F40447935679EB1AC322AA9F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CameraTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -445,6 +430,7 @@
 				E0B9DF3122CDB19A00C866EA /* UIImage+Utils.swift in Sources */,
 				E030900622DC473100082F81 /* VideoCameraMode.swift in Sources */,
 				E0B9DF2622CDA33500C866EA /* VideoCameraType.swift in Sources */,
+				E0E0368B23CE90D9002CFD8D /* RecordButton.swift in Sources */,
 				E0B9DEF322CD800200C866EA /* AppDelegate.swift in Sources */,
 				E0B9DF2822CDA35A00C866EA /* AVCaptureDevice+Extension.swift in Sources */,
 				E0B9DF2B22CDA89300C866EA /* RealTimeDepthViewController.swift in Sources */,
@@ -620,7 +606,7 @@
 		};
 		E0B9DF1B22CD800600C866EA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47FD11911FAB039E148DDFF9 /* Pods-Camera.debug.xcconfig */;
+			baseConfigurationReference = 0410E66964F254394FE09EA9 /* Pods-Camera.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -639,7 +625,7 @@
 		};
 		E0B9DF1C22CD800600C866EA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DFC394EE1BBD7A73F66B9683 /* Pods-Camera.release.xcconfig */;
+			baseConfigurationReference = 155F602C2A52DDDCBC7FCF2B /* Pods-Camera.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -658,7 +644,7 @@
 		};
 		E0B9DF1E22CD800600C866EA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E1F3D8CA24C816633610D66 /* Pods-CameraTests.debug.xcconfig */;
+			baseConfigurationReference = FE809994A925D5E2CD8D8D33 /* Pods-CameraTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -680,7 +666,7 @@
 		};
 		E0B9DF1F22CD800600C866EA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4BEC7D4360AFE1140431EDF2 /* Pods-CameraTests.release.xcconfig */;
+			baseConfigurationReference = 1E9D0AA9206BA976A41128E2 /* Pods-CameraTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -702,7 +688,7 @@
 		};
 		E0B9DF2122CD800600C866EA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F4168D4EA5E9EF15FC20906 /* Pods-CameraUITests.debug.xcconfig */;
+			baseConfigurationReference = 3F88213C6D5D35450355EDF4 /* Pods-CameraUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -723,7 +709,7 @@
 		};
 		E0B9DF2222CD800600C866EA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65563E243510A9448D1C0F63 /* Pods-CameraUITests.release.xcconfig */;
+			baseConfigurationReference = F1983ED95A2C2B0DD03E5CEB /* Pods-CameraUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
