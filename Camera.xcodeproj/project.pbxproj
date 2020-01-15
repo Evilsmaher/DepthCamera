@@ -26,7 +26,6 @@
 		E0B9DF2E22CDAC8A00C866EA /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9DF2D22CDAC8A00C866EA /* MetalRenderer.swift */; };
 		E0B9DF3122CDB19A00C866EA /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9DF3022CDB19A00C866EA /* UIImage+Utils.swift */; };
 		E0B9DF3822CE944F00C866EA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9DF3722CE944F00C866EA /* Extensions.swift */; };
-		E0E0368B23CE90D9002CFD8D /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E0368A23CE90D9002CFD8D /* RecordButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +75,6 @@
 		E0B9DF2D22CDAC8A00C866EA /* MetalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalRenderer.swift; sourceTree = "<group>"; };
 		E0B9DF3022CDB19A00C866EA /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
 		E0B9DF3722CE944F00C866EA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		E0E0368A23CE90D9002CFD8D /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		F1983ED95A2C2B0DD03E5CEB /* Pods-CameraUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraUITests.release.xcconfig"; path = "Target Support Files/Pods-CameraUITests/Pods-CameraUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FE809994A925D5E2CD8D8D33 /* Pods-CameraTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraTests.debug.xcconfig"; path = "Target Support Files/Pods-CameraTests/Pods-CameraTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,7 +144,6 @@
 			children = (
 				E0B9DEF222CD800200C866EA /* AppDelegate.swift */,
 				E0B9DF2A22CDA89300C866EA /* RealTimeDepthViewController.swift */,
-				E0E0368A23CE90D9002CFD8D /* RecordButton.swift */,
 				E0B9DF2F22CDB18700C866EA /* Utils */,
 				E0B9DF2C22CDAC7200C866EA /* Renderer */,
 				E0B9DF2922CDA36D00C866EA /* Video */,
@@ -430,7 +427,6 @@
 				E0B9DF3122CDB19A00C866EA /* UIImage+Utils.swift in Sources */,
 				E030900622DC473100082F81 /* VideoCameraMode.swift in Sources */,
 				E0B9DF2622CDA33500C866EA /* VideoCameraType.swift in Sources */,
-				E0E0368B23CE90D9002CFD8D /* RecordButton.swift in Sources */,
 				E0B9DEF322CD800200C866EA /* AppDelegate.swift in Sources */,
 				E0B9DF2822CDA35A00C866EA /* AVCaptureDevice+Extension.swift in Sources */,
 				E0B9DF2B22CDA89300C866EA /* RealTimeDepthViewController.swift in Sources */,
