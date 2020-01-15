@@ -15,7 +15,7 @@ public class RealtimeDepthMaskViewController: UIViewController {
     
     @IBOutlet weak var mtkView: MTKView!
     @IBOutlet weak var segmentedCtl: UISegmentedControl!
-    @IBOutlet weak var cameraButon: RecordButton!
+    @IBOutlet weak var cameraButon: UIButton!
     @IBOutlet weak var cameraLabel: UILabel!
     @IBOutlet weak var switchCameraButton: UIButton!
     
